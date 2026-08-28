@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سید علی میر محمد حسینی | رزومه</title>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>سیدعلی میر محمدحسینی | رزومه تعاملی</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* Reset and Base Styles */
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -16,223 +16,362 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f9;
-            color: #333;
-            line-height: 1.7;
+            background: #0b1120;
+            color: #e8edf5;
+            line-height: 1.8;
             padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
+        /* ===== MAIN CARD ===== */
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
+            width: 100%;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 2.5rem;
+            background: rgba(18, 28, 46, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 2.8rem 2.5rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            animation: fadeInUp 0.9s ease-out;
         }
 
-        /* Header / Profile Section */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== GRADIENT TEXT & BADGES ===== */
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        .glass-badge {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #c8d0e0;
+            text-decoration: none;
+        }
+
+        .glass-badge:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(96, 165, 250, 0.25);
+            border-color: #60a5fa;
+            color: #fff;
+        }
+
+        /* ===== HEADER ===== */
         .profile-header {
             text-align: center;
-            border-bottom: 2px solid #eef2f7;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
+            padding-bottom: 2.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 2.5rem;
         }
 
         .profile-header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.25rem;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.2rem;
         }
 
         .profile-header .subtitle {
-            font-size: 1.2rem;
-            color: #475569;
-            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            color: #94a3b8;
+            margin-bottom: 0.8rem;
         }
 
         .profile-header .bio {
-            color: #64748b;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0.5rem auto 1.5rem;
+            color: #b9c4d4;
+            font-size: 1rem;
+            line-height: 1.9;
         }
 
         .badge-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 1rem;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
         }
 
-        .badge-container a {
-            color: #1e293b;
-            background: #f1f5f9;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .badge-container a:hover {
-            background: #e2e8f0;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .badge-container a i {
-            font-size: 1.1rem;
-        }
-
-        /* Section Styles */
+        /* ===== SECTIONS ===== */
         .section {
-            margin-bottom: 2.5rem;
+            margin-bottom: 2.8rem;
         }
 
         .section-title {
             font-size: 1.6rem;
-            font-weight: 600;
-            color: #0f172a;
-            border-right: 5px solid #3b82f6;
-            padding-right: 1rem;
+            font-weight: 700;
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.8rem;
+            color: #f0f4ff;
         }
 
         .section-title i {
-            color: #3b82f6;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #a78bfa, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            width: 2rem;
         }
 
-        .card-grid {
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.3), transparent);
+            margin: 2rem 0;
+        }
+
+        /* ===== SKILLS GRID ===== */
+        .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.25rem;
-            margin-top: 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
         }
 
-        .card {
-            background: #f8fafc;
-            padding: 1.25rem 1.5rem;
-            border-radius: 12px;
-            border: 1px solid #e9edf2;
-            transition: 0.2s;
+        .skill-card {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
         }
 
-        .card:hover {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
+        .skill-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-6px);
+            border-color: rgba(167, 139, 250, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .card h4 {
+        .skill-card h4 {
             font-size: 1rem;
-            color: #0f172a;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.6rem;
+            color: #d1d9e8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .card p {
-            font-size: 0.95rem;
-            color: #475569;
+        .skill-card h4 i {
+            color: #818cf8;
+            font-size: 1.1rem;
         }
 
         .skill-tag {
             display: inline-block;
-            background: #e6f0ff;
-            color: #1e4b8a;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 0.2rem 1rem;
-            border-radius: 50px;
-            margin: 0.2rem 0.2rem 0.2rem 0;
-        }
-
-        /* Project List */
-        .project-item {
-            background: #f8fafc;
-            border: 1px solid #e9edf2;
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            margin-bottom: 0.75rem;
-            transition: 0.15s;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .project-item:hover {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
-        }
-
-        .project-item .project-name {
-            font-weight: 600;
-            color: #0f172a;
-        }
-
-        .project-item .project-name i {
-            margin-left: 0.5rem;
-            color: #3b82f6;
-        }
-
-        .project-item .project-desc {
-            color: #475569;
-            font-size: 0.95rem;
-            flex: 1 1 100%;
-            margin-top: 0.25rem;
-        }
-
-        .project-item .project-link {
-            color: #3b82f6;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-right: 1rem;
-        }
-
-        .project-item .project-link i {
+            background: rgba(96, 165, 250, 0.12);
+            color: #93bbfc;
             font-size: 0.8rem;
-            margin-right: 0.3rem;
-        }
-
-        /* ORCID & Stats */
-        .orcid-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #f1f5f9;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            color: #1e293b;
-            font-weight: 500;
+            font-weight: 600;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            margin: 0.15rem 0.15rem 0.15rem 0;
+            border: 1px solid rgba(96, 165, 250, 0.1);
             transition: 0.2s;
         }
 
-        .orcid-badge:hover {
-            background: #e2e8f0;
+        .skill-tag:hover {
+            background: rgba(96, 165, 250, 0.2);
         }
 
-        .stats-img {
+        .skill-level {
+            font-size: 0.75rem;
+            color: #7a8aa0;
+            display: block;
+            margin-top: 0.3rem;
+        }
+
+        /* ===== EXPERIENCE & PROJECTS ===== */
+        .exp-item,
+        .project-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 18px;
+            padding: 1.2rem 1.8rem;
+            margin-bottom: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .exp-item:hover,
+        .project-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(167, 139, 250, 0.2);
+            transform: translateX(-6px);
+        }
+
+        .exp-item .exp-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.3rem;
+        }
+
+        .exp-item .exp-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #e8edf5;
+        }
+
+        .exp-item .exp-company {
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .exp-item .exp-date {
+            color: #64748b;
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.1rem 1rem;
+            border-radius: 40px;
+        }
+
+        .exp-item .exp-desc {
+            color: #b9c4d4;
+            font-size: 0.95rem;
+            margin-top: 0.4rem;
+            padding-right: 0.5rem;
+            border-right: 2px solid rgba(167, 139, 250, 0.25);
+        }
+
+        .project-item .project-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #e8edf5;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .project-item .project-name i {
+            color: #818cf8;
+        }
+
+        .project-item .project-desc {
+            color: #b9c4d4;
+            font-size: 0.95rem;
+            margin-top: 0.2rem;
+        }
+
+        .project-item .project-link {
+            color: #93bbfc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .project-item .project-link:hover {
+            color: #a78bfa;
+            gap: 0.6rem;
+        }
+
+        /* ===== STATS & ORCID ===== */
+        .stats-orcid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 1.8rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats-orcid .orcid-box {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stats-orcid .stats-box {
+            flex: 2;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .stats-orcid .stats-box img {
             max-width: 100%;
             height: auto;
-            border-radius: 12px;
-            margin-top: 0.5rem;
-            border: 1px solid #e9edf2;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
+        .orcid-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: rgba(167, 139, 250, 0.12);
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            text-decoration: none;
+            color: #c8d0e0;
+            font-weight: 600;
+            border: 1px solid rgba(167, 139, 250, 0.15);
+            transition: 0.3s;
+        }
+
+        .orcid-btn:hover {
+            background: rgba(167, 139, 250, 0.2);
+            border-color: #a78bfa;
+            color: #fff;
+            transform: scale(1.03);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #5a6a80;
+            font-size: 0.9rem;
+        }
+
+        .footer i {
+            color: #f472b6;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
             .container {
-                padding: 1.5rem;
+                padding: 1.8rem 1.2rem;
             }
             .profile-header h1 {
                 font-size: 2rem;
@@ -240,217 +379,288 @@
             .section-title {
                 font-size: 1.3rem;
             }
-            .project-item {
+            .exp-item .exp-header {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 0.2rem;
             }
-            .project-item .project-link {
-                margin-right: 0;
-                margin-top: 0.5rem;
+            .stats-orcid {
+                flex-direction: column;
+                text-align: center;
             }
         }
 
-        /* footer */
-        .footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e9edf2;
-            color: #94a3b8;
-            font-size: 0.9rem;
+        /* ===== SCROLL ANIMATION ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.7s ease forwards;
+        }
+        .reveal:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+        .reveal:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+        .reveal:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+        .reveal:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+        .reveal:nth-child(6) {
+            animation-delay: 0.5s;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <!-- ========== HEADER ========== -->
-    <header class="profile-header">
-        <h1>سید علی میر محمد حسینی</h1>
-        <div class="subtitle">
-            <i class="fas fa-graduation-cap" style="margin-left: 0.5rem;"></i>
-            کارشناسی ارشد هوش مصنوعی و رباتیک
-        </div>
-        <div class="bio">
-            <i class="fas fa-home" style="margin-left: 0.5rem;"></i>
-            دورکاری | علاقه‌مند به رباتیک و تمام جنبه‌های علوم کامپیوتر
-        </div>
-        <div class="badge-container">
-            <a href="https://github.com/Aliarcher" target="_blank">
-                <i class="fab fa-github"></i> گیت‌هاب
-            </a>
-            <a href="https://orcid.org/" target="_blank">
-                <i class="fab fa-orcid"></i> ORCID
-            </a>
-            <a href="#" target="_blank">
-                <i class="fab fa-linkedin"></i> لینکدین
-            </a>
-            <a href="#" target="_blank">
-                <i class="fas fa-envelope"></i> ایمیل
-            </a>
-        </div>
-    </header>
-
-    <!-- ========== ABOUT ========== -->
-    <section class="section">
-        <h2 class="section-title">
-            <i class="fas fa-user-astronaut"></i> درباره من
-        </h2>
-        <p style="font-size: 1.05rem; color: #334155;">
-            سلام! من سید علی هستم، فارغ‌التحصیل کارشناسی ارشد هوش مصنوعی و رباتیک از دانشگاه ایوانکی.
-            اشتیاق زیادی به یادگیری و ساخت پروژه‌های متن‌باز در حوزه‌های مختلف علوم کامپیوتر دارم.
-            <br>
-            <span style="display: inline-block; margin-top: 0.75rem;">
-                <i class="fas fa-graduation-cap" style="color: #3b82f6;"></i>
-                <strong>کارشناسی:</strong> مهندسی کامپیوتر، دانشگاه ایوانکی &nbsp;|&nbsp;
-                <i class="fas fa-graduation-cap" style="color: #3b82f6;"></i>
-                <strong>کارشناسی ارشد:</strong> هوش مصنوعی و رباتیک، دانشگاه ایوانکی
-            </span>
-            <br>
-            <span style="display: inline-block; margin-top: 0.5rem;">
-                <i class="fas fa-handshake" style="color: #3b82f6;"></i>
-                <strong>همکاری:</strong> همیشه برای همکاری در پروژه‌های جذاب باز هستم!
-            </span>
-        </p>
-    </section>
-
-    <!-- ========== SKILLS ========== -->
-    <section class="section">
-        <h2 class="section-title">
-            <i class="fas fa-tools"></i> مهارت‌ها و حوزه‌های فعالیت
-        </h2>
-        <div class="card-grid">
-            <div class="card">
-                <h4><i class="fas fa-robot" style="color: #3b82f6;"></i> هوش مصنوعی و اتوماسیون</h4>
-                <p>
-                    <span class="skill-tag">NLP</span>
-                    <span class="skill-tag">Computer Vision</span>
-                    <span class="skill-tag">تحلیل داده</span>
-                </p>
+        <!-- ===== HEADER ===== -->
+        <header class="profile-header reveal">
+            <h1>
+                <span class="gradient-text">سیدعلی میر محمدحسینی</span>
+            </h1>
+            <div class="subtitle">
+                <i class="fas fa-robot" style="color: #818cf8;"></i>
+                مهندس تحقیقات هوش مصنوعی
             </div>
-            <div class="card">
-                <h4><i class="fas fa-code" style="color: #3b82f6;"></i> مهندسی نرم‌افزار</h4>
-                <p>
-                    <span class="skill-tag">Backend</span>
-                    <span class="skill-tag">Frontend</span>
-                    <span class="skill-tag">Python</span>
-                </p>
-                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">در حال یادگیری و توسعه</p>
-            </div>
-            <div class="card">
-                <h4><i class="fas fa-cloud" style="color: #3b82f6;"></i> DevOps و MLOps</h4>
-                <p>
-                    <span class="skill-tag">Linux</span>
-                    <span class="skill-tag">Docker</span>
-                    <span class="skill-tag">Kubernetes</span>
-                </p>
-                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">در حال یادگیری</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== PROJECTS ========== -->
-    <section class="section">
-        <h2 class="section-title">
-            <i class="fas fa-folder-open"></i> پروژه‌های شاخص
-        </h2>
-
-        <div class="project-item">
-            <div>
-                <span class="project-name">
-                    <i class="fab fa-python"></i> Natural-Language-Processing
+            <div class="bio">
+                <i class="fas fa-map-pin" style="color: #60a5fa; margin-left: 0.4rem;"></i>
+                تهران، پیروزی &nbsp;|&nbsp;
+                <i class="fas fa-calendar-alt" style="color: #60a5fa; margin-left: 0.4rem;"></i>
+                متولد اسفند ۱۳۷۶ &nbsp;|&nbsp;
+                <i class="fas fa-user-check" style="color: #60a5fa; margin-left: 0.4rem;"></i>
+                پایان خدمت
+                <br />
+                <span style="color: #94a3b8; font-size: 0.95rem;">
+                    <i class="fas fa-envelope" style="color: #60a5fa;"></i> sa.sorb1376@gmail.com &nbsp;|&nbsp;
+                    <i class="fas fa-phone" style="color: #60a5fa;"></i> ۰۹۱۰۶۲۷۹۲۴۹
                 </span>
-                <div class="project-desc">پروژه‌های ساده و بنیادی در پردازش زبان طبیعی</div>
             </div>
-            <a href="https://github.com/Aliarcher/Natural-Language-Processing" target="_blank" class="project-link">
-                <i class="fas fa-arrow-left"></i> مشاهده
-            </a>
-        </div>
-
-        <div class="project-item">
-            <div>
-                <span class="project-name">
-                    <i class="fas fa-heartbeat"></i> Medical-Analysis
-                </span>
-                <div class="project-desc">پروژه‌های تحلیل داده‌های پزشکی</div>
-            </div>
-            <a href="https://github.com/Aliarcher/Medical-Analysis" target="_blank" class="project-link">
-                <i class="fas fa-arrow-left"></i> مشاهده
-            </a>
-        </div>
-
-        <div class="project-item">
-            <div>
-                <span class="project-name">
-                    <i class="fas fa-eye"></i> Computer-Vision
-                </span>
-                <div class="project-desc">پروژه‌های ساده و بنیادی در بینایی کامپیوتر</div>
-            </div>
-            <a href="https://github.com/Aliarcher/Computer-Vision" target="_blank" class="project-link">
-                <i class="fas fa-arrow-left"></i> مشاهده
-            </a>
-        </div>
-
-        <div class="project-item">
-            <div>
-                <span class="project-name">
-                    <i class="fas fa-music"></i> Music-Audio-Speech-Analysis
-                </span>
-                <div class="project-desc">پروژه‌های تحلیل موسیقی، صدا و گفتار</div>
-            </div>
-            <a href="https://github.com/Aliarcher/Music-Audio-Speech-Analysis" target="_blank" class="project-link">
-                <i class="fas fa-arrow-left"></i> مشاهده
-            </a>
-        </div>
-
-        <div class="project-item">
-            <div>
-                <span class="project-name">
-                    <i class="fas fa-chart-line"></i> Financial-Analysis
-                </span>
-                <div class="project-desc">پروژه‌های ساده در تحلیل مالی</div>
-            </div>
-            <a href="https://github.com/Aliarcher/Financial-Analysis" target="_blank" class="project-link">
-                <i class="fas fa-arrow-left"></i> مشاهده
-            </a>
-        </div>
-    </section>
-
-    <!-- ========== STATS & ORCID ========== -->
-    <section class="section">
-        <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between;">
-            <div style="flex: 2; min-width: 250px;">
-                <h2 class="section-title" style="border-right-color: #a6ce39;">
-                    <i class="fab fa-orcid" style="color: #a6ce39;"></i> ORCID
-                </h2>
-                <a href="https://orcid.org/" target="_blank" class="orcid-badge">
-                    <i class="fab fa-orcid"></i> 0000-0002-1234-5678
+            <div class="badge-container">
+                <a href="https://github.com/Aliarcher" target="_blank" class="glass-badge">
+                    <i class="fab fa-github"></i> گیت‌هاب
                 </a>
-                <p style="margin-top: 0.75rem; color: #475569; font-size: 0.95rem;">
-                    برای مشاهده سوابق علمی و پژوهشی من، روی نشان ORCID کلیک کنید.
+                <a href="https://www.linkedin.com/in/seyed-ali-mir-mohammad-hoseiny-517002149" target="_blank" class="glass-badge">
+                    <i class="fab fa-linkedin"></i> لینکدین
+                </a>
+                <a href="https://civilica.com/p/246780/" target="_blank" class="glass-badge">
+                    <i class="fas fa-graduation-cap"></i> سیویلیکا
+                </a>
+                <a href="#" class="glass-badge">
+                    <i class="fas fa-file-alt"></i> رزومه PDF
+                </a>
+            </div>
+        </header>
+
+        <!-- ===== ABOUT ===== -->
+        <section class="section reveal">
+            <h2 class="section-title"><i class="fas fa-user-astronaut"></i> درباره من</h2>
+            <p style="color: #c8d0e0; font-size: 1.05rem; max-width: 900px;">
+                با ورود به بازار کار در حوزه فناوری از سال ۱۳۹۹، فعالیت حرفه‌ای خود را با
+                <strong style="color: #93bbfc;">پشتیبانی نرم‌افزارهای سازمانی Java EE</strong> آغاز کردم و با تجربه در حوزه‌های
+                شبکه، زیرساخت و توسعه نرم‌افزار، به‌تدریج تمرکز خود را بر
+                <strong style="color: #a78bfa;">هوش مصنوعی، بینایی ماشین و تحلیل داده</strong> قرار دادم.
+                <br /><br />
+                در حال حاضر به عنوان <strong style="color: #60a5fa;">مهندس تحقیقات هوش مصنوعی</strong> مشغول طراحی و توسعه
+                سیستم‌های تصمیم‌یار شناختی، پردازش تصویر و تحلیل شبکه‌های اجتماعی هستم.
+                هدف من طراحی سیستم‌های هوشمند مقیاس‌پذیر در سطح سازمانی و اتصال فناوری هوش مصنوعی به مسائل واقعی کسب‌وکار است.
+            </p>
+        </section>
+
+        <!-- ===== SKILLS ===== -->
+        <section class="section reveal">
+            <h2 class="section-title"><i class="fas fa-tools"></i> مهارت‌ها</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4><i class="fab fa-python"></i> برنامه‌نویسی</h4>
+                    <span class="skill-tag">Python 80%</span>
+                    <span class="skill-tag">Django 80%</span>
+                    <span class="skill-tag">Java SE 60%</span>
+                    <span class="skill-tag">Java EE 40%</span>
+                    <span class="skill-level">Spring Framework 40%</span>
+                </div>
+                <div class="skill-card">
+                    <h4><i class="fas fa-brain"></i> هوش مصنوعی</h4>
+                    <span class="skill-tag">Machine Learning 80%</span>
+                    <span class="skill-tag">Deep Learning 60%</span>
+                    <span class="skill-tag">Image Processing 60%</span>
+                    <span class="skill-tag">Swarm Intelligence 60%</span>
+                    <span class="skill-level">Robotics 40%</span>
+                </div>
+                <div class="skill-card">
+                    <h4><i class="fas fa-server"></i> زیرساخت و شبکه</h4>
+                    <span class="skill-tag">Windows Server 60%</span>
+                    <span class="skill-tag">Linux 60%</span>
+                    <span class="skill-tag">CCNA 60%</span>
+                    <span class="skill-tag">MTCNA 60%</span>
+                    <span class="skill-level">VCP-DCV 60%</span>
+                </div>
+                <div class="skill-card">
+                    <h4><i class="fas fa-microservice"></i> معماری و توسعه</h4>
+                    <span class="skill-tag">Microservice 60%</span>
+                    <span class="skill-tag">Oracle Developer 40%</span>
+                    <span class="skill-tag">WordPress 60%</span>
+                    <span class="skill-tag">Adobe Photoshop 40%</span>
+                    <span class="skill-level">HP SAN 40%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== EXPERIENCE ===== -->
+        <section class="section reveal">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> سوابق شغلی</h2>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">مهندس تحقیقات هوش مصنوعی</span>
+                    <span class="exp-company">مرکز نوآوری علوم و فناوری‌های شناختی، دانشگاه علم و صنعت</span>
+                    <span class="exp-date">فروردین ۱۴۰۱ – آذر ۱۴۰۲</span>
+                </div>
+                <div class="exp-desc">
+                    تحقیق و توسعه در زمینه‌های بینایی کامپیوتر، پردازش زبان طبیعی، پردازش گفتار و تحلیل گراف (شبکه‌های اجتماعی).
+                    راه‌اندازی Zabbix، طراحی و توسعه سیستم تصمیم‌یار شناختی سازمانی با معماری ماژولار.
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">کارشناس پشتیبانی نرم‌افزار</span>
+                    <span class="exp-company">رایان بهمن پرداز (تهران)</span>
+                    <span class="exp-date">شهریور ۱۳۹۹ – اسفند ۱۴۰۰</span>
+                </div>
+                <div class="exp-desc">
+                    پشتیبانی راهبری و فنی سامانه انبارداری مبتنی بر Java EE شامل تماس‌های تلفنی، تیکتینگ، بررسی و اصلاح دادگان کثیف روی Oracle،
+                    و انجام تغییرات کوچک با Apache Ant.
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROJECTS ===== -->
+        <section class="section reveal">
+            <h2 class="section-title"><i class="fas fa-folder-open"></i> پروژه‌ها</h2>
+
+            <div class="project-item">
+                <div>
+                    <div class="project-name">
+                        <i class="fas fa-brain"></i> سامانه تصمیم‌یار شناختی
+                    </div>
+                    <div class="project-desc">
+                        در حال توسعه از شهریور ۱۴۰۳ در مرکز نوآوری علوم و فناوری‌های شناختی دانشگاه علم و صنعت.
+                        فاز نیازسنجی و اعلام نیاز توسط مدیرعامل مرکز انجام شده است.
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div>
+                    <div class="project-name">
+                        <i class="fas fa-lock"></i> سیستم کنترل دسترسی (تجربه کوتاه)
+                    </div>
+                    <div class="project-desc">
+                        همکاری با تیم توسعه در رایان بهمن پرداز (آبان ۱۴۰۰) – نوشته شده با Java و Spring Framework.
+                    </div>
+                </div>
+                <a href="http://www.rbp.ir" target="_blank" class="project-link">
+                    <i class="fas fa-arrow-left"></i> مشاهده
+                </a>
+            </div>
+        </section>
+
+        <!-- ===== EDUCATION & CERTIFICATIONS ===== -->
+        <section class="section reveal">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> تحصیلات و گواهینامه‌ها</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+                <div style="flex: 1; min-width: 200px;">
+                    <div style="background: rgba(255,255,255,0.03); border-radius: 18px; padding: 1.2rem 1.5rem; border: 1px solid rgba(255,255,255,0.05);">
+                        <h4 style="color: #93bbfc;">🎓 کارشناسی ارشد</h4>
+                        <p style="color: #c8d0e0;">هوش مصنوعی و رباتیک – دانشگاه ایوانکی (۱۴۰۱-۱۳۹۹)</p>
+                        <p style="color: #94a3b8; font-size: 0.9rem;">⭐ رتبه اول در تمامی نیم‌سال‌ها – استعداد درخشان</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.03); border-radius: 18px; padding: 1.2rem 1.5rem; border: 1px solid rgba(255,255,255,0.05); margin-top: 1rem;">
+                        <h4 style="color: #93bbfc;">🎓 کارشناسی</h4>
+                        <p style="color: #c8d0e0;">مهندسی کامپیوتر – دانشگاه ایوانکی (۱۳۹۹-۱۳۹۵)</p>
+                        <p style="color: #94a3b8; font-size: 0.9rem;">⭐ استعداد درخشان</p>
+                    </div>
+                </div>
+                <div style="flex: 2; min-width: 220px;">
+                    <div style="background: rgba(255,255,255,0.03); border-radius: 18px; padding: 1.2rem 1.5rem; border: 1px solid rgba(255,255,255,0.05);">
+                        <h4 style="color: #93bbfc;"><i class="fas fa-certificate"></i> گواهینامه‌های تخصصی</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.3rem;">
+                            <span class="skill-tag">Java SE</span>
+                            <span class="skill-tag">Java EE-1 &amp; 2</span>
+                            <span class="skill-tag">CCNA 200-125</span>
+                            <span class="skill-tag">Network+</span>
+                            <span class="skill-tag">MCSE 2016</span>
+                            <span class="skill-tag">Exchange Server 2019</span>
+                            <span class="skill-tag">Skype for Business</span>
+                            <span class="skill-tag">VCA-DCV 6.5</span>
+                            <span class="skill-tag">Veeam Backup</span>
+                            <span class="skill-tag">MTCNA</span>
+                            <span class="skill-tag">WordPress (مقدماتی و پیشرفته)</span>
+                            <span class="skill-tag">Photoshop مقدماتی</span>
+                            <span class="skill-tag">IELTS</span>
+                            <span class="skill-tag">Teacher Training</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== RESEARCH ===== -->
+        <section class="section reveal">
+            <h2 class="section-title"><i class="fas fa-flask"></i> تحقیقات و مقالات</h2>
+            <div style="background: rgba(255,255,255,0.03); border-radius: 18px; padding: 1.2rem 1.8rem; border: 1px solid rgba(255,255,255,0.05);">
+                <p style="color: #c8d0e0; font-weight: 600;">
+                    <i class="fas fa-heartbeat" style="color: #f472b6;"></i>
+                    پیش‌بینی سکته قلبی در بیماران مبتلا به کرونا با تحلیل تصاویر نوار قلب و یادگیری عمیق
+                </p>
+                <p style="color: #94a3b8; font-size: 0.9rem;">
+                    پایان‌نامه کارشناسی ارشد – مرداد ۱۴۰۱
+                    <br />
+                    <a href="https://ganj.irandoc.ac.ir/#/articles/acb23498bdfba81b675a4ba461e74e0f" target="_blank" style="color: #93bbfc; text-decoration: none;">
+                        <i class="fas fa-external-link-alt"></i> مشاهده در گنج
+                    </a>
                 </p>
             </div>
-            <div style="flex: 3; min-width: 280px;">
-                <h2 class="section-title" style="border-right-color: #f39c12;">
-                    <i class="fas fa-chart-bar" style="color: #f39c12;"></i> آمار گیت‌هاب
-                </h2>
-                <img class="stats-img" 
-                     src="https://github-readme-stats.vercel.app/api?username=Aliarcher&show_icons=true&theme=default" 
-                     alt="GitHub Stats for Aliarcher">
+        </section>
+
+        <!-- ===== STATS & ORCID ===== -->
+        <section class="section reveal">
+            <div class="stats-orcid">
+                <div class="orcid-box">
+                    <h4 style="color: #93bbfc; display: flex; align-items: center; gap: 0.6rem;">
+                        <i class="fab fa-orcid" style="color: #a6ce39;"></i> ORCID
+                    </h4>
+                    <a href="#" class="orcid-btn">
+                        <i class="fab fa-orcid"></i> ۰۰۰۰-۰۰۰۲-۱۲۳۴-۵۶۷۸
+                    </a>
+                    <p style="color: #7a8aa0; font-size: 0.9rem; margin-top: 0.8rem;">
+                        برای مشاهده سوابق علمی و پژوهشی
+                    </p>
+                </div>
+                <div class="stats-box">
+                    <img src="https://github-readme-stats.vercel.app/api?username=Aliarcher&show_icons=true&theme=transparent&hide_border=true&bg_color=00000000&text_color=c8d0e0&title_color=93bbfc&icon_color=a78bfa"
+                         alt="آمار گیت‌هاب" />
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ========== FOOTER ========== -->
-    <footer class="footer">
-        <p>
-            <i class="fas fa-code"></i> با  <i class="fas fa-heart" style="color: #e74c3c;"></i>  ساخته شده | 
-            «هیچ‌وقت برای یادگیری دیر نیست» 🚀
-        </p>
-    </footer>
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer reveal">
+            <p>
+                <i class="fas fa-code"></i> با <i class="fas fa-heart"></i> طراحی شده |
+                «هیچ‌وقت برای یادگیری دیر نیست» 🚀
+                <br />
+                <span style="font-size: 0.8rem; color: #475569;">
+                    آخرین به‌روزرسانی: تابستان 1405
+                </span>
+            </p>
+        </footer>
 
-</div>
+    </div>
 
 </body>
 </html>
