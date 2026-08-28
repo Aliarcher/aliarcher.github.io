@@ -1,971 +1,2367 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>سیدعلی میر محمدحسینی | مهندس تحقیقات هوش مصنوعی</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="سیدعلی میر محمدحسینی | مهندس تحقیقات هوش مصنوعی، توسعه‌دهنده نرم‌افزار و پژوهشگر">
+
+    <meta name="author"
+          content="سیدعلی میر محمدحسینی">
+
+    <meta name="theme-color"
+          content="#080b14">
+
+    <title>سیدعلی میر محمدحسینی | AI Research Engineer</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <style>
-        /* ===== RESET & BASE ===== */
+
+        /* =========================================================
+           ROOT
+        ========================================================= */
+
+        :root {
+            --bg: #060912;
+            --bg-secondary: #0a1020;
+            --card: rgba(15, 23, 42, .62);
+            --card-hover: rgba(20, 30, 55, .78);
+
+            --text: #f1f5f9;
+            --text-secondary: #a8b3c7;
+            --text-muted: #65728a;
+
+            --primary: #8b5cf6;
+            --secondary: #3b82f6;
+            --accent: #14b8a6;
+            --pink: #ec4899;
+
+            --border: rgba(255,255,255,.075);
+
+            --gradient:
+                linear-gradient(
+                    135deg,
+                    #a78bfa 0%,
+                    #60a5fa 48%,
+                    #34d399 100%
+                );
+
+            --shadow:
+                0 30px 80px rgba(0,0,0,.45);
+
+            --radius-lg: 28px;
+            --radius-md: 20px;
+            --radius-sm: 14px;
+        }
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #070b14;
-            color: #e2e8f0;
-            line-height: 1.7;
-            padding: 2rem 1.2rem;
+            font-family: "Vazirmatn", sans-serif;
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(124,58,237,.12),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(37,99,235,.10),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--text);
+            line-height: 1.9;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
             overflow-x: hidden;
         }
 
-        /* ===== ANIMATED BACKGROUND ORBS ===== */
-        .bg-orb {
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        ::selection {
+            background: rgba(139,92,246,.35);
+            color: #fff;
+        }
+
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
+
+        .background {
             position: fixed;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.2;
-            z-index: 0;
+            inset: 0;
             pointer-events: none;
-            animation: floatOrb 20s infinite alternate ease-in-out;
+            overflow: hidden;
+            z-index: -1;
         }
-        .bg-orb--1 {
-            width: 400px;
-            height: 400px;
-            background: #6d28d9;
-            top: -10%;
-            left: -10%;
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: .14;
+            animation: float 18s ease-in-out infinite alternate;
         }
-        .bg-orb--2 {
+
+        .orb.one {
+            width: 420px;
+            height: 420px;
+            background: #7c3aed;
+            top: -150px;
+            right: -120px;
+        }
+
+        .orb.two {
             width: 500px;
             height: 500px;
             background: #2563eb;
-            bottom: -15%;
-            right: -10%;
+            bottom: -220px;
+            left: -160px;
             animation-delay: -5s;
         }
-        .bg-orb--3 {
+
+        .orb.three {
             width: 300px;
             height: 300px;
             background: #0d9488;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation-delay: -10s;
-            opacity: 0.1;
+            top: 45%;
+            left: 45%;
+            animation-delay: -9s;
         }
 
-        @keyframes floatOrb {
-            0% {
-                transform: translate(0, 0) scale(1);
+        @keyframes float {
+            from {
+                transform: translate(0,0) scale(1);
             }
-            33% {
-                transform: translate(30px, -50px) scale(1.1);
-            }
-            66% {
-                transform: translate(-20px, 40px) scale(0.9);
-            }
-            100% {
-                transform: translate(10px, -20px) scale(1.05);
+
+            to {
+                transform: translate(40px,-30px) scale(1.1);
             }
         }
 
-        /* ===== MAIN CONTAINER ===== */
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            animation: containerIn 1s ease-out;
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .navbar {
+            position: sticky;
+            top: 18px;
+            z-index: 100;
+
+            width: min(1180px, calc(100% - 32px));
+            margin: 18px auto 0;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 12px 18px;
+
+            background: rgba(7,11,20,.72);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            box-shadow: 0 15px 50px rgba(0,0,0,.25);
         }
 
-        @keyframes containerIn {
-            0% {
-                opacity: 0;
-                transform: translateY(50px) scale(0.98);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* ===== GLASS CARD ===== */
-        .glass-card {
-            background: rgba(12, 20, 35, 0.65);
-            backdrop-filter: blur(16px) saturate(1.3);
-            -webkit-backdrop-filter: blur(16px) saturate(1.3);
-            border-radius: 40px;
-            padding: 2.8rem 2.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
-            transition: all 0.4s ease;
-        }
-
-        /* ===== TYPOGRAPHY ===== */
-        .gradient-text {
-            background: linear-gradient(135deg, #a78bfa, #60a5fa, #34d399);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-
-        .section-title {
-            font-size: 1.7rem;
-            font-weight: 700;
-            margin-bottom: 1.8rem;
+        .brand {
             display: flex;
             align-items: center;
-            gap: 0.9rem;
-            color: #f1f5f9;
-            letter-spacing: -0.3px;
-        }
-
-        .section-title i {
-            font-size: 1.6rem;
-            background: linear-gradient(135deg, #818cf8, #34d399);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            width: 2.4rem;
-            text-align: center;
-        }
-
-        .section-divider {
-            height: 1.5px;
-            background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.2), transparent);
-            margin: 2.2rem 0;
-        }
-
-        /* ===== HEADER ===== */
-        .profile-header {
-            text-align: center;
-            padding-bottom: 2.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            margin-bottom: 2.8rem;
-        }
-
-        .profile-header h1 {
-            font-size: 3.2rem;
+            gap: 10px;
             font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 0.3rem;
         }
 
-        .profile-header .subtitle {
-            font-size: 1.3rem;
-            color: #94a3b8;
-            font-weight: 500;
-            margin-bottom: 0.6rem;
-        }
+        .brand-mark {
+            width: 38px;
+            height: 38px;
 
-        .profile-header .bio {
-            max-width: 750px;
-            margin: 0.5rem auto 1.8rem;
-            color: #b9c4d4;
-            font-size: 1rem;
-            line-height: 2;
-        }
-
-        .badge-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .glass-badge {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 0.55rem 1.4rem;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            color: #c8d0e0;
-            text-decoration: none;
-        }
-
-        .glass-badge i {
-            font-size: 1.1rem;
-            color: #818cf8;
-        }
-
-        .glass-badge:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 12px 30px rgba(96, 165, 250, 0.15);
-            border-color: rgba(167, 139, 250, 0.3);
-            color: #fff;
-        }
-
-        /* ===== INFO GRID (contact chips) ===== */
-        .info-chips {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.2rem 2rem;
-            margin: 0.8rem 0 0.2rem;
-            font-size: 0.95rem;
-            color: #94a3b8;
-        }
-        .info-chips span {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-        .info-chips i {
-            color: #60a5fa;
-            font-size: 1rem;
-            width: 1.4rem;
-            text-align: center;
-        }
-
-        /* ===== SKILLS ===== */
-        .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 1.5rem;
+            place-items: center;
+
+            border-radius: 12px;
+
+            background: var(--gradient);
+            color: #05070d;
+
+            font-size: 18px;
         }
 
-        .skill-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 24px;
-            padding: 1.4rem 1.6rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            backdrop-filter: blur(4px);
+        .brand span:last-child {
+            color: #dce4f2;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+        }
+
+        .nav-links a {
+            padding: 8px 13px;
+            border-radius: 10px;
+
+            color: var(--text-secondary);
+            font-size: 13px;
+
+            transition: .25s ease;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            background: rgba(255,255,255,.06);
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        .container {
+            width: min(1180px, calc(100% - 32px));
+            margin: 32px auto 70px;
+        }
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
             position: relative;
+
+            display: grid;
+            grid-template-columns: 1.45fr .55fr;
+            gap: 35px;
+
+            padding: 55px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(17,24,39,.82),
+                    rgba(10,15,27,.68)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 34px;
+
+            box-shadow: var(--shadow);
+
             overflow: hidden;
         }
 
-        .skill-card::before {
-            content: '';
+        .hero::before {
+            content: "";
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, #6d28d9, #2563eb, #0d9488);
-            opacity: 0;
-            transition: opacity 0.4s ease;
+
+            width: 420px;
+            height: 420px;
+
+            top: -260px;
+            left: -180px;
+
+            background: rgba(139,92,246,.14);
+            filter: blur(20px);
+            border-radius: 50%;
         }
 
-        .skill-card:hover::before {
-            opacity: 1;
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .availability {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 6px 13px;
+
+            border-radius: 50px;
+
+            background: rgba(20,184,166,.08);
+            border: 1px solid rgba(20,184,166,.18);
+
+            color: #6ee7d5;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        .availability-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #34d399;
+
+            box-shadow: 0 0 12px #34d399;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 4.3rem);
+            line-height: 1.25;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+        }
+
+        .gradient {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-role {
+            font-size: 1.25rem;
+            color: #c5d0e2;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .hero-description {
+            max-width: 760px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 2.15;
+        }
+
+        .hero-description strong {
+            color: #dbeafe;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            margin-top: 28px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            padding: 10px 18px;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            transition: .3s ease;
+
+            border: 1px solid var(--border);
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: #05070c;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(96,165,250,.22);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,.04);
+            color: #d9e2ef;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,.08);
+            transform: translateY(-3px);
+        }
+
+        /* =========================================================
+           HERO SIDE
+        ========================================================= */
+
+        .hero-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-orbit {
+            position: relative;
+
+            width: 235px;
+            height: 235px;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .profile-orbit::before,
+        .profile-orbit::after {
+            content: "";
+            position: absolute;
+
+            border: 1px solid rgba(139,92,246,.25);
+            border-radius: 50%;
+
+            animation: rotate 15s linear infinite;
+        }
+
+        .profile-orbit::before {
+            inset: 0;
+        }
+
+        .profile-orbit::after {
+            inset: 20px;
+            border-color: rgba(52,211,153,.2);
+            animation-duration: 11s;
+            animation-direction: reverse;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .profile-center {
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            display: grid;
+            place-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    #a78bfa,
+                    #3b82f6 50%,
+                    #111827 100%
+                );
+
+            box-shadow:
+                0 0 70px rgba(96,165,250,.18),
+                inset 0 0 30px rgba(255,255,255,.08);
+
+            font-size: 52px;
+            color: white;
+        }
+
+        /* =========================================================
+           SOCIALS
+        ========================================================= */
+
+        .social-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 18px;
+        }
+
+        .social {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 11px;
+
+            color: #94a3b8;
+            background: rgba(255,255,255,.035);
+            border: 1px solid var(--border);
+
+            transition: .25s ease;
+        }
+
+        .social:hover {
+            color: white;
+            transform: translateY(-3px);
+            background: rgba(255,255,255,.08);
+        }
+
+        /* =========================================================
+           SECTION
+        ========================================================= */
+
+        section {
+            margin-top: 35px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+
+            margin-bottom: 18px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            width: 42px;
+            height: 42px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 13px;
+
+            background: rgba(139,92,246,.09);
+            border: 1px solid rgba(139,92,246,.12);
+
+            color: #a78bfa;
+        }
+
+        .section-heading h2 {
+            font-size: 1.35rem;
+            font-weight: 800;
+        }
+
+        .section-heading p {
+            color: var(--text-muted);
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about-card {
+            padding: 27px 30px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 2.2;
+        }
+
+        .about-card p + p {
+            margin-top: 13px;
+        }
+
+        .about-card strong {
+            color: #dbeafe;
+        }
+
+        /* =========================================================
+           SKILLS
+        ========================================================= */
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .skill-card {
+            padding: 22px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+
+            transition: .35s ease;
         }
 
         .skill-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            transform: translateY(-8px);
-            border-color: rgba(167, 139, 250, 0.15);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-6px);
+            background: var(--card-hover);
+            border-color: rgba(139,92,246,.22);
+            box-shadow: 0 18px 40px rgba(0,0,0,.25);
         }
 
-        .skill-card h4 {
-            font-size: 1rem;
-            margin-bottom: 0.8rem;
-            color: #d1d9e8;
+        .skill-icon {
+            width: 44px;
+            height: 44px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 13px;
+
+            background: rgba(96,165,250,.08);
+            color: #93c5fd;
+
+            margin-bottom: 13px;
+        }
+
+        .skill-card h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .tags {
             display: flex;
-            align-items: center;
-            gap: 0.6rem;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
-        .skill-card h4 i {
-            color: #818cf8;
-            font-size: 1.1rem;
-        }
+        .tag {
+            padding: 4px 9px;
 
-        .skill-tag {
-            display: inline-block;
-            background: rgba(96, 165, 250, 0.08);
-            color: #b9d0fc;
-            font-size: 0.75rem;
+            border-radius: 7px;
+
+            background: rgba(255,255,255,.045);
+            border: 1px solid rgba(255,255,255,.055);
+
+            color: #aebbd0;
+            font-size: 10px;
             font-weight: 600;
-            padding: 0.15rem 0.9rem;
-            border-radius: 40px;
-            margin: 0.15rem 0.15rem 0.15rem 0;
-            border: 1px solid rgba(96, 165, 250, 0.06);
-            transition: 0.2s;
         }
 
-        .skill-tag:hover {
-            background: rgba(96, 165, 250, 0.15);
-        }
+        /* =========================================================
+           EXPERIENCE
+        ========================================================= */
 
-        .skill-level {
-            font-size: 0.7rem;
-            color: #5a6a80;
-            display: block;
-            margin-top: 0.4rem;
-            letter-spacing: 0.3px;
-        }
-
-        /* ===== EXPERIENCE & PROJECTS ===== */
-        .exp-item,
-        .project-item {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            padding: 1.3rem 2rem;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            backdrop-filter: blur(4px);
+        .timeline {
             position: relative;
+            padding-right: 25px;
         }
 
-        .exp-item:hover,
-        .project-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(167, 139, 250, 0.15);
-            transform: translateX(-6px) scale(1.005);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        .timeline::before {
+            content: "";
+
+            position: absolute;
+            top: 5px;
+            right: 6px;
+            bottom: 5px;
+
+            width: 1px;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(139,92,246,.5),
+                    rgba(52,211,153,.12),
+                    transparent
+                );
         }
 
-        .exp-item .exp-header {
+        .timeline-item {
+            position: relative;
+            padding: 0 28px 25px 0;
+        }
+
+        .timeline-item::before {
+            content: "";
+
+            position: absolute;
+            right: 0;
+            top: 7px;
+
+            width: 13px;
+            height: 13px;
+
+            border-radius: 50%;
+
+            background: #8b5cf6;
+
+            box-shadow:
+                0 0 0 5px rgba(139,92,246,.10),
+                0 0 18px rgba(139,92,246,.45);
+        }
+
+        .experience-card {
+            padding: 23px 25px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+
+            transition: .3s ease;
+        }
+
+        .experience-card:hover {
+            border-color: rgba(139,92,246,.2);
+            transform: translateX(-4px);
+        }
+
+        .experience-top {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
-            align-items: baseline;
-            gap: 0.5rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .exp-item .exp-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #e8edf5;
-        }
-
-        .exp-item .exp-company {
-            color: #94a3b8;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .exp-item .exp-date {
-            color: #5a6a80;
-            font-size: 0.8rem;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 0.1rem 1.2rem;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .exp-item .exp-desc {
-            color: #b9c4d4;
-            font-size: 0.95rem;
-            margin-top: 0.5rem;
-            padding-right: 1rem;
-            border-right: 2px solid rgba(167, 139, 250, 0.2);
-        }
-
-        .project-item .project-name {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: #e8edf5;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
-        .project-item .project-name i {
-            color: #818cf8;
-            font-size: 1.1rem;
-        }
-
-        .project-item .project-desc {
-            color: #b9c4d4;
-            font-size: 0.95rem;
-            margin-top: 0.2rem;
-        }
-
-        .project-item .project-link {
-            color: #93bbfc;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            margin-top: 0.5rem;
-        }
-
-        .project-item .project-link:hover {
-            color: #a78bfa;
-            gap: 0.8rem;
-        }
-
-        /* ===== EDUCATION & CERTS ===== */
-        .edu-grid {
-            display: flex;
+            gap: 20px;
             flex-wrap: wrap;
-            gap: 1.5rem;
         }
 
-        .edu-grid>div {
-            flex: 1;
-            min-width: 200px;
+        .experience-title {
+            font-size: 16px;
+            font-weight: 800;
         }
 
-        .edu-card,
-        .cert-card {
-            background: rgba(255, 255, 255, 0.02);
+        .experience-company {
+            color: #8db8ff;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .experience-date {
+            align-self: flex-start;
+
+            padding: 4px 11px;
+
             border-radius: 20px;
-            padding: 1.2rem 1.6rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: 0.3s ease;
-            height: 100%;
+
+            background: rgba(255,255,255,.04);
+            color: var(--text-muted);
+
+            font-size: 10px;
         }
 
-        .edu-card:hover,
-        .cert-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-4px);
-            border-color: rgba(167, 139, 250, 0.1);
+        .experience-description {
+            margin-top: 12px;
+
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 2;
         }
 
-        .edu-card h4,
-        .cert-card h4 {
-            color: #93bbfc;
-            margin-bottom: 0.4rem;
-            font-size: 1.05rem;
+        /* =========================================================
+           PROJECTS
+        ========================================================= */
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
         }
 
-        .edu-card p,
-        .cert-card p {
-            color: #c8d0e0;
-            font-size: 0.95rem;
+        .project {
+            position: relative;
+
+            padding: 26px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+
+            overflow: hidden;
+
+            transition: .35s ease;
         }
 
-        .edu-card .meta,
-        .cert-card .meta {
-            color: #5a6a80;
-            font-size: 0.8rem;
+        .project:hover {
+            transform: translateY(-7px);
+            background: var(--card-hover);
+            border-color: rgba(96,165,250,.18);
+            box-shadow: 0 22px 50px rgba(0,0,0,.3);
         }
 
-        .cert-tag-container {
+        .project::after {
+            content: "";
+
+            position: absolute;
+            width: 180px;
+            height: 180px;
+
+            left: -80px;
+            bottom: -100px;
+
+            background: rgba(59,130,246,.08);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+
+        .project-head {
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-            margin-top: 0.5rem;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
         }
 
-        /* ===== RESEARCH ===== */
+        .project-icon {
+            width: 47px;
+            height: 47px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 14px;
+
+            background: linear-gradient(
+                135deg,
+                rgba(139,92,246,.15),
+                rgba(59,130,246,.1)
+            );
+
+            color: #a78bfa;
+        }
+
+        .project-status {
+            padding: 4px 9px;
+
+            border-radius: 20px;
+
+            background: rgba(52,211,153,.08);
+            color: #6ee7b7;
+
+            font-size: 9px;
+        }
+
+        .project h3 {
+            margin-top: 17px;
+            font-size: 16px;
+        }
+
+        .project p {
+            margin-top: 8px;
+
+            color: var(--text-secondary);
+            font-size: 12px;
+            line-height: 2;
+        }
+
+        .project .tags {
+            margin-top: 17px;
+        }
+
+        /* =========================================================
+           RESEARCH
+        ========================================================= */
+
         .research-card {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            padding: 1.2rem 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: 0.3s ease;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 20px;
+
+            padding: 24px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
         }
 
-        .research-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(167, 139, 250, 0.1);
-        }
+        .research-icon {
+            width: 54px;
+            height: 54px;
 
-        .research-card .title {
-            color: #e8edf5;
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
+            display: grid;
+            place-items: center;
 
-        .research-card .title i {
+            border-radius: 16px;
+
+            background: rgba(236,72,153,.08);
             color: #f472b6;
-            margin-left: 0.5rem;
+
+            font-size: 20px;
         }
 
-        .research-card .detail {
-            color: #94a3b8;
-            font-size: 0.9rem;
+        .research-title {
+            font-weight: 800;
+            font-size: 14px;
         }
 
-        .research-card a {
-            color: #93bbfc;
-            text-decoration: none;
-            font-weight: 500;
+        .research-meta {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 4px;
         }
 
-        .research-card a:hover {
-            color: #a78bfa;
+        .research-link {
+            padding: 8px 13px;
+
+            border-radius: 10px;
+
+            background: rgba(255,255,255,.04);
+
+            color: #a9c8ff;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            transition: .25s;
         }
 
-        /* ===== STATS & ORCID ===== */
-        .stats-orcid {
+        .research-link:hover {
+            background: rgba(255,255,255,.08);
+        }
+
+        /* =========================================================
+           EDUCATION
+        ========================================================= */
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .education-card {
+            padding: 25px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+
+        .education-card h3 {
+            font-size: 14px;
+            color: #bfdbfe;
+        }
+
+        .education-card h4 {
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        .education-card p {
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .education-card .meta {
+            color: var(--text-muted);
+            font-size: 10px;
+        }
+
+        /* =========================================================
+           CERTIFICATIONS
+        ========================================================= */
+
+        .certifications {
             display: flex;
             flex-wrap: wrap;
-            gap: 2rem;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 28px;
-            padding: 1.8rem 2.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: 0.3s ease;
+            gap: 7px;
         }
 
-        .stats-orcid:hover {
-            border-color: rgba(167, 139, 250, 0.08);
+        .cert {
+            padding: 6px 11px;
+
+            background: rgba(255,255,255,.035);
+            border: 1px solid var(--border);
+
+            border-radius: 9px;
+
+            color: #b8c5d9;
+            font-size: 10px;
         }
 
-        .stats-orcid .orcid-box {
-            flex: 1;
-            min-width: 180px;
+        /* =========================================================
+           GITHUB
+        ========================================================= */
+
+        .github-card {
+            padding: 28px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(17,24,39,.85),
+                    rgba(15,23,42,.65)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
         }
 
-        .stats-orcid .stats-box {
-            flex: 2;
-            min-width: 240px;
-            text-align: center;
+        .github-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 18px;
         }
 
-        .stats-orcid .stats-box img {
-            max-width: 100%;
-            height: auto;
+        .github-stat {
+            padding: 18px;
+
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            transition: 0.3s ease;
+
+            background: rgba(255,255,255,.025);
+            border: 1px solid var(--border);
         }
 
-        .stats-orcid .stats-box img:hover {
-            transform: scale(1.02);
-            border-color: rgba(167, 139, 250, 0.15);
+        .github-stat img {
+            width: 100%;
+            display: block;
         }
 
-        .orcid-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            background: rgba(167, 139, 250, 0.06);
-            padding: 0.6rem 2rem;
-            border-radius: 60px;
-            text-decoration: none;
-            color: #c8d0e0;
-            font-weight: 600;
-            border: 1px solid rgba(167, 139, 250, 0.1);
-            transition: 0.3s ease;
-        }
+        /* =========================================================
+           CONTACT
+        ========================================================= */
 
-        .orcid-btn:hover {
-            background: rgba(167, 139, 250, 0.12);
-            border-color: #a78bfa;
-            color: #fff;
-            transform: scale(1.04);
-        }
+        .contact-card {
+            padding: 35px;
 
-        /* ===== FOOTER ===== */
-        .footer {
             text-align: center;
-            margin-top: 2.8rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            color: #4a5a70;
-            font-size: 0.9rem;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(139,92,246,.13),
+                    transparent 45%
+                ),
+                var(--card);
+
+            border: 1px solid var(--border);
+            border-radius: 30px;
         }
 
-        .footer i {
+        .contact-card h2 {
+            font-size: 25px;
+        }
+
+        .contact-card p {
+            margin-top: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .contact-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 20px;
+        }
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            text-align: center;
+
+            margin-top: 35px;
+            padding-top: 25px;
+
+            border-top: 1px solid var(--border);
+
+            color: var(--text-muted);
+            font-size: 10px;
+        }
+
+        footer i {
             color: #f472b6;
         }
 
-        .footer .heart {
-            animation: pulse 2s infinite;
-        }
+        /* =========================================================
+           ANIMATION
+        ========================================================= */
 
-        @keyframes pulse {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-        }
-
-        /* ===== REVEAL ANIMATIONS ===== */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            animation: fadeUp 0.8s ease forwards;
+            transform: translateY(25px);
+
+            animation: reveal .8s ease forwards;
         }
 
-        .reveal:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-        .reveal:nth-child(2) {
-            animation-delay: 0.15s;
-        }
-        .reveal:nth-child(3) {
-            animation-delay: 0.25s;
-        }
-        .reveal:nth-child(4) {
-            animation-delay: 0.35s;
-        }
-        .reveal:nth-child(5) {
-            animation-delay: 0.45s;
-        }
-        .reveal:nth-child(6) {
-            animation-delay: 0.55s;
-        }
-        .reveal:nth-child(7) {
-            animation-delay: 0.65s;
-        }
-        .reveal:nth-child(8) {
-            animation-delay: 0.75s;
-        }
-
-        @keyframes fadeUp {
+        @keyframes reveal {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .glass-card {
-                padding: 1.8rem 1.2rem;
-                border-radius: 28px;
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 950px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 40px;
             }
-            .profile-header h1 {
-                font-size: 2.2rem;
+
+            .hero-side {
+                display: none;
             }
-            .profile-header .subtitle {
-                font-size: 1.05rem;
-            }
-            .section-title {
-                font-size: 1.3rem;
-            }
-            .exp-item .exp-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.2rem;
-            }
-            .stats-orcid {
-                flex-direction: column;
-                text-align: center;
-                padding: 1.5rem;
-            }
-            .info-chips {
-                gap: 0.6rem 1rem;
-                font-size: 0.85rem;
-                flex-wrap: wrap;
-            }
-            .badge-container {
-                gap: 0.5rem;
-            }
-            .glass-badge {
-                padding: 0.4rem 1rem;
-                font-size: 0.8rem;
-            }
-            .skill-card {
-                padding: 1rem 1.2rem;
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 1rem 0.6rem;
+        @media (max-width: 700px) {
+
+            .navbar {
+                position: relative;
+                top: 0;
             }
-            .glass-card {
-                padding: 1.2rem 0.8rem;
-                border-radius: 20px;
+
+            .nav-links {
+                display: none;
             }
-            .profile-header h1 {
-                font-size: 1.8rem;
+
+            .container {
+                margin-top: 18px;
             }
-            .profile-header .bio {
-                font-size: 0.9rem;
+
+            .hero {
+                padding: 30px 22px;
+                border-radius: 25px;
             }
-            .section-title {
-                font-size: 1.1rem;
-                gap: 0.5rem;
+
+            .hero h1 {
+                letter-spacing: -1px;
             }
-            .section-title i {
-                font-size: 1.2rem;
-                width: 1.8rem;
+
+            .hero-role {
+                font-size: 1rem;
+            }
+
+            .skills-grid,
+            .projects-grid,
+            .education-grid,
+            .github-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .research-card {
+                grid-template-columns: auto 1fr;
+            }
+
+            .research-link {
+                grid-column: 1 / -1;
+                text-align: center;
+            }
+
+            .section-heading h2 {
+                font-size: 1.15rem;
+            }
+
+            .about-card,
+            .experience-card,
+            .project,
+            .github-card {
+                padding: 20px;
             }
         }
+
+        @media (max-width: 450px) {
+
+            .container,
+            .navbar {
+                width: min(100% - 20px, 1180px);
+            }
+
+            .hero {
+                padding: 25px 17px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+            }
+
+            .experience-top {
+                display: block;
+            }
+
+            .experience-date {
+                display: inline-block;
+                margin-top: 8px;
+            }
+        }
+
+        /* =========================================================
+           ACCESSIBILITY
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
     </style>
 </head>
+
 <body>
 
-    <!-- ===== BACKGROUND ORBS ===== -->
-    <div class="bg-orb bg-orb--1"></div>
-    <div class="bg-orb bg-orb--2"></div>
-    <div class="bg-orb bg-orb--3"></div>
+<!-- =========================================================
+     BACKGROUND
+========================================================= -->
 
-    <!-- ===== MAIN ===== -->
-    <div class="container">
+<div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+</div>
 
-        <div class="glass-card">
 
-            <!-- ===== HEADER ===== -->
-            <header class="profile-header reveal">
-                <h1>
-                    <span class="gradient-text">سیدعلی میر محمدحسینی</span>
-                </h1>
-                <div class="subtitle">
-                    <i class="fas fa-robot" style="color: #818cf8;"></i>
-                    مهندس تحقیقات هوش مصنوعی
-                </div>
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
 
-                <div class="info-chips">
-                    <span><i class="fas fa-map-pin"></i> تهران، پیروزی</span>
-                    <span><i class="fas fa-calendar-alt"></i> متولد اسفند ۱۳۷۶</span>
-                    <span><i class="fas fa-user-check"></i> پایان خدمت</span>
-                    <span><i class="fas fa-envelope"></i> sa.sorb1376@gmail.com</span>
-                    <span><i class="fas fa-phone"></i> ۰۹۱۰۶۲۷۹۲۴۹</span>
-                </div>
+<nav class="navbar">
 
-                <div class="bio">
-                    با ورود به بازار کار در حوزه فناوری از سال ۱۳۹۹، فعالیت حرفه‌ای خود را با
-                    <strong style="color: #93bbfc;">پشتیبانی نرم‌افزارهای سازمانی Java EE</strong> آغاز کردم و با تجربه در حوزه‌های
-                    شبکه، زیرساخت و توسعه نرم‌افزار، به‌تدریج تمرکز خود را بر
-                    <strong style="color: #a78bfa;">هوش مصنوعی، بینایی ماشین و تحلیل داده</strong> قرار دادم.
-                    <br />
-                    در حال حاضر به عنوان <strong style="color: #60a5fa;">مهندس تحقیقات هوش مصنوعی</strong> مشغول طراحی و توسعه
-                    سیستم‌های تصمیم‌یار شناختی، پردازش تصویر و تحلیل شبکه‌های اجتماعی هستم.
-                </div>
+    <a href="#" class="brand">
 
-                <div class="badge-container">
-                    <a href="https://github.com/Aliarcher" target="_blank" class="glass-badge">
-                        <i class="fab fa-github"></i> گیت‌هاب
-                    </a>
-                    <a href="https://www.linkedin.com/in/seyed-ali-mir-mohammad-hoseiny-517002149" target="_blank" class="glass-badge">
-                        <i class="fab fa-linkedin"></i> لینکدین
-                    </a>
-                    <a href="https://civilica.com/p/246780/" target="_blank" class="glass-badge">
-                        <i class="fas fa-graduation-cap"></i> سیویلیکا
-                    </a>
-                    <a href="#" class="glass-badge">
-                        <i class="fas fa-file-pdf"></i> رزومه PDF
-                    </a>
-                </div>
-            </header>
+        <span class="brand-mark">
+            <i class="fas fa-microchip"></i>
+        </span>
 
-            <!-- ===== SKILLS ===== -->
-            <section class="section reveal">
-                <h2 class="section-title"><i class="fas fa-tools"></i> مهارت‌های تخصصی</h2>
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <h4><i class="fab fa-python"></i> برنامه‌نویسی</h4>
-                        <span class="skill-tag">Python 80%</span>
-                        <span class="skill-tag">Django 80%</span>
-                        <span class="skill-tag">Java SE 60%</span>
-                        <span class="skill-tag">Java EE 40%</span>
-                        <span class="skill-level">Spring Framework 40%</span>
-                    </div>
-                    <div class="skill-card">
-                        <h4><i class="fas fa-brain"></i> هوش مصنوعی</h4>
-                        <span class="skill-tag">Machine Learning 80%</span>
-                        <span class="skill-tag">Deep Learning 60%</span>
-                        <span class="skill-tag">Image Processing 60%</span>
-                        <span class="skill-tag">Swarm Intelligence 60%</span>
-                        <span class="skill-level">Robotics 40%</span>
-                    </div>
-                    <div class="skill-card">
-                        <h4><i class="fas fa-server"></i> زیرساخت و شبکه</h4>
-                        <span class="skill-tag">Windows Server 60%</span>
-                        <span class="skill-tag">Linux 60%</span>
-                        <span class="skill-tag">CCNA 60%</span>
-                        <span class="skill-tag">MTCNA 60%</span>
-                        <span class="skill-level">VCP-DCV 60%</span>
-                    </div>
-                    <div class="skill-card">
-                        <h4><i class="fas fa-microchip"></i> معماری و توسعه</h4>
-                        <span class="skill-tag">Microservice 60%</span>
-                        <span class="skill-tag">Oracle Developer 40%</span>
-                        <span class="skill-tag">WordPress 60%</span>
-                        <span class="skill-tag">Adobe Photoshop 40%</span>
-                        <span class="skill-level">HP SAN 40%</span>
-                    </div>
-                </div>
-            </section>
+        <span>Aliarcher</span>
 
-            <div class="section-divider"></div>
+    </a>
 
-            <!-- ===== EXPERIENCE ===== -->
-            <section class="section reveal">
-                <h2 class="section-title"><i class="fas fa-briefcase"></i> سوابق شغلی</h2>
+    <div class="nav-links">
 
-                <div class="exp-item">
-                    <div class="exp-header">
-                        <span class="exp-title">مهندس تحقیقات هوش مصنوعی</span>
-                        <span class="exp-company">مرکز نوآوری علوم و فناوری‌های شناختی، دانشگاه علم و صنعت</span>
-                        <span class="exp-date">فروردین ۱۴۰۱ – آذر ۱۴۰۲</span>
-                    </div>
-                    <div class="exp-desc">
-                        تحقیق و توسعه در زمینه‌های بینایی کامپیوتر، پردازش زبان طبیعی، پردازش گفتار و تحلیل گراف (شبکه‌های اجتماعی).
-                        راه‌اندازی Zabbix، طراحی و توسعه سیستم تصمیم‌یار شناختی سازمانی با معماری ماژولار.
-                    </div>
-                </div>
-
-                <div class="exp-item">
-                    <div class="exp-header">
-                        <span class="exp-title">کارشناس پشتیبانی نرم‌افزار</span>
-                        <span class="exp-company">رایان بهمن پرداز (تهران)</span>
-                        <span class="exp-date">شهریور ۱۳۹۹ – اسفند ۱۴۰۰</span>
-                    </div>
-                    <div class="exp-desc">
-                        پشتیبانی راهبری و فنی سامانه انبارداری مبتنی بر Java EE شامل تماس‌های تلفنی، تیکتینگ، بررسی و اصلاح دادگان کثیف روی Oracle،
-                        و انجام تغییرات کوچک با Apache Ant.
-                    </div>
-                </div>
-            </section>
-
-            <div class="section-divider"></div>
-
-            <!-- ===== PROJECTS ===== -->
-            <section class="section reveal">
-                <h2 class="section-title"><i class="fas fa-folder-open"></i> پروژه‌های شاخص</h2>
-
-                <div class="project-item">
-                    <div>
-                        <div class="project-name">
-                            <i class="fas fa-brain"></i> سامانه تصمیم‌یار شناختی
-                        </div>
-                        <div class="project-desc">
-                            در حال توسعه از شهریور ۱۴۰۳ در مرکز نوآوری علوم و فناوری‌های شناختی دانشگاه علم و صنعت.
-                            فاز نیازسنجی و اعلام نیاز توسط مدیرعامل مرکز انجام شده است.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-item">
-                    <div>
-                        <div class="project-name">
-                            <i class="fas fa-lock"></i> سیستم کنترل دسترسی
-                        </div>
-                        <div class="project-desc">
-                            همکاری با تیم توسعه در رایان بهمن پرداز (آبان ۱۴۰۰) – نوشته شده با Java و Spring Framework.
-                        </div>
-                    </div>
-                    <a href="http://www.rbp.ir" target="_blank" class="project-link">
-                        <i class="fas fa-arrow-left"></i> مشاهده پروژه
-                    </a>
-                </div>
-            </section>
-
-            <div class="section-divider"></div>
-
-            <!-- ===== EDUCATION & CERTS ===== -->
-            <section class="section reveal">
-                <h2 class="section-title"><i class="fas fa-graduation-cap"></i> تحصیلات و گواهینامه‌ها</h2>
-                <div class="edu-grid">
-                    <div>
-                        <div class="edu-card">
-                            <h4>🎓 کارشناسی ارشد</h4>
-                            <p>هوش مصنوعی و رباتیک – دانشگاه ایوانکی</p>
-                            <p class="meta">۱۴۰۱-۱۳۹۹ | ⭐ رتبه اول در تمامی نیم‌سال‌ها – استعداد درخشان</p>
-                        </div>
-                        <div class="edu-card" style="margin-top:1rem;">
-                            <h4>🎓 کارشناسی</h4>
-                            <p>مهندسی کامپیوتر – دانشگاه ایوانکی</p>
-                            <p class="meta">۱۳۹۹-۱۳۹۵ | ⭐ استعداد درخشان</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="cert-card">
-                            <h4><i class="fas fa-certificate"></i> گواهینامه‌های تخصصی</h4>
-                            <div class="cert-tag-container">
-                                <span class="skill-tag">Java SE</span>
-                                <span class="skill-tag">Java EE-1 &amp; 2</span>
-                                <span class="skill-tag">CCNA 200-125</span>
-                                <span class="skill-tag">Network+</span>
-                                <span class="skill-tag">MCSE 2016</span>
-                                <span class="skill-tag">Exchange Server 2019</span>
-                                <span class="skill-tag">Skype for Business</span>
-                                <span class="skill-tag">VCA-DCV 6.5</span>
-                                <span class="skill-tag">Veeam Backup</span>
-                                <span class="skill-tag">MTCNA</span>
-                                <span class="skill-tag">WordPress (مقدماتی و پیشرفته)</span>
-                                <span class="skill-tag">Photoshop مقدماتی</span>
-                                <span class="skill-tag">IELTS</span>
-                                <span class="skill-tag">Teacher Training</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div class="section-divider"></div>
-
-            <!-- ===== RESEARCH ===== -->
-            <section class="section reveal">
-                <h2 class="section-title"><i class="fas fa-flask"></i> تحقیقات و مقالات</h2>
-                <div class="research-card">
-                    <div class="title">
-                        <i class="fas fa-heartbeat"></i>
-                        پیش‌بینی سکته قلبی در بیماران مبتلا به کرونا با تحلیل تصاویر نوار قلب و یادگیری عمیق
-                    </div>
-                    <div class="detail">
-                        پایان‌نامه کارشناسی ارشد – مرداد ۱۴۰۱
-                        <br />
-                        <a href="https://ganj.irandoc.ac.ir/#/articles/acb23498bdfba81b675a4ba461e74e0f" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> مشاهده در گنج
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <div class="section-divider"></div>
-
-            <!-- ===== STATS & ORCID ===== -->
-            <section class="section reveal">
-                <div class="stats-orcid">
-                    <div class="orcid-box">
-                        <h4 style="color: #93bbfc; display: flex; align-items: center; gap: 0.6rem; font-size: 1.1rem;">
-                            <i class="fab fa-orcid" style="color: #a6ce39;"></i> ORCID
-                        </h4>
-                        <a href="#" class="orcid-btn">
-                            <i class="fab fa-orcid"></i> ۰۰۰۰-۰۰۰۲-۱۲۳۴-۵۶۷۸
-                        </a>
-                        <p style="color: #5a6a80; font-size: 0.85rem; margin-top: 0.8rem;">
-                            برای مشاهده سوابق علمی و پژوهشی
-                        </p>
-                    </div>
-                    <div class="stats-box">
-                        <img src="https://github-readme-stats.vercel.app/api?username=Aliarcher&show_icons=true&theme=transparent&hide_border=true&bg_color=00000000&text_color=c8d0e0&title_color=93bbfc&icon_color=a78bfa"
-                             alt="آمار گیت‌هاب" />
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== FOOTER ===== -->
-            <footer class="footer reveal">
-                <p>
-                    <i class="fas fa-code"></i> با <i class="fas fa-heart heart" style="color: #f472b6;"></i> طراحی شده |
-                    «هیچ‌وقت برای یادگیری دیر نیست» 🚀
-                    <br />
-                    <span style="font-size: 0.75rem; color: #3a4a5a;">
-                        آخرین به‌روزرسانی: بهار ۱۴۰۴
-                    </span>
-                </p>
-            </footer>
-
-        </div>
-        <!-- /glass-card -->
+        <a href="#about">درباره من</a>
+        <a href="#skills">مهارت‌ها</a>
+        <a href="#experience">سوابق</a>
+        <a href="#projects">پروژه‌ها</a>
+        <a href="#research">پژوهش</a>
+        <a href="#contact">ارتباط</a>
 
     </div>
-    <!-- /container -->
+
+</nav>
+
+
+<main class="container">
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<header class="hero reveal">
+
+    <div class="hero-content">
+
+        <div class="availability">
+            <span class="availability-dot"></span>
+            مهندس تحقیقات هوش مصنوعی
+        </div>
+
+
+        <h1>
+            سیدعلی
+            <span class="gradient">میر محمدحسینی</span>
+        </h1>
+
+
+        <div class="hero-role">
+            AI Research Engineer · Software Engineer · AI Systems
+        </div>
+
+
+        <p class="hero-description">
+
+            مهندس نرم‌افزار و پژوهشگر حوزه هوش مصنوعی با تمرکز بر
+            <strong>سیستم‌های هوشمند، معماری نرم‌افزار، یادگیری ماشین،
+            پردازش تصویر و سیستم‌های تصمیم‌یار شناختی.</strong>
+
+            تجربه حرفه‌ای خود را از سال ۱۳۹۹ آغاز کرده و در مسیر
+            توسعه نرم‌افزار، زیرساخت و پژوهش‌های هوش مصنوعی فعالیت داشته‌ام.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+            <a class="btn btn-primary"
+               href="#projects">
+
+                <i class="fas fa-rocket"></i>
+                مشاهده پروژه‌ها
+
+            </a>
+
+
+            <a class="btn btn-secondary"
+               href="https://github.com/Aliarcher"
+               target="_blank"
+               rel="noopener">
+
+                <i class="fab fa-github"></i>
+                GitHub
+
+            </a>
+
+
+            <a class="btn btn-secondary"
+               href="https://www.linkedin.com/in/seyed-ali-mir-mohammad-hoseiny-517002149"
+               target="_blank"
+               rel="noopener">
+
+                <i class="fab fa-linkedin"></i>
+                LinkedIn
+
+            </a>
+
+
+            <a class="btn btn-secondary"
+               href="assets/cv/resume.pdf"
+               target="_blank">
+
+                <i class="fas fa-file-pdf"></i>
+                رزومه PDF
+
+            </a>
+
+        </div>
+
+
+        <div class="social-row">
+
+            <a class="social"
+               href="https://github.com/Aliarcher"
+               target="_blank"
+               aria-label="GitHub">
+
+                <i class="fab fa-github"></i>
+
+            </a>
+
+
+            <a class="social"
+               href="https://www.linkedin.com/in/seyed-ali-mir-mohammad-hoseiny-517002149"
+               target="_blank"
+               aria-label="LinkedIn">
+
+                <i class="fab fa-linkedin-in"></i>
+
+            </a>
+
+
+            <a class="social"
+               href="mailto:sa.sorb1376@gmail.com"
+               aria-label="Email">
+
+                <i class="fas fa-envelope"></i>
+
+            </a>
+
+
+            <a class="social"
+               href="https://civilica.com/p/246780/"
+               target="_blank"
+               aria-label="Civilica">
+
+                <i class="fas fa-graduation-cap"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-side">
+
+        <div class="profile-orbit">
+
+            <div class="profile-center">
+
+                <i class="fas fa-brain"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section id="about" class="reveal">
+
+    <div class="section-header">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fas fa-user"></i>
+            </div>
+
+            <div>
+                <h2>درباره من</h2>
+                <p>Professional Profile</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="about-card">
+
+        <p>
+
+            فعالیت حرفه‌ای خود را در سال ۱۳۹۹ با پشتیبانی و راهبری
+            نرم‌افزارهای سازمانی مبتنی بر <strong>Java EE</strong> آغاز کردم.
+            در ادامه با کسب تجربه در حوزه‌های توسعه نرم‌افزار، شبکه و
+            زیرساخت، مسیر حرفه‌ای خود را به سمت
+            <strong>هوش مصنوعی و تحقیق و توسعه</strong> گسترش دادم.
+
+        </p>
+
+
+        <p>
+
+            حوزه اصلی فعالیت فعلی من طراحی و توسعه
+            <strong>سیستم‌های هوشمند و تصمیم‌یار شناختی</strong> است؛
+            حوزه‌ای که در آن مهندسی نرم‌افزار، هوش مصنوعی، پردازش داده،
+            معماری سیستم و مدل‌های زبانی بزرگ در کنار یکدیگر قرار می‌گیرند.
+
+        </p>
+
+
+        <p>
+
+            علاقه‌مند به حل مسائل پیچیده، طراحی معماری‌های مقیاس‌پذیر،
+            توسعه سامانه‌های مبتنی بر هوش مصنوعی و تبدیل ایده‌های
+            پژوهشی به محصولات نرم‌افزاری قابل استفاده هستم.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SKILLS
+========================================================= -->
+
+<section id="skills" class="reveal">
+
+    <div class="section-header">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fas fa-layer-group"></i>
+            </div>
+
+            <div>
+                <h2>مهارت‌های تخصصی</h2>
+                <p>Technical Stack</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="skills-grid">
+
+
+        <!-- AI -->
+
+        <div class="skill-card">
+
+            <div class="skill-icon">
+                <i class="fas fa-brain"></i>
+            </div>
+
+            <h3>هوش مصنوعی</h3>
+
+            <div class="tags">
+
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Deep Learning</span>
+                <span class="tag">Computer Vision</span>
+                <span class="tag">NLP</span>
+                <span class="tag">LLM</span>
+                <span class="tag">RAG</span>
+                <span class="tag">AI Agents</span>
+                <span class="tag">Swarm Intelligence</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Backend -->
+
+        <div class="skill-card">
+
+            <div class="skill-icon">
+                <i class="fas fa-server"></i>
+            </div>
+
+            <h3>Backend & Development</h3>
+
+            <div class="tags">
+
+                <span class="tag">Python</span>
+                <span class="tag">Django</span>
+                <span class="tag">Django REST</span>
+                <span class="tag">Java SE</span>
+                <span class="tag">Java EE</span>
+                <span class="tag">Spring</span>
+                <span class="tag">REST API</span>
+                <span class="tag">WebSocket</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Architecture -->
+
+        <div class="skill-card">
+
+            <div class="skill-icon">
+                <i class="fas fa-sitemap"></i>
+            </div>
+
+            <h3>Architecture</h3>
+
+            <div class="tags">
+
+                <span class="tag">System Design</span>
+                <span class="tag">Microservices</span>
+                <span class="tag">Modular Architecture</span>
+                <span class="tag">UML</span>
+                <span class="tag">C4 Model</span>
+                <span class="tag">Distributed Systems</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Infrastructure -->
+
+        <div class="skill-card">
+
+            <div class="skill-icon">
+                <i class="fas fa-network-wired"></i>
+            </div>
+
+            <h3>Infrastructure</h3>
+
+            <div class="tags">
+
+                <span class="tag">Linux</span>
+                <span class="tag">Windows Server</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Nginx</span>
+                <span class="tag">CCNA</span>
+                <span class="tag">MTCNA</span>
+                <span class="tag">VCP-DCV</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Database -->
+
+        <div class="skill-card">
+
+            <div class="skill-icon">
+                <i class="fas fa-database"></i>
+            </div>
+
+            <h3>Data & Databases</h3>
+
+            <div class="tags">
+
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">Elasticsearch</span>
+                <span class="tag">Qdrant</span>
+                <span class="tag">Neo4j</span>
+                <span class="tag">Oracle</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI Framework -->
+
+        <div class="skill-card">
+
+            <div class="skill-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+
+            <h3>AI Engineering</h3>
+
+            <div class="tags">
+
+                <span class="tag">LangChain</span>
+                <span class="tag">LangGraph</span>
+                <span class="tag">Embeddings</span>
+                <span class="tag">Vector Search</span>
+                <span class="tag">Agent Architecture</span>
+                <span class="tag">Memory Systems</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Frontend -->
+
+        <div class="skill-card">
+
+            <div class="skill-icon">
+                <i class="fas fa-code"></i>
+            </div>
+
+            <h3>Frontend</h3>
+
+            <div class="tags">
+
+                <span class="tag">React</span>
+                <span class="tag">Next.js</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Tailwind CSS</span>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Real Time -->
+
+        <div class="skill-card">
+
+            <div class="skill-icon">
+                <i class="fas fa-video"></i>
+            </div>
+
+            <h3>Real-Time Systems</h3>
+
+            <div class="tags">
+
+                <span class="tag">WebRTC</span>
+                <span class="tag">Janus</span>
+                <span class="tag">STUN/TURN</span>
+                <span class="tag">RabbitMQ</span>
+                <span class="tag">Kafka</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EXPERIENCE
+========================================================= -->
+
+<section id="experience" class="reveal">
+
+    <div class="section-header">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+
+            <div>
+                <h2>سوابق حرفه‌ای</h2>
+                <p>Professional Experience</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <div class="timeline-item">
+
+            <div class="experience-card">
+
+                <div class="experience-top">
+
+                    <div>
+
+                        <div class="experience-title">
+                            مهندس تحقیقات هوش مصنوعی
+                        </div>
+
+                        <div class="experience-company">
+                            مرکز نوآوری علوم و فناوری‌های شناختی
+                            — دانشگاه علم و صنعت ایران
+                        </div>
+
+                    </div>
+
+                    <div class="experience-date">
+                        فروردین ۱۴۰۱ — آذر ۱۴۰۲
+                    </div>
+
+                </div>
+
+
+                <div class="experience-description">
+
+                    تحقیق و توسعه در زمینه‌های بینایی ماشین،
+                    پردازش زبان طبیعی، پردازش گفتار و تحلیل گراف.
+                    مشارکت در طراحی و توسعه سیستم‌های هوشمند و
+                    تصمیم‌یار و همچنین راه‌اندازی و نگهداری
+                    زیرساخت‌های مانیتورینگ.
+
+                </div>
+
+                <div class="tags" style="margin-top:14px">
+
+                    <span class="tag">AI Research</span>
+                    <span class="tag">Computer Vision</span>
+                    <span class="tag">NLP</span>
+                    <span class="tag">Graph Analysis</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="experience-card">
+
+                <div class="experience-top">
+
+                    <div>
+
+                        <div class="experience-title">
+                            کارشناس پشتیبانی نرم‌افزار
+                        </div>
+
+                        <div class="experience-company">
+                            رایان بهمن پرداز
+                        </div>
+
+                    </div>
+
+                    <div class="experience-date">
+                        شهریور ۱۳۹۹ — اسفند ۱۴۰۰
+                    </div>
+
+                </div>
+
+
+                <div class="experience-description">
+
+                    پشتیبانی راهبری و فنی سامانه‌های سازمانی
+                    مبتنی بر Java EE، کار با Oracle Database،
+                    بررسی و اصلاح داده‌های ناسالم و انجام
+                    تغییرات نرم‌افزاری با Apache Ant.
+
+                </div>
+
+                <div class="tags" style="margin-top:14px">
+
+                    <span class="tag">Java EE</span>
+                    <span class="tag">Oracle</span>
+                    <span class="tag">Apache Ant</span>
+                    <span class="tag">Enterprise Software</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PROJECTS
+========================================================= -->
+
+<section id="projects" class="reveal">
+
+    <div class="section-header">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fas fa-rocket"></i>
+            </div>
+
+            <div>
+                <h2>پروژه‌های شاخص</h2>
+                <p>Selected Projects</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="projects-grid">
+
+
+        <article class="project">
+
+            <div class="project-head">
+
+                <div class="project-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+
+                <span class="project-status">
+                    در حال توسعه
+                </span>
+
+            </div>
+
+
+            <h3>
+                سامانه تصمیم‌یار شناختی
+            </h3>
+
+
+            <p>
+
+                پلتفرم هوشمند تصمیم‌یار با تمرکز بر چرخه شناختی،
+                مدیریت حافظه، تحلیل اطلاعات و تعامل هوشمند.
+                این سامانه با معماری ماژولار برای پشتیبانی از
+                قابلیت‌های هوش مصنوعی و تصمیم‌گیری طراحی شده است.
+
+            </p>
+
+
+            <div class="tags">
+
+                <span class="tag">Django</span>
+                <span class="tag">Next.js</span>
+                <span class="tag">LLM</span>
+                <span class="tag">RAG</span>
+                <span class="tag">Qdrant</span>
+                <span class="tag">Elasticsearch</span>
+                <span class="tag">Neo4j</span>
+
+            </div>
+
+        </article>
+
+
+        <article class="project">
+
+            <div class="project-head">
+
+                <div class="project-icon">
+                    <i class="fas fa-shield-halved"></i>
+                </div>
+
+                <span class="project-status">
+                    تکمیل شده
+                </span>
+
+            </div>
+
+
+            <h3>
+                سیستم کنترل دسترسی
+            </h3>
+
+
+            <p>
+
+                همکاری در توسعه سیستم کنترل دسترسی سازمانی
+                با تمرکز بر Backend و منطق سرویس‌های نرم‌افزاری
+                مبتنی بر Java و Spring Framework.
+
+            </p>
+
+
+            <div class="tags">
+
+                <span class="tag">Java</span>
+                <span class="tag">Spring</span>
+                <span class="tag">REST API</span>
+                <span class="tag">Enterprise</span>
+
+            </div>
+
+
+            <a href="http://www.rbp.ir"
+               target="_blank"
+               rel="noopener"
+               class="research-link"
+               style="display:inline-block;margin-top:18px">
+
+                مشاهده وب‌سایت
+                <i class="fas fa-arrow-left"></i>
+
+            </a>
+
+        </article>
+
+
+        <article class="project">
+
+            <div class="project-head">
+
+                <div class="project-icon">
+                    <i class="fas fa-memory"></i>
+                </div>
+
+                <span class="project-status">
+                    Research
+                </span>
+
+            </div>
+
+
+            <h3>
+                معماری حافظه بلندمدت برای Agentهای هوشمند
+            </h3>
+
+
+            <p>
+
+                طراحی معماری حافظه برای عامل‌های هوشمند شامل
+                حافظه کوتاه‌مدت، معنایی و رویدادی با استفاده
+                از Elasticsearch، Qdrant و MongoDB.
+
+            </p>
+
+
+            <div class="tags">
+
+                <span class="tag">LangGraph</span>
+                <span class="tag">Qdrant</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">Elasticsearch</span>
+
+            </div>
+
+        </article>
+
+
+        <article class="project">
+
+            <div class="project-head">
+
+                <div class="project-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+
+                <span class="project-status">
+                    Architecture
+                </span>
+
+            </div>
+
+
+            <h3>
+                معماری سامانه‌های هوشمند توزیع‌شده
+            </h3>
+
+
+            <p>
+
+                طراحی معماری سرویس‌گرا برای سامانه‌های مبتنی بر
+                Backend، Frontend، AI Services، Message Broker،
+                Vector Database و Real-Time Communication.
+
+            </p>
+
+
+            <div class="tags">
+
+                <span class="tag">Microservices</span>
+                <span class="tag">Docker</span>
+                <span class="tag">Kafka</span>
+                <span class="tag">RabbitMQ</span>
+                <span class="tag">WebRTC</span>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     RESEARCH
+========================================================= -->
+
+<section id="research" class="reveal">
+
+    <div class="section-header">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fas fa-flask"></i>
+            </div>
+
+            <div>
+                <h2>تحقیقات و پژوهش</h2>
+                <p>Research & Publications</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="research-card">
+
+        <div class="research-icon">
+            <i class="fas fa-heart-pulse"></i>
+        </div>
+
+
+        <div>
+
+            <div class="research-title">
+
+                پیش‌بینی سکته قلبی در بیماران مبتلا به کرونا
+                با تحلیل تصاویر نوار قلب و یادگیری عمیق
+
+            </div>
+
+            <div class="research-meta">
+
+                پایان‌نامه کارشناسی ارشد · مرداد ۱۴۰۱
+
+            </div>
+
+        </div>
+
+
+        <a class="research-link"
+           href="https://ganj.irandoc.ac.ir/#/articles/acb23498bdfba81b675a4ba461e74e0f"
+           target="_blank"
+           rel="noopener">
+
+            مشاهده پژوهش
+            <i class="fas fa-external-link-alt"></i>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     EDUCATION
+========================================================= -->
+
+<section class="reveal">
+
+    <div class="section-header">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+
+            <div>
+                <h2>تحصیلات</h2>
+                <p>Education</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="education-grid">
+
+
+        <div class="education-card">
+
+            <h3>
+                کارشناسی ارشد
+            </h3>
+
+            <h4>
+                هوش مصنوعی و رباتیک
+            </h4>
+
+            <p>
+                دانشگاه ایوانکی
+            </p>
+
+            <p class="meta">
+                ۱۳۹۹ — ۱۴۰۱ · استعداد درخشان · رتبه اول
+            </p>
+
+        </div>
+
+
+        <div class="education-card">
+
+            <h3>
+                کارشناسی
+            </h3>
+
+            <h4>
+                مهندسی کامپیوتر
+            </h4>
+
+            <p>
+                دانشگاه ایوانکی
+            </p>
+
+            <p class="meta">
+                ۱۳۹۵ — ۱۳۹۹ · استعداد درخشان
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CERTIFICATIONS
+========================================================= -->
+
+<section class="reveal">
+
+    <div class="section-header">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fas fa-certificate"></i>
+            </div>
+
+            <div>
+                <h2>گواهینامه‌ها</h2>
+                <p>Certifications</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="about-card">
+
+        <div class="certifications">
+
+            <span class="cert">Java SE</span>
+            <span class="cert">Java EE</span>
+            <span class="cert">CCNA 200-125</span>
+            <span class="cert">Network+</span>
+            <span class="cert">MCSE 2016</span>
+            <span class="cert">Exchange Server 2019</span>
+            <span class="cert">Skype for Business</span>
+            <span class="cert">VCA-DCV 6.5</span>
+            <span class="cert">Veeam Backup</span>
+            <span class="cert">MTCNA</span>
+            <span class="cert">WordPress</span>
+            <span class="cert">Photoshop</span>
+            <span class="cert">IELTS</span>
+            <span class="cert">Teacher Training</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     GITHUB
+========================================================= -->
+
+<section class="reveal">
+
+    <div class="section-header">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                <i class="fab fa-github"></i>
+            </div>
+
+            <div>
+                <h2>فعالیت در GitHub</h2>
+                <p>Open Source & Engineering Activity</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="github-card">
+
+        <div class="github-grid">
+
+            <div class="github-stat">
+
+                <img
+                    src="https://github-readme-stats.vercel.app/api?username=Aliarcher&show_icons=true&hide_border=true&theme=transparent&bg_color=00000000&text_color=c8d0e0&title_color=93bbfc&icon_color=a78bfa"
+                    alt="GitHub Statistics">
+
+            </div>
+
+
+            <div class="github-stat">
+
+                <img
+                    src="https://github-readme-stats.vercel.app/api/top-langs/?username=Aliarcher&layout=compact&hide_border=true&theme=transparent&bg_color=00000000&text_color=c8d0e0&title_color=93bbfc"
+                    alt="Top Languages">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section id="contact" class="reveal">
+
+    <div class="contact-card">
+
+        <h2>
+            بیایید با هم ارتباط داشته باشیم
+        </h2>
+
+        <p>
+            برای همکاری، پروژه‌های تحقیقاتی یا فرصت‌های حرفه‌ای
+            می‌توانید از طریق لینک‌های زیر با من در ارتباط باشید.
+        </p>
+
+
+        <div class="contact-actions">
+
+            <a class="btn btn-primary"
+               href="mailto:sa.sorb1376@gmail.com">
+
+                <i class="fas fa-envelope"></i>
+                ارسال ایمیل
+
+            </a>
+
+
+            <a class="btn btn-secondary"
+               href="https://www.linkedin.com/in/seyed-ali-mir-mohammad-hoseiny-517002149"
+               target="_blank"
+               rel="noopener">
+
+                <i class="fab fa-linkedin"></i>
+                LinkedIn
+
+            </a>
+
+
+            <a class="btn btn-secondary"
+               href="https://orcid.org/"
+               target="_blank"
+               rel="noopener">
+
+                <i class="fab fa-orcid"></i>
+                ORCID
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <p>
+
+        ساخته‌شده با
+        <i class="fas fa-heart"></i>
+        و علاقه به مهندسی نرم‌افزار و هوش مصنوعی
+
+    </p>
+
+    <p style="margin-top:5px">
+
+        © ۱۴۰۴ سیدعلی میر محمدحسینی
+
+    </p>
+
+</footer>
+
+
+</main>
 
 </body>
 </html>
+
