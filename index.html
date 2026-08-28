@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سید علی میر محمد حسینی | رزومه</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+        }
+
+        /* Header / Profile Section */
+        .profile-header {
+            text-align: center;
+            border-bottom: 2px solid #eef2f7;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-header .subtitle {
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 0.75rem;
+        }
+
+        .profile-header .bio {
+            color: #64748b;
+            max-width: 600px;
+            margin: 0.5rem auto 1.5rem;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .badge-container a {
+            color: #1e293b;
+            background: #f1f5f9;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge-container a:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .badge-container a i {
+            font-size: 1.1rem;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #0f172a;
+            border-right: 5px solid #3b82f6;
+            padding-right: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: #3b82f6;
+            font-size: 1.4rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .card {
+            background: #f8fafc;
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e9edf2;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .card h4 {
+            font-size: 1rem;
+            color: #0f172a;
+            margin-bottom: 0.2rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #475569;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: #e6f0ff;
+            color: #1e4b8a;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.2rem 1rem;
+            border-radius: 50px;
+            margin: 0.2rem 0.2rem 0.2rem 0;
+        }
+
+        /* Project List */
+        .project-item {
+            background: #f8fafc;
+            border: 1px solid #e9edf2;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.75rem;
+            transition: 0.15s;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-item:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .project-item .project-name {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .project-item .project-name i {
+            margin-left: 0.5rem;
+            color: #3b82f6;
+        }
+
+        .project-item .project-desc {
+            color: #475569;
+            font-size: 0.95rem;
+            flex: 1 1 100%;
+            margin-top: 0.25rem;
+        }
+
+        .project-item .project-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+        }
+
+        .project-item .project-link i {
+            font-size: 0.8rem;
+            margin-right: 0.3rem;
+        }
+
+        /* ORCID & Stats */
+        .orcid-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f1f5f9;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .orcid-badge:hover {
+            background: #e2e8f0;
+        }
+
+        .stats-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 0.5rem;
+            border: 1px solid #e9edf2;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .profile-header h1 {
+                font-size: 2rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+            .project-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .project-item .project-link {
+                margin-right: 0;
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* footer */
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e9edf2;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ========== HEADER ========== -->
+    <header class="profile-header">
+        <h1>سید علی میر محمد حسینی</h1>
+        <div class="subtitle">
+            <i class="fas fa-graduation-cap" style="margin-left: 0.5rem;"></i>
+            کارشناسی ارشد هوش مصنوعی و رباتیک
+        </div>
+        <div class="bio">
+            <i class="fas fa-home" style="margin-left: 0.5rem;"></i>
+            دورکاری | علاقه‌مند به رباتیک و تمام جنبه‌های علوم کامپیوتر
+        </div>
+        <div class="badge-container">
+            <a href="https://github.com/Aliarcher" target="_blank">
+                <i class="fab fa-github"></i> گیت‌هاب
+            </a>
+            <a href="https://orcid.org/" target="_blank">
+                <i class="fab fa-orcid"></i> ORCID
+            </a>
+            <a href="#" target="_blank">
+                <i class="fab fa-linkedin"></i> لینکدین
+            </a>
+            <a href="#" target="_blank">
+                <i class="fas fa-envelope"></i> ایمیل
+            </a>
+        </div>
+    </header>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="section">
+        <h2 class="section-title">
+            <i class="fas fa-user-astronaut"></i> درباره من
+        </h2>
+        <p style="font-size: 1.05rem; color: #334155;">
+            سلام! من سید علی هستم، فارغ‌التحصیل کارشناسی ارشد هوش مصنوعی و رباتیک از دانشگاه ایوانکی.
+            اشتیاق زیادی به یادگیری و ساخت پروژه‌های متن‌باز در حوزه‌های مختلف علوم کامپیوتر دارم.
+            <br>
+            <span style="display: inline-block; margin-top: 0.75rem;">
+                <i class="fas fa-graduation-cap" style="color: #3b82f6;"></i>
+                <strong>کارشناسی:</strong> مهندسی کامپیوتر، دانشگاه ایوانکی &nbsp;|&nbsp;
+                <i class="fas fa-graduation-cap" style="color: #3b82f6;"></i>
+                <strong>کارشناسی ارشد:</strong> هوش مصنوعی و رباتیک، دانشگاه ایوانکی
+            </span>
+            <br>
+            <span style="display: inline-block; margin-top: 0.5rem;">
+                <i class="fas fa-handshake" style="color: #3b82f6;"></i>
+                <strong>همکاری:</strong> همیشه برای همکاری در پروژه‌های جذاب باز هستم!
+            </span>
+        </p>
+    </section>
+
+    <!-- ========== SKILLS ========== -->
+    <section class="section">
+        <h2 class="section-title">
+            <i class="fas fa-tools"></i> مهارت‌ها و حوزه‌های فعالیت
+        </h2>
+        <div class="card-grid">
+            <div class="card">
+                <h4><i class="fas fa-robot" style="color: #3b82f6;"></i> هوش مصنوعی و اتوماسیون</h4>
+                <p>
+                    <span class="skill-tag">NLP</span>
+                    <span class="skill-tag">Computer Vision</span>
+                    <span class="skill-tag">تحلیل داده</span>
+                </p>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-code" style="color: #3b82f6;"></i> مهندسی نرم‌افزار</h4>
+                <p>
+                    <span class="skill-tag">Backend</span>
+                    <span class="skill-tag">Frontend</span>
+                    <span class="skill-tag">Python</span>
+                </p>
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">در حال یادگیری و توسعه</p>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-cloud" style="color: #3b82f6;"></i> DevOps و MLOps</h4>
+                <p>
+                    <span class="skill-tag">Linux</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Kubernetes</span>
+                </p>
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0.25rem;">در حال یادگیری</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PROJECTS ========== -->
+    <section class="section">
+        <h2 class="section-title">
+            <i class="fas fa-folder-open"></i> پروژه‌های شاخص
+        </h2>
+
+        <div class="project-item">
+            <div>
+                <span class="project-name">
+                    <i class="fab fa-python"></i> Natural-Language-Processing
+                </span>
+                <div class="project-desc">پروژه‌های ساده و بنیادی در پردازش زبان طبیعی</div>
+            </div>
+            <a href="https://github.com/Aliarcher/Natural-Language-Processing" target="_blank" class="project-link">
+                <i class="fas fa-arrow-left"></i> مشاهده
+            </a>
+        </div>
+
+        <div class="project-item">
+            <div>
+                <span class="project-name">
+                    <i class="fas fa-heartbeat"></i> Medical-Analysis
+                </span>
+                <div class="project-desc">پروژه‌های تحلیل داده‌های پزشکی</div>
+            </div>
+            <a href="https://github.com/Aliarcher/Medical-Analysis" target="_blank" class="project-link">
+                <i class="fas fa-arrow-left"></i> مشاهده
+            </a>
+        </div>
+
+        <div class="project-item">
+            <div>
+                <span class="project-name">
+                    <i class="fas fa-eye"></i> Computer-Vision
+                </span>
+                <div class="project-desc">پروژه‌های ساده و بنیادی در بینایی کامپیوتر</div>
+            </div>
+            <a href="https://github.com/Aliarcher/Computer-Vision" target="_blank" class="project-link">
+                <i class="fas fa-arrow-left"></i> مشاهده
+            </a>
+        </div>
+
+        <div class="project-item">
+            <div>
+                <span class="project-name">
+                    <i class="fas fa-music"></i> Music-Audio-Speech-Analysis
+                </span>
+                <div class="project-desc">پروژه‌های تحلیل موسیقی، صدا و گفتار</div>
+            </div>
+            <a href="https://github.com/Aliarcher/Music-Audio-Speech-Analysis" target="_blank" class="project-link">
+                <i class="fas fa-arrow-left"></i> مشاهده
+            </a>
+        </div>
+
+        <div class="project-item">
+            <div>
+                <span class="project-name">
+                    <i class="fas fa-chart-line"></i> Financial-Analysis
+                </span>
+                <div class="project-desc">پروژه‌های ساده در تحلیل مالی</div>
+            </div>
+            <a href="https://github.com/Aliarcher/Financial-Analysis" target="_blank" class="project-link">
+                <i class="fas fa-arrow-left"></i> مشاهده
+            </a>
+        </div>
+    </section>
+
+    <!-- ========== STATS & ORCID ========== -->
+    <section class="section">
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between;">
+            <div style="flex: 2; min-width: 250px;">
+                <h2 class="section-title" style="border-right-color: #a6ce39;">
+                    <i class="fab fa-orcid" style="color: #a6ce39;"></i> ORCID
+                </h2>
+                <a href="https://orcid.org/" target="_blank" class="orcid-badge">
+                    <i class="fab fa-orcid"></i> 0000-0002-1234-5678
+                </a>
+                <p style="margin-top: 0.75rem; color: #475569; font-size: 0.95rem;">
+                    برای مشاهده سوابق علمی و پژوهشی من، روی نشان ORCID کلیک کنید.
+                </p>
+            </div>
+            <div style="flex: 3; min-width: 280px;">
+                <h2 class="section-title" style="border-right-color: #f39c12;">
+                    <i class="fas fa-chart-bar" style="color: #f39c12;"></i> آمار گیت‌هاب
+                </h2>
+                <img class="stats-img" 
+                     src="https://github-readme-stats.vercel.app/api?username=Aliarcher&show_icons=true&theme=default" 
+                     alt="GitHub Stats for Aliarcher">
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <p>
+            <i class="fas fa-code"></i> با  <i class="fas fa-heart" style="color: #e74c3c;"></i>  ساخته شده | 
+            «هیچ‌وقت برای یادگیری دیر نیست» 🚀
+        </p>
+    </footer>
+
+</div>
+
+</body>
+</html>
