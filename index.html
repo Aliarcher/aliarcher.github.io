@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -21,6 +22,7 @@
            ROOT
         ========================================================= */
         :root {
+            /* Default: Dark Theme */
             --bg: #060912;
             --bg-secondary: #0a1020;
             --card: rgba(15, 23, 42, .62);
@@ -28,16 +30,25 @@
             --text: #f1f5f9;
             --text-secondary: #a8b3c7;
             --text-muted: #65728a;
-            --primary: #8b5cf6;
-            --secondary: #3b82f6;
-            --accent: #14b8a6;
-            --pink: #ec4899;
             --border: rgba(255,255,255,.075);
-            --gradient: linear-gradient(135deg, #a78bfa 0%, #60a5fa 48%, #34d399 100%);
             --shadow: 0 30px 80px rgba(0,0,0,.45);
-            --radius-lg: 28px;
-            --radius-md: 20px;
-            --radius-sm: 14px;
+            --orb-opacity: .14;
+            --glass-bg: rgba(7,11,20,.72);
+        }
+
+        /* Light Theme */
+        [data-theme="light"] {
+            --bg: #f0f4f8;
+            --bg-secondary: #e2e8f0;
+            --card: rgba(255, 255, 255, .75);
+            --card-hover: rgba(255, 255, 255, .9);
+            --text: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --border: rgba(0,0,0,.08);
+            --shadow: 0 30px 80px rgba(0,0,0,.08);
+            --orb-opacity: .06;
+            --glass-bg: rgba(255, 255, 255, .7);
         }
 
         /* =========================================================
@@ -52,7 +63,7 @@
             scroll-behavior: smooth;
         }
         body {
-            font-family: "Vazirmatn", sans-serif;
+            font-family: "Vazirmatn", "Inter", sans-serif;
             background: radial-gradient(circle at 10% 10%, rgba(124,58,237,.12), transparent 28%),
                         radial-gradient(circle at 90% 80%, rgba(37,99,235,.10), transparent 30%),
                         var(--bg);
@@ -60,6 +71,7 @@
             line-height: 1.9;
             min-height: 100vh;
             overflow-x: hidden;
+            transition: background .5s ease, color .5s ease;
         }
         a {
             color: inherit;
@@ -84,8 +96,9 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(110px);
-            opacity: .14;
+            opacity: var(--orb-opacity);
             animation: floatOrb 18s ease-in-out infinite alternate;
+            transition: opacity .8s ease;
         }
         .orb.one {
             width: 420px;
@@ -116,6 +129,95 @@
         }
 
         /* =========================================================
+           THEME TOGGLE
+        ========================================================= */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,.06);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 4px;
+            cursor: pointer;
+            transition: all .3s ease;
+            position: relative;
+        }
+        .theme-toggle:hover {
+            background: rgba(255,255,255,.1);
+        }
+        .theme-toggle .toggle-track {
+            width: 48px;
+            height: 24px;
+            border-radius: 40px;
+            background: rgba(255,255,255,.08);
+            position: relative;
+            transition: all .3s ease;
+        }
+        .theme-toggle .toggle-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #a78bfa;
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            transition: all .4s cubic-bezier(.34,1.56,.64,1);
+            box-shadow: 0 0 12px rgba(167,139,250,.3);
+        }
+        [data-theme="light"] .theme-toggle .toggle-thumb {
+            right: 27px;
+            background: #f59e0b;
+            box-shadow: 0 0 12px rgba(245,158,11,.3);
+        }
+        .theme-toggle .toggle-icons {
+            display: flex;
+            gap: 4px;
+            padding: 0 4px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .theme-toggle .toggle-icons .active {
+            color: var(--text);
+        }
+
+        /* =========================================================
+           LANGUAGE TOGGLE
+        ========================================================= */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255,255,255,.06);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 4px 8px;
+            cursor: pointer;
+            transition: all .3s ease;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .lang-toggle:hover {
+            background: rgba(255,255,255,.1);
+        }
+        .lang-toggle .lang-active {
+            color: var(--text);
+            background: rgba(139,92,246,.15);
+            padding: 2px 10px;
+            border-radius: 30px;
+        }
+        .lang-toggle .lang-inactive {
+            padding: 2px 10px;
+            border-radius: 30px;
+            opacity: .5;
+        }
+        [data-lang="en"] .lang-toggle .lang-fa { opacity: .5; }
+        [data-lang="en"] .lang-toggle .lang-en { opacity: 1; color: var(--text); background: rgba(139,92,246,.15); }
+        [data-lang="fa"] .lang-toggle .lang-fa { opacity: 1; color: var(--text); background: rgba(139,92,246,.15); }
+        [data-lang="fa"] .lang-toggle .lang-en { opacity: .5; }
+
+        /* =========================================================
            NAVBAR
         ========================================================= */
         .navbar {
@@ -128,13 +230,14 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 18px;
-            background: rgba(7,11,20,.72);
+            background: var(--glass-bg);
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
             border: 1px solid var(--border);
             border-radius: 18px;
             box-shadow: 0 15px 50px rgba(0,0,0,.25);
             animation: slideDown .6s ease-out;
+            transition: background .4s ease;
         }
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-30px); }
@@ -158,7 +261,12 @@
         .brand-mark:hover {
             transform: rotate(20deg) scale(1.1);
         }
-        .brand span:last-child { color: #dce4f2; }
+        .brand span:last-child { color: var(--text); }
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
         .nav-links { display: flex; gap: 5px; }
         .nav-links a {
             padding: 8px 13px;
@@ -183,7 +291,7 @@
             width: 60%;
         }
         .nav-links a:hover {
-            color: white;
+            color: var(--text);
             background: rgba(255,255,255,.06);
         }
 
@@ -196,6 +304,25 @@
         }
 
         /* =========================================================
+           GRADIENT
+        ========================================================= */
+        .gradient {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% 200%;
+            animation: gradShift 4s ease-in-out infinite alternate;
+        }
+        @keyframes gradShift {
+            from { background-position: 0% 50%; }
+            to { background-position: 100% 50%; }
+        }
+        :root {
+            --gradient: linear-gradient(135deg, #a78bfa 0%, #60a5fa 48%, #34d399 100%);
+        }
+
+        /* =========================================================
            HERO
         ========================================================= */
         .hero {
@@ -203,13 +330,15 @@
             display: grid;
             grid-template-columns: 1.45fr .55fr;
             gap: 35px;
-            padding: 55px;
-            background: linear-gradient(145deg, rgba(17,24,39,.82), rgba(10,15,27,.68));
+            padding: 45px 55px;
+            background: var(--card);
             border: 1px solid var(--border);
             border-radius: 34px;
             box-shadow: var(--shadow);
             overflow: hidden;
             animation: heroIn 1s ease-out;
+            backdrop-filter: blur(10px);
+            transition: background .4s ease, border-color .4s ease;
         }
         @keyframes heroIn {
             from { opacity: 0; transform: scale(.96) translateY(30px); }
@@ -264,22 +393,9 @@
             margin-bottom: 10px;
             animation: fadeIn .8s ease .3s both;
         }
-        .gradient {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            background-size: 200% 200%;
-            animation: gradShift 4s ease-in-out infinite alternate;
-        }
-        @keyframes gradShift {
-            from { background-position: 0% 50%; }
-            to { background-position: 100% 50%; }
-        }
-
         .hero-role {
             font-size: 1.25rem;
-            color: #c5d0e2;
+            color: var(--text-secondary);
             font-weight: 600;
             margin-bottom: 18px;
             animation: fadeIn .8s ease .4s both;
@@ -291,7 +407,7 @@
             line-height: 2.15;
             animation: fadeIn .8s ease .5s both;
         }
-        .hero-description strong { color: #dbeafe; }
+        .hero-description strong { color: var(--text); }
 
         .hero-actions {
             display: flex;
@@ -313,6 +429,7 @@
             border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
         .btn::before {
             content: '';
@@ -336,56 +453,94 @@
         }
         .btn-secondary {
             background: rgba(255,255,255,.04);
-            color: #d9e2ef;
+            color: var(--text-secondary);
         }
         .btn-secondary:hover {
             background: rgba(255,255,255,.08);
             transform: translateY(-4px);
+            color: var(--text);
         }
 
         .hero-side {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 15px;
             animation: fadeIn .8s ease .7s both;
         }
-        .profile-orbit {
-            position: relative;
-            width: 235px; height: 235px;
-            display: grid; place-items: center;
-        }
-        .profile-orbit::before,
-        .profile-orbit::after {
-            content: "";
-            position: absolute;
-            border: 1px solid rgba(139,92,246,.25);
-            border-radius: 50%;
-            animation: rotate 15s linear infinite;
-        }
-        .profile-orbit::before { inset: 0; }
-        .profile-orbit::after {
-            inset: 20px;
-            border-color: rgba(52,211,153,.2);
-            animation-duration: 11s;
-            animation-direction: reverse;
-        }
-        @keyframes rotate { to { transform: rotate(360deg); } }
 
-        .profile-center {
-            width: 150px; height: 150px;
+        /* Profile Image */
+        .profile-image {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            display: grid; place-items: center;
-            background: radial-gradient(circle at 35% 30%, #a78bfa, #3b82f6 50%, #111827 100%);
-            box-shadow: 0 0 70px rgba(96,165,250,.18), inset 0 0 30px rgba(255,255,255,.08);
-            font-size: 52px;
-            color: white;
-            animation: floatCenter 4s ease-in-out infinite alternate;
+            object-fit: cover;
+            border: 3px solid rgba(167,139,250,.3);
+            box-shadow: 0 0 40px rgba(139,92,246,.15);
+            transition: all .4s ease;
+            background: #1e293b;
         }
-        @keyframes floatCenter {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
+        .profile-image:hover {
+            transform: scale(1.03);
+            border-color: rgba(167,139,250,.6);
+            box-shadow: 0 0 60px rgba(139,92,246,.25);
+        }
+        [data-theme="light"] .profile-image {
+            border-color: rgba(139,92,246,.2);
         }
 
+        /* University Logos */
+        .uni-logos {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 5px;
+        }
+        .uni-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 9px;
+            color: var(--text-muted);
+            opacity: .7;
+            transition: all .3s ease;
+        }
+        .uni-logo:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+        .uni-logo .logo-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: rgba(255,255,255,.06);
+            border: 1px solid var(--border);
+            font-size: 18px;
+            color: var(--text-secondary);
+            transition: all .3s ease;
+        }
+        .uni-logo:hover .logo-circle {
+            background: rgba(139,92,246,.1);
+            border-color: rgba(139,92,246,.2);
+            color: #a78bfa;
+        }
+        .uni-logo .logo-circle i {
+            font-size: 20px;
+        }
+        [data-theme="light"] .uni-logo .logo-circle {
+            background: rgba(0,0,0,.03);
+        }
+        [data-theme="light"] .uni-logo:hover .logo-circle {
+            background: rgba(139,92,246,.08);
+        }
+
+        /* =========================================================
+           SOCIAL ROW
+        ========================================================= */
         .social-row {
             display: flex;
             gap: 8px;
@@ -396,20 +551,20 @@
             width: 38px; height: 38px;
             display: grid; place-items: center;
             border-radius: 11px;
-            color: #94a3b8;
+            color: var(--text-muted);
             background: rgba(255,255,255,.035);
             border: 1px solid var(--border);
             transition: all .4s cubic-bezier(.34,1.56,.64,1);
         }
         .social:hover {
-            color: white;
+            color: var(--text);
             transform: translateY(-4px) scale(1.1);
             background: rgba(255,255,255,.08);
             box-shadow: 0 8px 25px rgba(96,165,250,.15);
         }
 
         /* =========================================================
-           REVEAL ANIMATIONS (Intersection Observer)
+           REVEAL ANIMATIONS
         ========================================================= */
         .reveal {
             opacity: 0;
@@ -450,7 +605,7 @@
             transform: rotate(10deg) scale(1.05);
             background: rgba(139,92,246,.15);
         }
-        .section-heading h2 { font-size: 1.35rem; font-weight: 800; }
+        .section-heading h2 { font-size: 1.35rem; font-weight: 800; color: var(--text); }
         .section-heading p { color: var(--text-muted); font-size: 11px; }
 
         /* =========================================================
@@ -474,7 +629,7 @@
             line-height: 2.2;
         }
         .about-card p + p { margin-top: 13px; }
-        .about-card strong { color: #dbeafe; }
+        .about-card strong { color: var(--text); }
 
         /* =========================================================
            SKILLS
@@ -510,14 +665,14 @@
             transform: rotate(5deg) scale(1.1);
             background: rgba(96,165,250,.15);
         }
-        .skill-card h3 { font-size: 14px; margin-bottom: 12px; }
+        .skill-card h3 { font-size: 14px; color: var(--text); margin-bottom: 12px; }
         .tags { display: flex; flex-wrap: wrap; gap: 6px; }
         .tag {
             padding: 4px 9px;
             border-radius: 7px;
             background: rgba(255,255,255,.045);
             border: 1px solid rgba(255,255,255,.055);
-            color: #aebbd0;
+            color: var(--text-secondary);
             font-size: 10px;
             font-weight: 600;
             transition: all .3s ease;
@@ -525,7 +680,7 @@
         .tag:hover {
             background: rgba(139,92,246,.12);
             border-color: rgba(139,92,246,.2);
-            color: #dbeafe;
+            color: var(--text);
             transform: translateY(-2px);
         }
 
@@ -579,7 +734,7 @@
             gap: 20px;
             flex-wrap: wrap;
         }
-        .experience-title { font-size: 16px; font-weight: 800; }
+        .experience-title { font-size: 16px; font-weight: 800; color: var(--text); }
         .experience-company { color: #8db8ff; font-size: 12px; margin-top: 2px; }
         .experience-date {
             align-self: flex-start;
@@ -666,7 +821,7 @@
         .project:hover .project-status {
             background: rgba(52,211,153,.15);
         }
-        .project h3 { margin-top: 17px; font-size: 16px; }
+        .project h3 { margin-top: 17px; font-size: 16px; color: var(--text); }
         .project p {
             margin-top: 8px;
             color: var(--text-secondary);
@@ -706,7 +861,7 @@
         .research-card:hover .research-icon {
             transform: rotate(10deg) scale(1.1);
         }
-        .research-title { font-weight: 800; font-size: 14px; }
+        .research-title { font-weight: 800; font-size: 14px; color: var(--text); }
         .research-meta { color: var(--text-muted); font-size: 11px; margin-top: 4px; }
         .research-link {
             padding: 8px 13px;
@@ -743,7 +898,7 @@
             box-shadow: 0 8px 30px rgba(0,0,0,.15);
         }
         .education-card h3 { font-size: 14px; color: #bfdbfe; }
-        .education-card h4 { margin-top: 5px; font-size: 16px; }
+        .education-card h4 { margin-top: 5px; font-size: 16px; color: var(--text); }
         .education-card p { color: var(--text-secondary); font-size: 12px; margin-top: 6px; }
         .education-card .meta { color: var(--text-muted); font-size: 10px; }
 
@@ -760,7 +915,7 @@
             background: rgba(255,255,255,.035);
             border: 1px solid var(--border);
             border-radius: 9px;
-            color: #b8c5d9;
+            color: var(--text-secondary);
             font-size: 10px;
             transition: all .3s ease;
         }
@@ -768,7 +923,7 @@
             background: rgba(139,92,246,.08);
             border-color: rgba(139,92,246,.2);
             transform: translateY(-2px);
-            color: #dbeafe;
+            color: var(--text);
         }
 
         /* =========================================================
@@ -776,7 +931,7 @@
         ========================================================= */
         .github-card {
             padding: 28px;
-            background: linear-gradient(135deg, rgba(17,24,39,.85), rgba(15,23,42,.65));
+            background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             transition: all .4s ease;
@@ -810,8 +965,7 @@
         .contact-card {
             padding: 35px;
             text-align: center;
-            background: radial-gradient(circle at 50% 0%, rgba(139,92,246,.13), transparent 45%),
-                        var(--card);
+            background: var(--card);
             border: 1px solid var(--border);
             border-radius: 30px;
             transition: all .4s ease;
@@ -820,7 +974,7 @@
             border-color: rgba(139,92,246,.15);
             transform: translateY(-4px);
         }
-        .contact-card h2 { font-size: 25px; }
+        .contact-card h2 { font-size: 25px; color: var(--text); }
         .contact-card p { margin-top: 8px; color: var(--text-secondary); font-size: 13px; }
         .contact-actions {
             display: flex;
@@ -857,12 +1011,14 @@
         ========================================================= */
         @media (max-width: 950px) {
             .hero { grid-template-columns: 1fr; padding: 40px; }
-            .hero-side { display: none; }
+            .hero-side { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; }
             .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .profile-image { width: 140px; height: 140px; }
         }
         @media (max-width: 700px) {
-            .navbar { position: relative; top: 0; }
+            .navbar { position: relative; top: 0; flex-wrap: wrap; gap: 8px; }
             .nav-links { display: none; }
+            .nav-controls { gap: 8px; }
             .container { margin-top: 18px; }
             .hero { padding: 30px 22px; border-radius: 25px; }
             .hero h1 { letter-spacing: -1px; }
@@ -881,6 +1037,9 @@
             .about-card, .experience-card, .project, .github-card {
                 padding: 20px;
             }
+            .uni-logos { gap: 12px; }
+            .uni-logo .logo-circle { width: 36px; height: 36px; font-size: 14px; }
+            .profile-image { width: 120px; height: 120px; }
         }
         @media (max-width: 450px) {
             .container, .navbar { width: min(100% - 20px, 1180px); }
@@ -904,18 +1063,19 @@
         }
 
         /* =========================================================
-           SCROLL INDICATOR (optional)
+           UTILITY
         ========================================================= */
-        .scroll-indicator {
-            text-align: center;
-            margin-top: 20px;
-            color: var(--text-muted);
-            font-size: 11px;
-            animation: bounce 2s ease-in-out infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(6px); }
+        .hidden { display: none; }
+        .flex-center { display: flex; align-items: center; justify-content: center; }
+        .gap-8 { gap: 8px; }
+        .gap-12 { gap: 12px; }
+        .mt-8 { margin-top: 8px; }
+        .mt-16 { margin-top: 16px; }
+
+        :root {
+            --radius-lg: 28px;
+            --radius-md: 20px;
+            --radius-sm: 14px;
         }
     </style>
 </head>
@@ -941,13 +1101,33 @@
         </span>
         <span>Aliarcher</span>
     </a>
-    <div class="nav-links">
-        <a href="#about">درباره من</a>
-        <a href="#skills">مهارت‌ها</a>
-        <a href="#experience">سوابق</a>
-        <a href="#projects">پروژه‌ها</a>
-        <a href="#research">پژوهش</a>
-        <a href="#contact">ارتباط</a>
+
+    <div class="nav-controls">
+        <div class="nav-links">
+            <a href="#about" data-i18n="nav.about">درباره من</a>
+            <a href="#skills" data-i18n="nav.skills">مهارت‌ها</a>
+            <a href="#experience" data-i18n="nav.experience">سوابق</a>
+            <a href="#projects" data-i18n="nav.projects">پروژه‌ها</a>
+            <a href="#research" data-i18n="nav.research">پژوهش</a>
+            <a href="#contact" data-i18n="nav.contact">ارتباط</a>
+        </div>
+
+        <!-- Language Toggle -->
+        <div class="lang-toggle" id="langToggle" role="button" tabindex="0" aria-label="Toggle language">
+            <span class="lang-fa lang-active">فا</span>
+            <span class="lang-en lang-inactive">EN</span>
+        </div>
+
+        <!-- Theme Toggle -->
+        <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Toggle theme">
+            <div class="toggle-track">
+                <div class="toggle-thumb"></div>
+            </div>
+            <div class="toggle-icons">
+                <i class="fas fa-moon" id="moonIcon"></i>
+                <i class="fas fa-sun" id="sunIcon"></i>
+            </div>
+        </div>
     </div>
 </nav>
 
@@ -961,16 +1141,16 @@
         <div class="hero-content">
             <div class="availability">
                 <span class="availability-dot"></span>
-                مهندس تحقیقات هوش مصنوعی
+                <span data-i18n="hero.availability">مهندس تحقیقات هوش مصنوعی</span>
             </div>
             <h1>
-                سیدعلی
-                <span class="gradient">میر محمدحسینی</span>
+                <span data-i18n="hero.nameFirst">سیدعلی</span>
+                <span class="gradient" data-i18n="hero.nameLast">میر محمدحسینی</span>
             </h1>
-            <div class="hero-role">
+            <div class="hero-role" data-i18n="hero.role">
                 AI Research Engineer · Software Engineer · AI Systems
             </div>
-            <p class="hero-description">
+            <p class="hero-description" data-i18n="hero.description">
                 مهندس نرم‌افزار و پژوهشگر حوزه هوش مصنوعی با تمرکز بر
                 <strong>سیستم‌های هوشمند، معماری نرم‌افزار، یادگیری ماشین،
                 پردازش تصویر و سیستم‌های تصمیم‌یار شناختی.</strong>
@@ -980,7 +1160,7 @@
             <div class="hero-actions">
                 <a class="btn btn-primary" href="#projects">
                     <i class="fas fa-rocket"></i>
-                    مشاهده پروژه‌ها
+                    <span data-i18n="hero.projectsBtn">مشاهده پروژه‌ها</span>
                 </a>
                 <a class="btn btn-secondary" href="https://github.com/Aliarcher" target="_blank" rel="noopener">
                     <i class="fab fa-github"></i>
@@ -990,9 +1170,9 @@
                     <i class="fab fa-linkedin"></i>
                     LinkedIn
                 </a>
-                <a class="btn btn-secondary" href="assets/cv/resume.pdf" target="_blank">
+                <a class="btn btn-secondary" href="#" target="_blank">
                     <i class="fas fa-file-pdf"></i>
-                    رزومه PDF
+                    <span data-i18n="hero.cvBtn">رزومه PDF</span>
                 </a>
             </div>
             <div class="social-row">
@@ -1010,10 +1190,24 @@
                 </a>
             </div>
         </div>
+
         <div class="hero-side">
-            <div class="profile-orbit">
-                <div class="profile-center">
-                    <i class="fas fa-brain"></i>
+            <!-- Profile Image (replace with your own) -->
+            <img src="https://ui-avatars.com/api/?name=Seyed+Ali+Mir+Mohammad+Hosseini&size=180&background=8b5cf6&color=fff&bold=true&font-size=0.4" alt="سیدعلی میر محمدحسینی" class="profile-image" id="profileImg">
+
+            <!-- University Logos -->
+            <div class="uni-logos">
+                <div class="uni-logo">
+                    <div class="logo-circle"><i class="fas fa-university"></i></div>
+                    <span data-i18n="uni.ivankey">ایوانکی</span>
+                </div>
+                <div class="uni-logo">
+                    <div class="logo-circle"><i class="fas fa-flask"></i></div>
+                    <span data-i18n="uni.cognitive">شناختی</span>
+                </div>
+                <div class="uni-logo">
+                    <div class="logo-circle"><i class="fas fa-microscope"></i></div>
+                    <span data-i18n="uni.research">پژوهش</span>
                 </div>
             </div>
         </div>
@@ -1028,26 +1222,26 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-user"></i></div>
                 <div>
-                    <h2>درباره من</h2>
-                    <p>Professional Profile</p>
+                    <h2 data-i18n="about.title">درباره من</h2>
+                    <p data-i18n="about.sub">Professional Profile</p>
                 </div>
             </div>
         </div>
         <div class="about-card">
-            <p>
+            <p data-i18n="about.p1">
                 فعالیت حرفه‌ای خود را در سال ۱۳۹۹ با پشتیبانی و راهبری
                 نرم‌افزارهای سازمانی مبتنی بر <strong>Java EE</strong> آغاز کردم.
                 در ادامه با کسب تجربه در حوزه‌های توسعه نرم‌افزار، شبکه و
                 زیرساخت، مسیر حرفه‌ای خود را به سمت
                 <strong>هوش مصنوعی و تحقیق و توسعه</strong> گسترش دادم.
             </p>
-            <p>
+            <p data-i18n="about.p2">
                 حوزه اصلی فعالیت فعلی من طراحی و توسعه
                 <strong>سیستم‌های هوشمند و تصمیم‌یار شناختی</strong> است؛
                 حوزه‌ای که در آن مهندسی نرم‌افزار، هوش مصنوعی، پردازش داده،
                 معماری سیستم و مدل‌های زبانی بزرگ در کنار یکدیگر قرار می‌گیرند.
             </p>
-            <p>
+            <p data-i18n="about.p3">
                 علاقه‌مند به حل مسائل پیچیده، طراحی معماری‌های مقیاس‌پذیر،
                 توسعه سامانه‌های مبتنی بر هوش مصنوعی و تبدیل ایده‌های
                 پژوهشی به محصولات نرم‌افزاری قابل استفاده هستم.
@@ -1064,15 +1258,15 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-layer-group"></i></div>
                 <div>
-                    <h2>مهارت‌های تخصصی</h2>
-                    <p>Technical Stack</p>
+                    <h2 data-i18n="skills.title">مهارت‌های تخصصی</h2>
+                    <p data-i18n="skills.sub">Technical Stack</p>
                 </div>
             </div>
         </div>
         <div class="skills-grid">
             <div class="skill-card">
                 <div class="skill-icon"><i class="fas fa-brain"></i></div>
-                <h3>هوش مصنوعی</h3>
+                <h3 data-i18n="skills.ai">هوش مصنوعی</h3>
                 <div class="tags">
                     <span class="tag">Machine Learning</span>
                     <span class="tag">Deep Learning</span>
@@ -1086,7 +1280,7 @@
             </div>
             <div class="skill-card">
                 <div class="skill-icon"><i class="fas fa-server"></i></div>
-                <h3>Backend & Development</h3>
+                <h3 data-i18n="skills.backend">Backend & Development</h3>
                 <div class="tags">
                     <span class="tag">Python</span>
                     <span class="tag">Django</span>
@@ -1100,7 +1294,7 @@
             </div>
             <div class="skill-card">
                 <div class="skill-icon"><i class="fas fa-sitemap"></i></div>
-                <h3>Architecture</h3>
+                <h3 data-i18n="skills.architecture">Architecture</h3>
                 <div class="tags">
                     <span class="tag">System Design</span>
                     <span class="tag">Microservices</span>
@@ -1112,7 +1306,7 @@
             </div>
             <div class="skill-card">
                 <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
-                <h3>Infrastructure</h3>
+                <h3 data-i18n="skills.infrastructure">Infrastructure</h3>
                 <div class="tags">
                     <span class="tag">Linux</span>
                     <span class="tag">Windows Server</span>
@@ -1125,7 +1319,7 @@
             </div>
             <div class="skill-card">
                 <div class="skill-icon"><i class="fas fa-database"></i></div>
-                <h3>Data & Databases</h3>
+                <h3 data-i18n="skills.data">Data & Databases</h3>
                 <div class="tags">
                     <span class="tag">PostgreSQL</span>
                     <span class="tag">MongoDB</span>
@@ -1137,7 +1331,7 @@
             </div>
             <div class="skill-card">
                 <div class="skill-icon"><i class="fas fa-robot"></i></div>
-                <h3>AI Engineering</h3>
+                <h3 data-i18n="skills.aiEng">AI Engineering</h3>
                 <div class="tags">
                     <span class="tag">LangChain</span>
                     <span class="tag">LangGraph</span>
@@ -1149,7 +1343,7 @@
             </div>
             <div class="skill-card">
                 <div class="skill-icon"><i class="fas fa-code"></i></div>
-                <h3>Frontend</h3>
+                <h3 data-i18n="skills.frontend">Frontend</h3>
                 <div class="tags">
                     <span class="tag">React</span>
                     <span class="tag">Next.js</span>
@@ -1161,7 +1355,7 @@
             </div>
             <div class="skill-card">
                 <div class="skill-icon"><i class="fas fa-video"></i></div>
-                <h3>Real-Time Systems</h3>
+                <h3 data-i18n="skills.realtime">Real-Time Systems</h3>
                 <div class="tags">
                     <span class="tag">WebRTC</span>
                     <span class="tag">Janus</span>
@@ -1182,8 +1376,8 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-briefcase"></i></div>
                 <div>
-                    <h2>سوابق حرفه‌ای</h2>
-                    <p>Professional Experience</p>
+                    <h2 data-i18n="experience.title">سوابق حرفه‌ای</h2>
+                    <p data-i18n="experience.sub">Professional Experience</p>
                 </div>
             </div>
         </div>
@@ -1192,12 +1386,12 @@
                 <div class="experience-card">
                     <div class="experience-top">
                         <div>
-                            <div class="experience-title">مهندس تحقیقات هوش مصنوعی</div>
-                            <div class="experience-company">مرکز نوآوری علوم و فناوری‌های شناختی — دانشگاه علم و صنعت ایران</div>
+                            <div class="experience-title" data-i18n="exp1.title">مهندس تحقیقات هوش مصنوعی</div>
+                            <div class="experience-company" data-i18n="exp1.company">مرکز نوآوری علوم و فناوری‌های شناختی — دانشگاه علم و صنعت ایران</div>
                         </div>
-                        <div class="experience-date">فروردین ۱۴۰۱ — آذر ۱۴۰۲</div>
+                        <div class="experience-date" data-i18n="exp1.date">فروردین ۱۴۰۱ — آذر ۱۴۰۲</div>
                     </div>
-                    <div class="experience-description">
+                    <div class="experience-description" data-i18n="exp1.desc">
                         تحقیق و توسعه در زمینه‌های بینایی ماشین، پردازش زبان طبیعی، پردازش گفتار و تحلیل گراف.
                         مشارکت در طراحی و توسعه سیستم‌های هوشمند و تصمیم‌یار و همچنین راه‌اندازی و نگهداری زیرساخت‌های مانیتورینگ.
                     </div>
@@ -1213,12 +1407,12 @@
                 <div class="experience-card">
                     <div class="experience-top">
                         <div>
-                            <div class="experience-title">کارشناس پشتیبانی نرم‌افزار</div>
-                            <div class="experience-company">رایان بهمن پرداز</div>
+                            <div class="experience-title" data-i18n="exp2.title">کارشناس پشتیبانی نرم‌افزار</div>
+                            <div class="experience-company" data-i18n="exp2.company">رایان بهمن پرداز</div>
                         </div>
-                        <div class="experience-date">شهریور ۱۳۹۹ — اسفند ۱۴۰۰</div>
+                        <div class="experience-date" data-i18n="exp2.date">شهریور ۱۳۹۹ — اسفند ۱۴۰۰</div>
                     </div>
-                    <div class="experience-description">
+                    <div class="experience-description" data-i18n="exp2.desc">
                         پشتیبانی راهبری و فنی سامانه‌های سازمانی مبتنی بر Java EE، کار با Oracle Database،
                         بررسی و اصلاح داده‌های ناسالم و انجام تغییرات نرم‌افزاری با Apache Ant.
                     </div>
@@ -1242,8 +1436,8 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-rocket"></i></div>
                 <div>
-                    <h2>پروژه‌های شاخص</h2>
-                    <p>Selected Projects</p>
+                    <h2 data-i18n="projects.title">پروژه‌های شاخص</h2>
+                    <p data-i18n="projects.sub">Selected Projects</p>
                 </div>
             </div>
         </div>
@@ -1251,10 +1445,10 @@
             <article class="project">
                 <div class="project-head">
                     <div class="project-icon"><i class="fas fa-brain"></i></div>
-                    <span class="project-status">در حال توسعه</span>
+                    <span class="project-status" data-i18n="projects.status.dev">در حال توسعه</span>
                 </div>
-                <h3>سامانه تصمیم‌یار شناختی</h3>
-                <p>
+                <h3 data-i18n="proj1.title">سامانه تصمیم‌یار شناختی</h3>
+                <p data-i18n="proj1.desc">
                     پلتفرم هوشمند تصمیم‌یار با تمرکز بر چرخه شناختی،
                     مدیریت حافظه، تحلیل اطلاعات و تعامل هوشمند.
                     این سامانه با معماری ماژولار برای پشتیبانی از
@@ -1273,10 +1467,10 @@
             <article class="project">
                 <div class="project-head">
                     <div class="project-icon"><i class="fas fa-shield-halved"></i></div>
-                    <span class="project-status">تکمیل شده</span>
+                    <span class="project-status" data-i18n="projects.status.done">تکمیل شده</span>
                 </div>
-                <h3>سیستم کنترل دسترسی</h3>
-                <p>
+                <h3 data-i18n="proj2.title">سیستم کنترل دسترسی</h3>
+                <p data-i18n="proj2.desc">
                     همکاری در توسعه سیستم کنترل دسترسی سازمانی
                     با تمرکز بر Backend و منطق سرویس‌های نرم‌افزاری
                     مبتنی بر Java و Spring Framework.
@@ -1288,7 +1482,7 @@
                     <span class="tag">Enterprise</span>
                 </div>
                 <a href="http://www.rbp.ir" target="_blank" rel="noopener" class="research-link" style="display:inline-block;margin-top:18px">
-                    مشاهده وب‌سایت <i class="fas fa-arrow-left"></i>
+                    <span data-i18n="projects.visit">مشاهده وب‌سایت</span> <i class="fas fa-arrow-left"></i>
                 </a>
             </article>
             <article class="project">
@@ -1296,8 +1490,8 @@
                     <div class="project-icon"><i class="fas fa-memory"></i></div>
                     <span class="project-status">Research</span>
                 </div>
-                <h3>معماری حافظه بلندمدت برای Agentهای هوشمند</h3>
-                <p>
+                <h3 data-i18n="proj3.title">معماری حافظه بلندمدت برای Agentهای هوشمند</h3>
+                <p data-i18n="proj3.desc">
                     طراحی معماری حافظه برای عامل‌های هوشمند شامل
                     حافظه کوتاه‌مدت، معنایی و رویدادی با استفاده
                     از Elasticsearch، Qdrant و MongoDB.
@@ -1314,8 +1508,8 @@
                     <div class="project-icon"><i class="fas fa-network-wired"></i></div>
                     <span class="project-status">Architecture</span>
                 </div>
-                <h3>معماری سامانه‌های هوشمند توزیع‌شده</h3>
-                <p>
+                <h3 data-i18n="proj4.title">معماری سامانه‌های هوشمند توزیع‌شده</h3>
+                <p data-i18n="proj4.desc">
                     طراحی معماری سرویس‌گرا برای سامانه‌های مبتنی بر
                     Backend، Frontend، AI Services، Message Broker،
                     Vector Database و Real-Time Communication.
@@ -1340,19 +1534,19 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-flask"></i></div>
                 <div>
-                    <h2>تحقیقات و پژوهش</h2>
-                    <p>Research & Publications</p>
+                    <h2 data-i18n="research.title">تحقیقات و پژوهش</h2>
+                    <p data-i18n="research.sub">Research & Publications</p>
                 </div>
             </div>
         </div>
         <div class="research-card">
             <div class="research-icon"><i class="fas fa-heart-pulse"></i></div>
             <div>
-                <div class="research-title">پیش‌بینی سکته قلبی در بیماران مبتلا به کرونا با تحلیل تصاویر نوار قلب و یادگیری عمیق</div>
-                <div class="research-meta">پایان‌نامه کارشناسی ارشد · مرداد ۱۴۰۱</div>
+                <div class="research-title" data-i18n="research.paperTitle">پیش‌بینی سکته قلبی در بیماران مبتلا به کرونا با تحلیل تصاویر نوار قلب و یادگیری عمیق</div>
+                <div class="research-meta" data-i18n="research.meta">پایان‌نامه کارشناسی ارشد · مرداد ۱۴۰۱</div>
             </div>
             <a class="research-link" href="https://ganj.irandoc.ac.ir/#/articles/acb23498bdfba81b675a4ba461e74e0f" target="_blank" rel="noopener">
-                مشاهده پژوهش <i class="fas fa-external-link-alt"></i>
+                <span data-i18n="research.viewBtn">مشاهده پژوهش</span> <i class="fas fa-external-link-alt"></i>
             </a>
         </div>
     </section>
@@ -1366,23 +1560,23 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-graduation-cap"></i></div>
                 <div>
-                    <h2>تحصیلات</h2>
-                    <p>Education</p>
+                    <h2 data-i18n="education.title">تحصیلات</h2>
+                    <p data-i18n="education.sub">Education</p>
                 </div>
             </div>
         </div>
         <div class="education-grid">
             <div class="education-card">
-                <h3>کارشناسی ارشد</h3>
-                <h4>هوش مصنوعی و رباتیک</h4>
-                <p>دانشگاه ایوانکی</p>
-                <p class="meta">۱۳۹۹ — ۱۴۰۱ · استعداد درخشان · رتبه اول</p>
+                <h3 data-i18n="edu.msc">کارشناسی ارشد</h3>
+                <h4 data-i18n="edu.mscField">هوش مصنوعی و رباتیک</h4>
+                <p data-i18n="edu.mscUni">دانشگاه ایوانکی</p>
+                <p class="meta" data-i18n="edu.mscMeta">۱۳۹۹ — ۱۴۰۱ · استعداد درخشان · رتبه اول</p>
             </div>
             <div class="education-card">
-                <h3>کارشناسی</h3>
-                <h4>مهندسی کامپیوتر</h4>
-                <p>دانشگاه ایوانکی</p>
-                <p class="meta">۱۳۹۵ — ۱۳۹۹ · استعداد درخشان</p>
+                <h3 data-i18n="edu.bsc">کارشناسی</h3>
+                <h4 data-i18n="edu.bscField">مهندسی کامپیوتر</h4>
+                <p data-i18n="edu.bscUni">دانشگاه ایوانکی</p>
+                <p class="meta" data-i18n="edu.bscMeta">۱۳۹۵ — ۱۳۹۹ · استعداد درخشان</p>
             </div>
         </div>
     </section>
@@ -1396,8 +1590,8 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-certificate"></i></div>
                 <div>
-                    <h2>گواهینامه‌ها</h2>
-                    <p>Certifications</p>
+                    <h2 data-i18n="certs.title">گواهینامه‌ها</h2>
+                    <p data-i18n="certs.sub">Certifications</p>
                 </div>
             </div>
         </div>
@@ -1430,8 +1624,8 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fab fa-github"></i></div>
                 <div>
-                    <h2>فعالیت در GitHub</h2>
-                    <p>Open Source & Engineering Activity</p>
+                    <h2 data-i18n="github.title">فعالیت در GitHub</h2>
+                    <p data-i18n="github.sub">Open Source & Engineering Activity</p>
                 </div>
             </div>
         </div>
@@ -1453,12 +1647,12 @@
     ========================================================= -->
     <section id="contact" class="reveal">
         <div class="contact-card">
-            <h2>بیایید با هم ارتباط داشته باشیم</h2>
-            <p>برای همکاری، پروژه‌های تحقیقاتی یا فرصت‌های حرفه‌ای می‌توانید از طریق لینک‌های زیر با من در ارتباط باشید.</p>
+            <h2 data-i18n="contact.title">بیایید با هم ارتباط داشته باشیم</h2>
+            <p data-i18n="contact.desc">برای همکاری، پروژه‌های تحقیقاتی یا فرصت‌های حرفه‌ای می‌توانید از طریق لینک‌های زیر با من در ارتباط باشید.</p>
             <div class="contact-actions">
                 <a class="btn btn-primary" href="mailto:sa.sorb1376@gmail.com">
                     <i class="fas fa-envelope"></i>
-                    ارسال ایمیل
+                    <span data-i18n="contact.emailBtn">ارسال ایمیل</span>
                 </a>
                 <a class="btn btn-secondary" href="https://www.linkedin.com/in/seyed-ali-mir-mohammad-hoseiny-517002149" target="_blank" rel="noopener">
                     <i class="fab fa-linkedin"></i>
@@ -1478,9 +1672,9 @@
     ========================================================= -->
     <footer>
         <p>
-            ساخته‌شده با
+            <span data-i18n="footer.made">ساخته‌شده با</span>
             <i class="fas fa-heart heart"></i>
-            و علاقه به مهندسی نرم‌افزار و هوش مصنوعی
+            <span data-i18n="footer.love">و علاقه به مهندسی نرم‌افزار و هوش مصنوعی</span>
         </p>
         <p style="margin-top:5px">© ۱۴۰۴ سیدعلی میر محمدحسینی</p>
     </footer>
@@ -1493,8 +1687,8 @@
 ========================================================= -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // --- Reveal Animations ---
         const elements = document.querySelectorAll('.reveal');
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1505,9 +1699,244 @@
             threshold: 0.12,
             rootMargin: '0px 0px -40px 0px'
         });
+        elements.forEach(el => observer.observe(el));
 
-        elements.forEach(el => {
-            observer.observe(el);
+        // --- Theme Toggle ---
+        const themeToggle = document.getElementById('themeToggle');
+        const moonIcon = document.getElementById('moonIcon');
+        const sunIcon = document.getElementById('sunIcon');
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            currentTheme = theme;
+            if (theme === 'light') {
+                moonIcon.style.color = '#94a3b8';
+                sunIcon.style.color = '#f59e0b';
+            } else {
+                moonIcon.style.color = '#a78bfa';
+                sunIcon.style.color = '#94a3b8';
+            }
+        }
+
+        setTheme(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+        // --- Language Toggle ---
+        const langToggle = document.getElementById('langToggle');
+        let currentLang = localStorage.getItem('lang') || 'fa';
+
+        const translations = {
+            fa: {
+                'nav.about': 'درباره من',
+                'nav.skills': 'مهارت‌ها',
+                'nav.experience': 'سوابق',
+                'nav.projects': 'پروژه‌ها',
+                'nav.research': 'پژوهش',
+                'nav.contact': 'ارتباط',
+                'hero.availability': 'مهندس تحقیقات هوش مصنوعی',
+                'hero.nameFirst': 'سیدعلی',
+                'hero.nameLast': 'میر محمدحسینی',
+                'hero.role': 'AI Research Engineer · Software Engineer · AI Systems',
+                'hero.description': 'مهندس نرم‌افزار و پژوهشگر حوزه هوش مصنوعی با تمرکز بر <strong>سیستم‌های هوشمند، معماری نرم‌افزار، یادگیری ماشین، پردازش تصویر و سیستم‌های تصمیم‌یار شناختی.</strong> تجربه حرفه‌ای خود را از سال ۱۳۹۹ آغاز کرده و در مسیر توسعه نرم‌افزار، زیرساخت و پژوهش‌های هوش مصنوعی فعالیت داشته‌ام.',
+                'hero.projectsBtn': 'مشاهده پروژه‌ها',
+                'hero.cvBtn': 'رزومه PDF',
+                'uni.ivankey': 'ایوانکی',
+                'uni.cognitive': 'شناختی',
+                'uni.research': 'پژوهش',
+                'about.title': 'درباره من',
+                'about.sub': 'Professional Profile',
+                'about.p1': 'فعالیت حرفه‌ای خود را در سال ۱۳۹۹ با پشتیبانی و راهبری نرم‌افزارهای سازمانی مبتنی بر <strong>Java EE</strong> آغاز کردم. در ادامه با کسب تجربه در حوزه‌های توسعه نرم‌افزار، شبکه و زیرساخت، مسیر حرفه‌ای خود را به سمت <strong>هوش مصنوعی و تحقیق و توسعه</strong> گسترش دادم.',
+                'about.p2': 'حوزه اصلی فعالیت فعلی من طراحی و توسعه <strong>سیستم‌های هوشمند و تصمیم‌یار شناختی</strong> است؛ حوزه‌ای که در آن مهندسی نرم‌افزار، هوش مصنوعی، پردازش داده، معماری سیستم و مدل‌های زبانی بزرگ در کنار یکدیگر قرار می‌گیرند.',
+                'about.p3': 'علاقه‌مند به حل مسائل پیچیده، طراحی معماری‌های مقیاس‌پذیر، توسعه سامانه‌های مبتنی بر هوش مصنوعی و تبدیل ایده‌های پژوهشی به محصولات نرم‌افزاری قابل استفاده هستم.',
+                'skills.title': 'مهارت‌های تخصصی',
+                'skills.sub': 'Technical Stack',
+                'skills.ai': 'هوش مصنوعی',
+                'skills.backend': 'Backend & Development',
+                'skills.architecture': 'Architecture',
+                'skills.infrastructure': 'Infrastructure',
+                'skills.data': 'Data & Databases',
+                'skills.aiEng': 'AI Engineering',
+                'skills.frontend': 'Frontend',
+                'skills.realtime': 'Real-Time Systems',
+                'experience.title': 'سوابق حرفه‌ای',
+                'experience.sub': 'Professional Experience',
+                'exp1.title': 'مهندس تحقیقات هوش مصنوعی',
+                'exp1.company': 'مرکز نوآوری علوم و فناوری‌های شناختی — دانشگاه علم و صنعت ایران',
+                'exp1.date': 'فروردین ۱۴۰۱ — آذر ۱۴۰۲',
+                'exp1.desc': 'تحقیق و توسعه در زمینه‌های بینایی ماشین، پردازش زبان طبیعی، پردازش گفتار و تحلیل گراف. مشارکت در طراحی و توسعه سیستم‌های هوشمند و تصمیم‌یار و همچنین راه‌اندازی و نگهداری زیرساخت‌های مانیتورینگ.',
+                'exp2.title': 'کارشناس پشتیبانی نرم‌افزار',
+                'exp2.company': 'رایان بهمن پرداز',
+                'exp2.date': 'شهریور ۱۳۹۹ — اسفند ۱۴۰۰',
+                'exp2.desc': 'پشتیبانی راهبری و فنی سامانه‌های سازمانی مبتنی بر Java EE، کار با Oracle Database، بررسی و اصلاح داده‌های ناسالم و انجام تغییرات نرم‌افزاری با Apache Ant.',
+                'projects.title': 'پروژه‌های شاخص',
+                'projects.sub': 'Selected Projects',
+                'projects.status.dev': 'در حال توسعه',
+                'projects.status.done': 'تکمیل شده',
+                'projects.visit': 'مشاهده وب‌سایت',
+                'proj1.title': 'سامانه تصمیم‌یار شناختی',
+                'proj1.desc': 'پلتفرم هوشمند تصمیم‌یار با تمرکز بر چرخه شناختی، مدیریت حافظه، تحلیل اطلاعات و تعامل هوشمند. این سامانه با معماری ماژولار برای پشتیبانی از قابلیت‌های هوش مصنوعی و تصمیم‌گیری طراحی شده است.',
+                'proj2.title': 'سیستم کنترل دسترسی',
+                'proj2.desc': 'همکاری در توسعه سیستم کنترل دسترسی سازمانی با تمرکز بر Backend و منطق سرویس‌های نرم‌افزاری مبتنی بر Java و Spring Framework.',
+                'proj3.title': 'معماری حافظه بلندمدت برای Agentهای هوشمند',
+                'proj3.desc': 'طراحی معماری حافظه برای عامل‌های هوشمند شامل حافظه کوتاه‌مدت، معنایی و رویدادی با استفاده از Elasticsearch، Qdrant و MongoDB.',
+                'proj4.title': 'معماری سامانه‌های هوشمند توزیع‌شده',
+                'proj4.desc': 'طراحی معماری سرویس‌گرا برای سامانه‌های مبتنی بر Backend، Frontend، AI Services، Message Broker، Vector Database و Real-Time Communication.',
+                'research.title': 'تحقیقات و پژوهش',
+                'research.sub': 'Research & Publications',
+                'research.paperTitle': 'پیش‌بینی سکته قلبی در بیماران مبتلا به کرونا با تحلیل تصاویر نوار قلب و یادگیری عمیق',
+                'research.meta': 'پایان‌نامه کارشناسی ارشد · مرداد ۱۴۰۱',
+                'research.viewBtn': 'مشاهده پژوهش',
+                'education.title': 'تحصیلات',
+                'education.sub': 'Education',
+                'edu.msc': 'کارشناسی ارشد',
+                'edu.mscField': 'هوش مصنوعی و رباتیک',
+                'edu.mscUni': 'دانشگاه ایوانکی',
+                'edu.mscMeta': '۱۳۹۹ — ۱۴۰۱ · استعداد درخشان · رتبه اول',
+                'edu.bsc': 'کارشناسی',
+                'edu.bscField': 'مهندسی کامپیوتر',
+                'edu.bscUni': 'دانشگاه ایوانکی',
+                'edu.bscMeta': '۱۳۹۵ — ۱۳۹۹ · استعداد درخشان',
+                'certs.title': 'گواهینامه‌ها',
+                'certs.sub': 'Certifications',
+                'github.title': 'فعالیت در GitHub',
+                'github.sub': 'Open Source & Engineering Activity',
+                'contact.title': 'بیایید با هم ارتباط داشته باشیم',
+                'contact.desc': 'برای همکاری، پروژه‌های تحقیقاتی یا فرصت‌های حرفه‌ای می‌توانید از طریق لینک‌های زیر با من در ارتباط باشید.',
+                'contact.emailBtn': 'ارسال ایمیل',
+                'footer.made': 'ساخته‌شده با',
+                'footer.love': 'و علاقه به مهندسی نرم‌افزار و هوش مصنوعی'
+            },
+            en: {
+                'nav.about': 'About Me',
+                'nav.skills': 'Skills',
+                'nav.experience': 'Experience',
+                'nav.projects': 'Projects',
+                'nav.research': 'Research',
+                'nav.contact': 'Contact',
+                'hero.availability': 'AI Research Engineer',
+                'hero.nameFirst': 'Seyed Ali',
+                'hero.nameLast': 'Mir Mohammad Hosseini',
+                'hero.role': 'AI Research Engineer · Software Engineer · AI Systems',
+                'hero.description': 'Software engineer and AI researcher focusing on <strong>intelligent systems, software architecture, machine learning, computer vision, and cognitive decision support systems.</strong> Started professional career in 2020 and has been active in software development, infrastructure, and AI research.',
+                'hero.projectsBtn': 'View Projects',
+                'hero.cvBtn': 'Download CV',
+                'uni.ivankey': 'Ivankey',
+                'uni.cognitive': 'Cognitive',
+                'uni.research': 'Research',
+                'about.title': 'About Me',
+                'about.sub': 'Professional Profile',
+                'about.p1': 'Started professional career in 2020 with support and administration of enterprise software based on <strong>Java EE</strong>. Through gaining experience in software development, networking, and infrastructure, shifted focus towards <strong>Artificial Intelligence and R&D</strong>.',
+                'about.p2': 'Main area of focus is designing and developing <strong>intelligent and cognitive decision support systems</strong>; a field where software engineering, AI, data processing, system architecture, and large language models come together.',
+                'about.p3': 'Passionate about solving complex problems, designing scalable architectures, developing AI-based systems, and turning research ideas into usable software products.',
+                'skills.title': 'Technical Skills',
+                'skills.sub': 'Technical Stack',
+                'skills.ai': 'Artificial Intelligence',
+                'skills.backend': 'Backend & Development',
+                'skills.architecture': 'Architecture',
+                'skills.infrastructure': 'Infrastructure',
+                'skills.data': 'Data & Databases',
+                'skills.aiEng': 'AI Engineering',
+                'skills.frontend': 'Frontend',
+                'skills.realtime': 'Real-Time Systems',
+                'experience.title': 'Professional Experience',
+                'experience.sub': 'Professional Experience',
+                'exp1.title': 'AI Research Engineer',
+                'exp1.company': 'Cognitive Science & Technology Innovation Center — Iran University of Science and Technology',
+                'exp1.date': 'Apr 2022 — Dec 2023',
+                'exp1.desc': 'Research and development in computer vision, NLP, speech processing, and graph analysis. Participated in designing and developing intelligent and decision support systems, as well as setting up and maintaining monitoring infrastructure.',
+                'exp2.title': 'Software Support Specialist',
+                'exp2.company': 'Rayane Bahman Pardaz',
+                'exp2.date': 'Sep 2020 — Mar 2022',
+                'exp2.desc': 'Strategic and technical support for enterprise systems based on Java EE, working with Oracle Database, investigating and correcting bad data, and performing software modifications using Apache Ant.',
+                'projects.title': 'Selected Projects',
+                'projects.sub': 'Selected Projects',
+                'projects.status.dev': 'In Development',
+                'projects.status.done': 'Completed',
+                'projects.visit': 'Visit Website',
+                'proj1.title': 'Cognitive Decision Support System',
+                'proj1.desc': 'Intelligent decision support platform focusing on cognitive cycles, memory management, information analysis, and intelligent interaction. This system is designed with modular architecture to support AI capabilities and decision-making.',
+                'proj2.title': 'Access Control System',
+                'proj2.desc': 'Collaborated on developing an enterprise access control system focusing on Backend and service logic using Java and Spring Framework.',
+                'proj3.title': 'Long-term Memory Architecture for Intelligent Agents',
+                'proj3.desc': 'Designing memory architecture for intelligent agents including short-term, semantic, and episodic memory using Elasticsearch, Qdrant, and MongoDB.',
+                'proj4.title': 'Distributed Intelligent Systems Architecture',
+                'proj4.desc': 'Designing service-oriented architecture for systems based on Backend, Frontend, AI Services, Message Broker, Vector Database, and Real-Time Communication.',
+                'research.title': 'Research & Publications',
+                'research.sub': 'Research & Publications',
+                'research.paperTitle': 'Predicting Heart Attack in COVID-19 Patients by Analyzing ECG Images and Deep Learning',
+                'research.meta': 'Master\'s Thesis · Aug 2022',
+                'research.viewBtn': 'View Research',
+                'education.title': 'Education',
+                'education.sub': 'Education',
+                'edu.msc': 'Master of Science',
+                'edu.mscField': 'Artificial Intelligence and Robotics',
+                'edu.mscUni': 'Ivankey University',
+                'edu.mscMeta': '2020 — 2022 · Top Talent · Ranked 1st',
+                'edu.bsc': 'Bachelor of Science',
+                'edu.bscField': 'Computer Engineering',
+                'edu.bscUni': 'Ivankey University',
+                'edu.bscMeta': '2016 — 2020 · Top Talent',
+                'certs.title': 'Certifications',
+                'certs.sub': 'Certifications',
+                'github.title': 'GitHub Activity',
+                'github.sub': 'Open Source & Engineering Activity',
+                'contact.title': 'Let\'s Connect',
+                'contact.desc': 'For collaboration, research projects, or professional opportunities, feel free to reach out through the links below.',
+                'contact.emailBtn': 'Send Email',
+                'footer.made': 'Made with',
+                'footer.love': 'and passion for software engineering & AI'
+            }
+        };
+
+        function setLang(lang) {
+            document.documentElement.setAttribute('data-lang', lang);
+            localStorage.setItem('lang', lang);
+            currentLang = lang;
+
+            // Update toggle UI
+            const faEl = langToggle.querySelector('.lang-fa');
+            const enEl = langToggle.querySelector('.lang-en');
+            if (lang === 'fa') {
+                faEl.className = 'lang-fa lang-active';
+                enEl.className = 'lang-en lang-inactive';
+            } else {
+                faEl.className = 'lang-fa lang-inactive';
+                enEl.className = 'lang-en lang-active';
+            }
+
+            // Update all i18n elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Update direction
+            document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+        }
+
+        // Set initial language
+        setLang(currentLang);
+
+        langToggle.addEventListener('click', () => {
+            setLang(currentLang === 'fa' ? 'en' : 'fa');
+        });
+
+        // --- Keyboard accessibility for toggles ---
+        [themeToggle, langToggle].forEach(toggle => {
+            toggle.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggle.click();
+                }
+            });
         });
     });
 </script>
