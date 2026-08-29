@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="سیدعلی میر محمدحسینی | مهندس تحقیقات هوش مصنوعی، توسعه‌دهنده نرم‌افزار و پژوهشگر">
-    <meta name="author" content="سیدعلی میر محمدحسینی">
+    <meta name="description" content="Seyed Ali Mir Mohammad Hosseini | AI Research Engineer, Software Developer & Researcher">
+    <meta name="author" content="Seyed Ali Mir Mohammad Hosseini">
     <meta name="theme-color" content="#080b14">
-    <title>سیدعلی میر محمدحسینی | AI Research Engineer</title>
+    <title>Seyed Ali Mir Mohammad Hosseini | AI Research Engineer</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,12 +34,13 @@
             --shadow: 0 30px 80px rgba(0,0,0,.45);
             --orb-opacity: .14;
             --glass-bg: rgba(7,11,20,.72);
-            /* Neural Network Colors - Dark */
-            --neuron-color: rgba(139,92,246,.15);
-            --neuron-border: rgba(139,92,246,.2);
-            --neuron-glow: rgba(139,92,246,.05);
-            --connection-color: rgba(96,165,250,.08);
-            --pulse-color: rgba(139,92,246,.1);
+            /* Neural Network Colors - Dark Neon */
+            --neuron-color: rgba(139,92,246,.2);
+            --neuron-border: rgba(139,92,246,.4);
+            --neuron-glow: rgba(139,92,246,.15);
+            --connection-color: rgba(96,165,250,.15);
+            --pulse-color: rgba(139,92,246,.15);
+            --neon-glow: 0 0 20px rgba(139,92,246,.2), 0 0 60px rgba(139,92,246,.05);
         }
 
         /* Light Theme */
@@ -61,6 +62,7 @@
             --neuron-glow: rgba(99, 102, 241, .03);
             --connection-color: rgba(59, 130, 246, .04);
             --pulse-color: rgba(99, 102, 241, .05);
+            --neon-glow: none;
         }
 
         /* =========================================================
@@ -75,7 +77,7 @@
             scroll-behavior: smooth;
         }
         body {
-            font-family: "Vazirmatn", "Inter", sans-serif;
+            font-family: "Inter", "Vazirmatn", sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.9;
@@ -93,7 +95,7 @@
         }
 
         /* =========================================================
-           NEURAL NETWORK BACKGROUND
+           NEURAL NETWORK BACKGROUND - NEON FLOATING
         ========================================================= */
         .neural-bg {
             position: fixed;
@@ -103,76 +105,88 @@
             z-index: -1;
         }
 
-        /* Neural connections (lines) */
         .neural-bg svg {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
-            opacity: .3;
+            opacity: .4;
             transition: opacity .8s ease;
+            animation: floatNetwork 20s ease-in-out infinite alternate;
         }
+        @keyframes floatNetwork {
+            0% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-15px, 10px) scale(1.02); }
+            50% { transform: translate(10px, -15px) scale(0.98); }
+            75% { transform: translate(-10px, 5px) scale(1.01); }
+            100% { transform: translate(5px, -5px) scale(1); }
+        }
+
         [data-theme="light"] .neural-bg svg {
             opacity: .15;
         }
 
-        .neural-bg .connection-line {
+        .neural-bg .neon-line {
             stroke: var(--connection-color);
             stroke-width: 1.5;
-            animation: pulseLine 4s ease-in-out infinite;
+            animation: pulseNeonLine 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 4px rgba(139,92,246,.15));
         }
-        .neural-bg .connection-line:nth-child(odd) {
-            animation-delay: 1s;
+        .neural-bg .neon-line:nth-child(odd) {
+            animation-delay: .8s;
         }
-        .neural-bg .connection-line:nth-child(3n) {
-            animation-delay: 2s;
+        .neural-bg .neon-line:nth-child(3n) {
+            animation-delay: 1.6s;
+        }
+        .neural-bg .neon-line:nth-child(5n+2) {
+            animation-duration: 4s;
         }
 
-        @keyframes pulseLine {
-            0%, 100% { opacity: .2; stroke-width: 1; }
-            50% { opacity: .8; stroke-width: 2; }
+        @keyframes pulseNeonLine {
+            0%, 100% { opacity: .15; stroke-width: 1; }
+            50% { opacity: .7; stroke-width: 2.5; filter: drop-shadow(0 0 12px rgba(139,92,246,.3)); }
         }
 
-        /* Neural nodes (circles) */
-        .neural-node {
-            position: absolute;
-            border-radius: 50%;
-            background: var(--neuron-color);
-            border: 1px solid var(--neuron-border);
-            box-shadow: 0 0 20px var(--neuron-glow), inset 0 0 10px var(--neuron-glow);
-            animation: pulseNode 3s ease-in-out infinite;
-            transition: all .8s ease;
+        .neural-bg .neon-node {
+            filter: drop-shadow(0 0 8px rgba(139,92,246,.2));
         }
-        .neural-node:nth-child(2) { animation-delay: .5s; }
-        .neural-node:nth-child(3) { animation-delay: 1s; }
-        .neural-node:nth-child(4) { animation-delay: 1.5s; }
-        .neural-node:nth-child(5) { animation-delay: 2s; }
-        .neural-node:nth-child(6) { animation-delay: 2.5s; }
-        .neural-node:nth-child(7) { animation-delay: .8s; }
-        .neural-node:nth-child(8) { animation-delay: 1.8s; }
-        .neural-node:nth-child(9) { animation-delay: .3s; }
-        .neural-node:nth-child(10) { animation-delay: 1.2s; }
+        .neural-bg .neon-node circle {
+            fill: var(--neuron-color);
+            stroke: var(--neuron-border);
+            stroke-width: 1.5;
+            animation: pulseNeonNode 3s ease-in-out infinite;
+        }
+        .neural-bg .neon-node circle:nth-child(2) { animation-delay: .5s; }
+        .neural-bg .neon-node circle:nth-child(3) { animation-delay: 1s; }
+        .neural-bg .neon-node circle:nth-child(4) { animation-delay: 1.5s; }
+        .neural-bg .neon-node circle:nth-child(5) { animation-delay: 2s; }
+        .neural-bg .neon-node circle:nth-child(6) { animation-delay: 2.5s; }
+        .neural-bg .neon-node circle:nth-child(7) { animation-delay: .8s; }
+        .neural-bg .neon-node circle:nth-child(8) { animation-delay: 1.8s; }
+        .neural-bg .neon-node circle:nth-child(9) { animation-delay: .3s; }
+        .neural-bg .neon-node circle:nth-child(10) { animation-delay: 1.2s; }
 
-        @keyframes pulseNode {
+        @keyframes pulseNeonNode {
             0%, 100% {
-                transform: scale(1);
-                opacity: .4;
-                box-shadow: 0 0 20px var(--neuron-glow);
+                r: 10;
+                opacity: .5;
+                filter: drop-shadow(0 0 8px rgba(139,92,246,.15));
             }
             50% {
-                transform: scale(1.5);
+                r: 16;
                 opacity: .9;
-                box-shadow: 0 0 40px var(--pulse-color), 0 0 80px var(--pulse-color);
+                filter: drop-shadow(0 0 25px rgba(139,92,246,.4)) drop-shadow(0 0 50px rgba(139,92,246,.15));
             }
         }
 
-        /* Floating particles */
+        /* Floating particles - neon style */
         .neural-particle {
             position: absolute;
             width: 3px;
             height: 3px;
             border-radius: 50%;
-            background: rgba(139,92,246,.3);
+            background: rgba(139,92,246,.4);
+            box-shadow: 0 0 10px rgba(139,92,246,.2);
             animation: floatParticle 15s linear infinite;
         }
         .neural-particle:nth-child(11) { animation-duration: 12s; animation-delay: 0s; }
@@ -190,9 +204,14 @@
 
         [data-theme="light"] .neural-particle {
             background: rgba(99, 102, 241, .2);
+            box-shadow: none;
         }
-        [data-theme="light"] .neural-node {
-            border-color: rgba(99, 102, 241, .15);
+        [data-theme="light"] .neural-bg .neon-node circle {
+            fill: rgba(99, 102, 241, .06);
+            stroke: rgba(99, 102, 241, .15);
+        }
+        [data-theme="light"] .neural-bg .neon-line {
+            filter: none;
         }
 
         /* =========================================================
@@ -1188,204 +1207,157 @@
 <body>
 
 <!-- =========================================================
-     NEURAL NETWORK BACKGROUND
+     NEURAL NETWORK BACKGROUND - NEON FLOATING
 ========================================================= -->
 <div class="neural-bg">
     <!-- SVG Connections -->
     <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
         <g>
             <!-- Layer 1: Input neurons (left side) -->
-            <circle cx="80" cy="100" r="12" fill="none" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="10;15;10" dur="3s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="80" cy="250" r="10" fill="none" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="8;14;8" dur="3.5s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.5s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="80" cy="400" r="14" fill="none" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="12;18;12" dur="4s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="80" cy="550" r="11" fill="none" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="9;15;9" dur="3.2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.2s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="80" cy="700" r="13" fill="none" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="11;17;11" dur="3.8s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.8s" repeatCount="indefinite"/>
-            </circle>
+            <g class="neon-node">
+                <circle cx="80" cy="100" r="10">
+                    <animate attributeName="r" values="8;15;8" dur="3s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="80" cy="250" r="10">
+                    <animate attributeName="r" values="8;14;8" dur="3.5s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="80" cy="400" r="10">
+                    <animate attributeName="r" values="8;16;8" dur="4s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="80" cy="550" r="10">
+                    <animate attributeName="r" values="8;15;8" dur="3.2s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="80" cy="700" r="10">
+                    <animate attributeName="r" values="8;16;8" dur="3.8s" repeatCount="indefinite"/>
+                </circle>
+            </g>
 
             <!-- Layer 2: Hidden neurons (middle) -->
-            <circle cx="400" cy="80" r="10" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="8;14;8" dur="3.1s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.1s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="400" cy="200" r="14" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="12;18;12" dur="3.7s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.7s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="400" cy="330" r="12" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="10;16;10" dur="4.2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="4.2s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="400" cy="470" r="9" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="7;13;7" dur="3.4s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.4s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="400" cy="600" r="13" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="11;17;11" dur="3.9s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.9s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="400" cy="730" r="11" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="9;15;9" dur="3.6s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.6s" repeatCount="indefinite"/>
-            </circle>
+            <g class="neon-node">
+                <circle cx="400" cy="80" r="10">
+                    <animate attributeName="r" values="8;14;8" dur="3.1s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="400" cy="200" r="10">
+                    <animate attributeName="r" values="8;16;8" dur="3.7s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="400" cy="330" r="10">
+                    <animate attributeName="r" values="8;15;8" dur="4.2s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="400" cy="470" r="10">
+                    <animate attributeName="r" values="8;14;8" dur="3.4s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="400" cy="600" r="10">
+                    <animate attributeName="r" values="8;16;8" dur="3.9s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="400" cy="730" r="10">
+                    <animate attributeName="r" values="8;15;8" dur="3.6s" repeatCount="indefinite"/>
+                </circle>
+            </g>
 
             <!-- Layer 3: More hidden neurons -->
-            <circle cx="700" cy="120" r="13" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="11;17;11" dur="3.3s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.3s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="700" cy="280" r="10" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="8;14;8" dur="3.8s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.8s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="700" cy="430" r="15" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="13;19;13" dur="4.1s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="4.1s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="700" cy="570" r="12" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="10;16;10" dur="3.5s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.5s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="700" cy="700" r="14" fill="var(--neuron-color)" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="12;18;12" dur="3.9s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3.9s" repeatCount="indefinite"/>
-            </circle>
+            <g class="neon-node">
+                <circle cx="700" cy="120" r="10">
+                    <animate attributeName="r" values="8;16;8" dur="3.3s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="700" cy="280" r="10">
+                    <animate attributeName="r" values="8;14;8" dur="3.8s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="700" cy="430" r="10">
+                    <animate attributeName="r" values="8;17;8" dur="4.1s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="700" cy="570" r="10">
+                    <animate attributeName="r" values="8;15;8" dur="3.5s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="700" cy="700" r="10">
+                    <animate attributeName="r" values="8;16;8" dur="3.9s" repeatCount="indefinite"/>
+                </circle>
+            </g>
 
             <!-- Layer 4: Output neurons (right side) -->
-            <circle cx="1050" cy="150" r="12" fill="none" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="10;16;10" dur="3.2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.2s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="1050" cy="350" r="14" fill="none" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="12;18;12" dur="3.7s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.7s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="1050" cy="550" r="11" fill="none" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="9;15;9" dur="4s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="1050" cy="720" r="13" fill="none" stroke="var(--neuron-border)" stroke-width="1.5">
-                <animate attributeName="r" values="11;17;11" dur="3.5s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.5s" repeatCount="indefinite"/>
-            </circle>
+            <g class="neon-node">
+                <circle cx="1050" cy="150" r="10">
+                    <animate attributeName="r" values="8;15;8" dur="3.2s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="1050" cy="350" r="10">
+                    <animate attributeName="r" values="8;16;8" dur="3.7s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="1050" cy="550" r="10">
+                    <animate attributeName="r" values="8;15;8" dur="4s" repeatCount="indefinite"/>
+                </circle>
+            </g>
+            <g class="neon-node">
+                <circle cx="1050" cy="720" r="10">
+                    <animate attributeName="r" values="8;16;8" dur="3.5s" repeatCount="indefinite"/>
+                </circle>
+            </g>
 
             <!-- Connections between layers -->
-            <!-- Layer 1 to Layer 2 connections -->
-            <line x1="92" y1="100" x2="388" y2="80" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3s" repeatCount="indefinite"/>
-            </line>
-            <line x1="92" y1="100" x2="388" y2="200" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.5s" repeatCount="indefinite"/>
-            </line>
-            <line x1="92" y1="250" x2="388" y2="200" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="4s" repeatCount="indefinite"/>
-            </line>
-            <line x1="92" y1="250" x2="388" y2="330" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.2s" repeatCount="indefinite"/>
-            </line>
-            <line x1="92" y1="400" x2="388" y2="330" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.8s" repeatCount="indefinite"/>
-            </line>
-            <line x1="92" y1="400" x2="388" y2="470" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.3s" repeatCount="indefinite"/>
-            </line>
-            <line x1="92" y1="550" x2="388" y2="470" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.9s" repeatCount="indefinite"/>
-            </line>
-            <line x1="92" y1="550" x2="388" y2="600" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.6s" repeatCount="indefinite"/>
-            </line>
-            <line x1="92" y1="700" x2="388" y2="600" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="4.1s" repeatCount="indefinite"/>
-            </line>
-            <line x1="92" y1="700" x2="388" y2="730" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.4s" repeatCount="indefinite"/>
-            </line>
+            <line x1="92" y1="100" x2="388" y2="80" class="neon-line"/>
+            <line x1="92" y1="100" x2="388" y2="200" class="neon-line"/>
+            <line x1="92" y1="250" x2="388" y2="200" class="neon-line"/>
+            <line x1="92" y1="250" x2="388" y2="330" class="neon-line"/>
+            <line x1="92" y1="400" x2="388" y2="330" class="neon-line"/>
+            <line x1="92" y1="400" x2="388" y2="470" class="neon-line"/>
+            <line x1="92" y1="550" x2="388" y2="470" class="neon-line"/>
+            <line x1="92" y1="550" x2="388" y2="600" class="neon-line"/>
+            <line x1="92" y1="700" x2="388" y2="600" class="neon-line"/>
+            <line x1="92" y1="700" x2="388" y2="730" class="neon-line"/>
 
-            <!-- Layer 2 to Layer 3 connections -->
-            <line x1="412" y1="80" x2="688" y2="120" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.1s" repeatCount="indefinite"/>
-            </line>
-            <line x1="412" y1="200" x2="688" y2="120" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.7s" repeatCount="indefinite"/>
-            </line>
-            <line x1="412" y1="200" x2="688" y2="280" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="4.2s" repeatCount="indefinite"/>
-            </line>
-            <line x1="412" y1="330" x2="688" y2="280" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.5s" repeatCount="indefinite"/>
-            </line>
-            <line x1="412" y1="330" x2="688" y2="430" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.9s" repeatCount="indefinite"/>
-            </line>
-            <line x1="412" y1="470" x2="688" y2="430" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.3s" repeatCount="indefinite"/>
-            </line>
-            <line x1="412" y1="470" x2="688" y2="570" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.8s" repeatCount="indefinite"/>
-            </line>
-            <line x1="412" y1="600" x2="688" y2="570" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="4s" repeatCount="indefinite"/>
-            </line>
-            <line x1="412" y1="600" x2="688" y2="700" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.6s" repeatCount="indefinite"/>
-            </line>
-            <line x1="412" y1="730" x2="688" y2="700" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="4.1s" repeatCount="indefinite"/>
-            </line>
+            <line x1="412" y1="80" x2="688" y2="120" class="neon-line"/>
+            <line x1="412" y1="200" x2="688" y2="120" class="neon-line"/>
+            <line x1="412" y1="200" x2="688" y2="280" class="neon-line"/>
+            <line x1="412" y1="330" x2="688" y2="280" class="neon-line"/>
+            <line x1="412" y1="330" x2="688" y2="430" class="neon-line"/>
+            <line x1="412" y1="470" x2="688" y2="430" class="neon-line"/>
+            <line x1="412" y1="470" x2="688" y2="570" class="neon-line"/>
+            <line x1="412" y1="600" x2="688" y2="570" class="neon-line"/>
+            <line x1="412" y1="600" x2="688" y2="700" class="neon-line"/>
+            <line x1="412" y1="730" x2="688" y2="700" class="neon-line"/>
 
-            <!-- Layer 3 to Layer 4 connections -->
-            <line x1="712" y1="120" x2="1038" y2="150" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.4s" repeatCount="indefinite"/>
-            </line>
-            <line x1="712" y1="280" x2="1038" y2="150" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.9s" repeatCount="indefinite"/>
-            </line>
-            <line x1="712" y1="280" x2="1038" y2="350" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.2s" repeatCount="indefinite"/>
-            </line>
-            <line x1="712" y1="430" x2="1038" y2="350" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.7s" repeatCount="indefinite"/>
-            </line>
-            <line x1="712" y1="430" x2="1038" y2="550" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="4.2s" repeatCount="indefinite"/>
-            </line>
-            <line x1="712" y1="570" x2="1038" y2="550" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.5s" repeatCount="indefinite"/>
-            </line>
-            <line x1="712" y1="570" x2="1038" y2="720" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="4s" repeatCount="indefinite"/>
-            </line>
-            <line x1="712" y1="700" x2="1038" y2="720" class="connection-line">
-                <animate attributeName="opacity" values="0.1;0.4;0.1" dur="3.6s" repeatCount="indefinite"/>
-            </line>
+            <line x1="712" y1="120" x2="1038" y2="150" class="neon-line"/>
+            <line x1="712" y1="280" x2="1038" y2="150" class="neon-line"/>
+            <line x1="712" y1="280" x2="1038" y2="350" class="neon-line"/>
+            <line x1="712" y1="430" x2="1038" y2="350" class="neon-line"/>
+            <line x1="712" y1="430" x2="1038" y2="550" class="neon-line"/>
+            <line x1="712" y1="570" x2="1038" y2="550" class="neon-line"/>
+            <line x1="712" y1="570" x2="1038" y2="720" class="neon-line"/>
+            <line x1="712" y1="700" x2="1038" y2="720" class="neon-line"/>
 
-            <!-- Additional cross connections for complexity -->
-            <line x1="400" y1="80" x2="700" y2="430" class="connection-line">
-                <animate attributeName="opacity" values="0.05;0.25;0.05" dur="4.5s" repeatCount="indefinite"/>
-            </line>
-            <line x1="400" y1="600" x2="700" y2="280" class="connection-line">
-                <animate attributeName="opacity" values="0.05;0.25;0.05" dur="5s" repeatCount="indefinite"/>
-            </line>
-            <line x1="80" y1="400" x2="400" y2="200" class="connection-line">
-                <animate attributeName="opacity" values="0.05;0.25;0.05" dur="4.2s" repeatCount="indefinite"/>
-            </line>
-            <line x1="700" y1="430" x2="1050" y2="150" class="connection-line">
-                <animate attributeName="opacity" values="0.05;0.25;0.05" dur="4.8s" repeatCount="indefinite"/>
-            </line>
+            <!-- Cross connections -->
+            <line x1="400" y1="80" x2="700" y2="430" class="neon-line"/>
+            <line x1="400" y1="600" x2="700" y2="280" class="neon-line"/>
+            <line x1="80" y1="400" x2="400" y2="200" class="neon-line"/>
+            <line x1="700" y1="430" x2="1050" y2="150" class="neon-line"/>
         </g>
     </svg>
 
@@ -1396,7 +1368,7 @@
     <div class="neural-particle" style="top:80%;left:70%;--tx:-150px;--ty:80px;"></div>
     <div class="neural-particle" style="top:15%;left:85%;--tx:60px;--ty:-120px;"></div>
 
-    <!-- Orbs (kept for depth) -->
+    <!-- Orbs -->
     <div class="orb one"></div>
     <div class="orb two"></div>
     <div class="orb three"></div>
@@ -1416,18 +1388,18 @@
 
     <div class="nav-controls">
         <div class="nav-links">
-            <a href="#about" data-i18n="nav.about">درباره من</a>
-            <a href="#skills" data-i18n="nav.skills">مهارت‌ها</a>
-            <a href="#experience" data-i18n="nav.experience">سوابق</a>
-            <a href="#projects" data-i18n="nav.projects">پروژه‌ها</a>
-            <a href="#research" data-i18n="nav.research">پژوهش</a>
-            <a href="#contact" data-i18n="nav.contact">ارتباط</a>
+            <a href="#about" data-i18n="nav.about">About</a>
+            <a href="#skills" data-i18n="nav.skills">Skills</a>
+            <a href="#experience" data-i18n="nav.experience">Experience</a>
+            <a href="#projects" data-i18n="nav.projects">Projects</a>
+            <a href="#research" data-i18n="nav.research">Research</a>
+            <a href="#contact" data-i18n="nav.contact">Contact</a>
         </div>
 
         <!-- Language Toggle -->
         <div class="lang-toggle" id="langToggle" role="button" tabindex="0" aria-label="Toggle language">
-            <span class="lang-fa lang-active">فا</span>
-            <span class="lang-en lang-inactive">EN</span>
+            <span class="lang-fa lang-inactive">فا</span>
+            <span class="lang-en lang-active">EN</span>
         </div>
 
         <!-- Theme Toggle -->
@@ -1453,26 +1425,26 @@
         <div class="hero-content">
             <div class="availability">
                 <span class="availability-dot"></span>
-                <span data-i18n="hero.availability">مهندس تحقیقات هوش مصنوعی</span>
+                <span data-i18n="hero.availability">AI Research Engineer</span>
             </div>
             <h1>
-                <span data-i18n="hero.nameFirst">سیدعلی</span>
-                <span class="gradient" data-i18n="hero.nameLast">میر محمدحسینی</span>
+                <span data-i18n="hero.nameFirst">Seyed Ali</span>
+                <span class="gradient" data-i18n="hero.nameLast">Mir Mohammad Hosseini</span>
             </h1>
             <div class="hero-role" data-i18n="hero.role">
                 AI Research Engineer · Software Engineer · AI Systems
             </div>
             <p class="hero-description" data-i18n="hero.description">
-                مهندس نرم‌افزار و پژوهشگر حوزه هوش مصنوعی با تمرکز بر
-                <strong>سیستم‌های هوشمند، معماری نرم‌افزار، یادگیری ماشین،
-                پردازش تصویر و سیستم‌های تصمیم‌یار شناختی.</strong>
-                تجربه حرفه‌ای خود را از سال ۱۳۹۹ آغاز کرده و در مسیر
-                توسعه نرم‌افزار، زیرساخت و پژوهش‌های هوش مصنوعی فعالیت داشته‌ام.
+                Software engineer and AI researcher focusing on
+                <strong>intelligent systems, software architecture, machine learning,
+                computer vision, and cognitive decision support systems.</strong>
+                Started professional career in 2020 and has been active in
+                software development, infrastructure, and AI research.
             </p>
             <div class="hero-actions">
                 <a class="btn btn-primary" href="#projects">
                     <i class="fas fa-rocket"></i>
-                    <span data-i18n="hero.projectsBtn">مشاهده پروژه‌ها</span>
+                    <span data-i18n="hero.projectsBtn">View Projects</span>
                 </a>
                 <a class="btn btn-secondary" href="https://github.com/Aliarcher" target="_blank" rel="noopener">
                     <i class="fab fa-github"></i>
@@ -1482,13 +1454,13 @@
                     <i class="fab fa-linkedin"></i>
                     LinkedIn
                 </a>
-                <a class="btn btn-secondary" href="#" target="_blank">
-                    <i class="fa-brands fa-hugging-face"></i>
-                    Huggingface
+                <a class="btn btn-secondary" href="https://huggingface.co/Aliarcher" target="_blank" rel="noopener">
+                    <i class="fa-regular fa-face-smile"></i>
+                    Hugging Face
                 </a>
                 <a class="btn btn-secondary" href="#" target="_blank">
                     <i class="fas fa-file-pdf"></i>
-                    <span data-i18n="hero.cvBtn">رزومه PDF</span>
+                    <span data-i18n="hero.cvBtn">Download CV</span>
                 </a>
             </div>
             <div class="social-row">
@@ -1504,26 +1476,29 @@
                 <a class="social" href="https://civilica.com/p/246780/" target="_blank" aria-label="Civilica">
                     <i class="fas fa-graduation-cap"></i>
                 </a>
+                <a class="social" href="https://huggingface.co/Aliarcher" target="_blank" aria-label="Hugging Face">
+                    <i class="fa-regular fa-face-smile"></i>
+                </a>
             </div>
         </div>
 
         <div class="hero-side">
             <!-- Profile Image -->
-            <img src="https://avatars.githubusercontent.com/u/53465519?v=4" alt="سیدعلی میر محمدحسینی" class="profile-image" id="profileImg">
+            <img src="https://avatars.githubusercontent.com/u/53465519?v=4" alt="Seyed Ali Mir Mohammad Hosseini" class="profile-image" id="profileImg">
 
             <!-- University Logos -->
             <div class="uni-logos">
                 <div class="uni-logo">
                     <div class="logo-circle"><i class="fas fa-university"></i></div>
-                    <span data-i18n="uni.ivankey">ایوانکی</span>
+                    <span data-i18n="uni.ivankey">Ivankey</span>
                 </div>
                 <div class="uni-logo">
                     <div class="logo-circle"><i class="fas fa-flask"></i></div>
-                    <span data-i18n="uni.cognitive">شناختی</span>
+                    <span data-i18n="uni.cognitive">Cognitive</span>
                 </div>
                 <div class="uni-logo">
                     <div class="logo-circle"><i class="fas fa-microscope"></i></div>
-                    <span data-i18n="uni.research">پژوهش</span>
+                    <span data-i18n="uni.research">Research</span>
                 </div>
             </div>
         </div>
@@ -1538,29 +1513,20 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-user"></i></div>
                 <div>
-                    <h2 data-i18n="about.title">درباره من</h2>
+                    <h2 data-i18n="about.title">About Me</h2>
                     <p data-i18n="about.sub">Professional Profile</p>
                 </div>
             </div>
         </div>
         <div class="about-card">
             <p data-i18n="about.p1">
-                فعالیت حرفه‌ای خود را در سال ۱۳۹۹ با پشتیبانی و راهبری
-                نرم‌افزارهای سازمانی مبتنی بر <strong>Java EE</strong> آغاز کردم.
-                در ادامه با کسب تجربه در حوزه‌های توسعه نرم‌افزار، شبکه و
-                زیرساخت، مسیر حرفه‌ای خود را به سمت
-                <strong>هوش مصنوعی و تحقیق و توسعه</strong> گسترش دادم.
+                Started professional career in 2020 with support and administration of enterprise software based on <strong>Java EE</strong>. Through gaining experience in software development, networking, and infrastructure, shifted focus towards <strong>Artificial Intelligence and R&D</strong>.
             </p>
             <p data-i18n="about.p2">
-                حوزه اصلی فعالیت فعلی من طراحی و توسعه
-                <strong>سیستم‌های هوشمند و تصمیم‌یار شناختی</strong> است؛
-                حوزه‌ای که در آن مهندسی نرم‌افزار، هوش مصنوعی، پردازش داده،
-                معماری سیستم و مدل‌های زبانی بزرگ در کنار یکدیگر قرار می‌گیرند.
+                Main area of focus is designing and developing <strong>intelligent and cognitive decision support systems</strong>; a field where software engineering, AI, data processing, system architecture, and large language models come together.
             </p>
             <p data-i18n="about.p3">
-                علاقه‌مند به حل مسائل پیچیده، طراحی معماری‌های مقیاس‌پذیر،
-                توسعه سامانه‌های مبتنی بر هوش مصنوعی و تبدیل ایده‌های
-                پژوهشی به محصولات نرم‌افزاری قابل استفاده هستم.
+                Passionate about solving complex problems, designing scalable architectures, developing AI-based systems, and turning research ideas into usable software products.
             </p>
         </div>
     </section>
@@ -1574,7 +1540,7 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-layer-group"></i></div>
                 <div>
-                    <h2 data-i18n="skills.title">مهارت‌های تخصصی</h2>
+                    <h2 data-i18n="skills.title">Technical Skills</h2>
                     <p data-i18n="skills.sub">Technical Stack</p>
                 </div>
             </div>
@@ -1582,7 +1548,7 @@
         <div class="skills-grid">
             <div class="skill-card">
                 <div class="skill-icon"><i class="fas fa-brain"></i></div>
-                <h3 data-i18n="skills.ai">هوش مصنوعی</h3>
+                <h3 data-i18n="skills.ai">Artificial Intelligence</h3>
                 <div class="tags">
                     <span class="tag">Machine Learning</span>
                     <span class="tag">Deep Learning</span>
@@ -1692,7 +1658,7 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-briefcase"></i></div>
                 <div>
-                    <h2 data-i18n="experience.title">سوابق حرفه‌ای</h2>
+                    <h2 data-i18n="experience.title">Professional Experience</h2>
                     <p data-i18n="experience.sub">Professional Experience</p>
                 </div>
             </div>
@@ -1702,14 +1668,13 @@
                 <div class="experience-card">
                     <div class="experience-top">
                         <div>
-                            <div class="experience-title" data-i18n="exp1.title">مهندس تحقیقات هوش مصنوعی</div>
-                            <div class="experience-company" data-i18n="exp1.company">مرکز نوآوری علوم و فناوری‌های شناختی — دانشگاه علم و صنعت ایران</div>
+                            <div class="experience-title" data-i18n="exp1.title">AI Research Engineer</div>
+                            <div class="experience-company" data-i18n="exp1.company">Cognitive Science & Technology Innovation Center — Iran University of Science and Technology</div>
                         </div>
-                        <div class="experience-date" data-i18n="exp1.date">فروردین ۱۴۰۱ — آذر ۱۴۰۲</div>
+                        <div class="experience-date" data-i18n="exp1.date">Apr 2022 — Dec 2023</div>
                     </div>
                     <div class="experience-description" data-i18n="exp1.desc">
-                        تحقیق و توسعه در زمینه‌های بینایی ماشین، پردازش زبان طبیعی، پردازش گفتار و تحلیل گراف.
-                        مشارکت در طراحی و توسعه سیستم‌های هوشمند و تصمیم‌یار و همچنین راه‌اندازی و نگهداری زیرساخت‌های مانیتورینگ.
+                        Research and development in computer vision, NLP, speech processing, and graph analysis. Participated in designing and developing intelligent and decision support systems, as well as setting up and maintaining monitoring infrastructure.
                     </div>
                     <div class="tags" style="margin-top:14px">
                         <span class="tag">AI Research</span>
@@ -1723,14 +1688,13 @@
                 <div class="experience-card">
                     <div class="experience-top">
                         <div>
-                            <div class="experience-title" data-i18n="exp2.title">کارشناس پشتیبانی نرم‌افزار</div>
-                            <div class="experience-company" data-i18n="exp2.company">رایان بهمن پرداز</div>
+                            <div class="experience-title" data-i18n="exp2.title">Software Support Specialist</div>
+                            <div class="experience-company" data-i18n="exp2.company">Rayane Bahman Pardaz</div>
                         </div>
-                        <div class="experience-date" data-i18n="exp2.date">شهریور ۱۳۹۹ — اسفند ۱۴۰۰</div>
+                        <div class="experience-date" data-i18n="exp2.date">Sep 2020 — Mar 2022</div>
                     </div>
                     <div class="experience-description" data-i18n="exp2.desc">
-                        پشتیبانی راهبری و فنی سامانه‌های سازمانی مبتنی بر Java EE، کار با Oracle Database،
-                        بررسی و اصلاح داده‌های ناسالم و انجام تغییرات نرم‌افزاری با Apache Ant.
+                        Strategic and technical support for enterprise systems based on Java EE, working with Oracle Database, investigating and correcting bad data, and performing software modifications using Apache Ant.
                     </div>
                     <div class="tags" style="margin-top:14px">
                         <span class="tag">Java EE</span>
@@ -1752,7 +1716,7 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-rocket"></i></div>
                 <div>
-                    <h2 data-i18n="projects.title">پروژه‌های شاخص</h2>
+                    <h2 data-i18n="projects.title">Selected Projects</h2>
                     <p data-i18n="projects.sub">Selected Projects</p>
                 </div>
             </div>
@@ -1761,14 +1725,11 @@
             <article class="project">
                 <div class="project-head">
                     <div class="project-icon"><i class="fas fa-brain"></i></div>
-                    <span class="project-status" data-i18n="projects.status.dev">در حال توسعه</span>
+                    <span class="project-status" data-i18n="projects.status.dev">In Development</span>
                 </div>
-                <h3 data-i18n="proj1.title">سامانه تصمیم‌یار شناختی</h3>
+                <h3 data-i18n="proj1.title">Cognitive Decision Support System</h3>
                 <p data-i18n="proj1.desc">
-                    پلتفرم هوشمند تصمیم‌یار با تمرکز بر چرخه شناختی،
-                    مدیریت حافظه، تحلیل اطلاعات و تعامل هوشمند.
-                    این سامانه با معماری ماژولار برای پشتیبانی از
-                    قابلیت‌های هوش مصنوعی و تصمیم‌گیری طراحی شده است.
+                    Intelligent decision support platform focusing on cognitive cycles, memory management, information analysis, and intelligent interaction. This system is designed with modular architecture to support AI capabilities and decision-making.
                 </p>
                 <div class="tags">
                     <span class="tag">Django</span>
@@ -1783,13 +1744,11 @@
             <article class="project">
                 <div class="project-head">
                     <div class="project-icon"><i class="fas fa-shield-halved"></i></div>
-                    <span class="project-status" data-i18n="projects.status.done">تکمیل شده</span>
+                    <span class="project-status" data-i18n="projects.status.done">Completed</span>
                 </div>
-                <h3 data-i18n="proj2.title">سیستم کنترل دسترسی</h3>
+                <h3 data-i18n="proj2.title">Access Control System</h3>
                 <p data-i18n="proj2.desc">
-                    همکاری در توسعه سیستم کنترل دسترسی سازمانی
-                    با تمرکز بر Backend و منطق سرویس‌های نرم‌افزاری
-                    مبتنی بر Java و Spring Framework.
+                    Collaborated on developing an enterprise access control system focusing on Backend and service logic using Java and Spring Framework.
                 </p>
                 <div class="tags">
                     <span class="tag">Java</span>
@@ -1798,7 +1757,7 @@
                     <span class="tag">Enterprise</span>
                 </div>
                 <a href="http://www.rbp.ir" target="_blank" rel="noopener" class="research-link" style="display:inline-block;margin-top:18px">
-                    <span data-i18n="projects.visit">مشاهده وب‌سایت</span> <i class="fas fa-arrow-left"></i>
+                    <span data-i18n="projects.visit">Visit Website</span> <i class="fas fa-arrow-left"></i>
                 </a>
             </article>
             <article class="project">
@@ -1806,11 +1765,9 @@
                     <div class="project-icon"><i class="fas fa-memory"></i></div>
                     <span class="project-status">Research</span>
                 </div>
-                <h3 data-i18n="proj3.title">معماری حافظه بلندمدت برای Agentهای هوشمند</h3>
+                <h3 data-i18n="proj3.title">Long-term Memory Architecture for Intelligent Agents</h3>
                 <p data-i18n="proj3.desc">
-                    طراحی معماری حافظه برای عامل‌های هوشمند شامل
-                    حافظه کوتاه‌مدت، معنایی و رویدادی با استفاده
-                    از Elasticsearch، Qdrant و MongoDB.
+                    Designing memory architecture for intelligent agents including short-term, semantic, and episodic memory using Elasticsearch, Qdrant, and MongoDB.
                 </p>
                 <div class="tags">
                     <span class="tag">LangGraph</span>
@@ -1824,11 +1781,9 @@
                     <div class="project-icon"><i class="fas fa-network-wired"></i></div>
                     <span class="project-status">Architecture</span>
                 </div>
-                <h3 data-i18n="proj4.title">معماری سامانه‌های هوشمند توزیع‌شده</h3>
+                <h3 data-i18n="proj4.title">Distributed Intelligent Systems Architecture</h3>
                 <p data-i18n="proj4.desc">
-                    طراحی معماری سرویس‌گرا برای سامانه‌های مبتنی بر
-                    Backend، Frontend، AI Services، Message Broker،
-                    Vector Database و Real-Time Communication.
+                    Designing service-oriented architecture for systems based on Backend, Frontend, AI Services, Message Broker, Vector Database, and Real-Time Communication.
                 </p>
                 <div class="tags">
                     <span class="tag">Microservices</span>
@@ -1850,7 +1805,7 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-flask"></i></div>
                 <div>
-                    <h2 data-i18n="research.title">تحقیقات و پژوهش</h2>
+                    <h2 data-i18n="research.title">Research & Publications</h2>
                     <p data-i18n="research.sub">Research & Publications</p>
                 </div>
             </div>
@@ -1858,11 +1813,11 @@
         <div class="research-card">
             <div class="research-icon"><i class="fas fa-heart-pulse"></i></div>
             <div>
-                <div class="research-title" data-i18n="research.paperTitle">پیش‌بینی سکته قلبی در بیماران مبتلا به کرونا با تحلیل تصاویر نوار قلب و یادگیری عمیق</div>
-                <div class="research-meta" data-i18n="research.meta">پایان‌نامه کارشناسی ارشد · مرداد ۱۴۰۱</div>
+                <div class="research-title" data-i18n="research.paperTitle">Predicting Heart Attack in COVID-19 Patients by Analyzing ECG Images and Deep Learning</div>
+                <div class="research-meta" data-i18n="research.meta">Master's Thesis · Aug 2022</div>
             </div>
             <a class="research-link" href="https://ganj.irandoc.ac.ir/#/articles/acb23498bdfba81b675a4ba461e74e0f" target="_blank" rel="noopener">
-                <span data-i18n="research.viewBtn">مشاهده پژوهش</span> <i class="fas fa-external-link-alt"></i>
+                <span data-i18n="research.viewBtn">View Research</span> <i class="fas fa-external-link-alt"></i>
             </a>
         </div>
     </section>
@@ -1876,23 +1831,23 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-graduation-cap"></i></div>
                 <div>
-                    <h2 data-i18n="education.title">تحصیلات</h2>
+                    <h2 data-i18n="education.title">Education</h2>
                     <p data-i18n="education.sub">Education</p>
                 </div>
             </div>
         </div>
         <div class="education-grid">
             <div class="education-card">
-                <h3 data-i18n="edu.msc">کارشناسی ارشد</h3>
-                <h4 data-i18n="edu.mscField">هوش مصنوعی و رباتیک</h4>
-                <p data-i18n="edu.mscUni">دانشگاه ایوانکی</p>
-                <p class="meta" data-i18n="edu.mscMeta">۱۳۹۹ — ۱۴۰۱ · استعداد درخشان · رتبه اول</p>
+                <h3 data-i18n="edu.msc">Master of Science</h3>
+                <h4 data-i18n="edu.mscField">Artificial Intelligence and Robotics</h4>
+                <p data-i18n="edu.mscUni">Ivankey University</p>
+                <p class="meta" data-i18n="edu.mscMeta">2020 — 2022 · Top Talent · Ranked 1st</p>
             </div>
             <div class="education-card">
-                <h3 data-i18n="edu.bsc">کارشناسی</h3>
-                <h4 data-i18n="edu.bscField">مهندسی کامپیوتر</h4>
-                <p data-i18n="edu.bscUni">دانشگاه ایوانکی</p>
-                <p class="meta" data-i18n="edu.bscMeta">۱۳۹۵ — ۱۳۹۹ · استعداد درخشان</p>
+                <h3 data-i18n="edu.bsc">Bachelor of Science</h3>
+                <h4 data-i18n="edu.bscField">Computer Engineering</h4>
+                <p data-i18n="edu.bscUni">Ivankey University</p>
+                <p class="meta" data-i18n="edu.bscMeta">2016 — 2020 · Top Talent</p>
             </div>
         </div>
     </section>
@@ -1906,7 +1861,7 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-certificate"></i></div>
                 <div>
-                    <h2 data-i18n="certs.title">گواهینامه‌ها</h2>
+                    <h2 data-i18n="certs.title">Certifications</h2>
                     <p data-i18n="certs.sub">Certifications</p>
                 </div>
             </div>
@@ -1940,7 +1895,7 @@
             <div class="section-heading">
                 <div class="section-icon"><i class="fab fa-github"></i></div>
                 <div>
-                    <h2 data-i18n="github.title">فعالیت در GitHub</h2>
+                    <h2 data-i18n="github.title">GitHub Activity</h2>
                     <p data-i18n="github.sub">Open Source & Engineering Activity</p>
                 </div>
             </div>
@@ -1963,12 +1918,12 @@
     ========================================================= -->
     <section id="contact" class="reveal">
         <div class="contact-card">
-            <h2 data-i18n="contact.title">بیایید با هم ارتباط داشته باشیم</h2>
-            <p data-i18n="contact.desc">برای همکاری، پروژه‌های تحقیقاتی یا فرصت‌های حرفه‌ای می‌توانید از طریق لینک‌های زیر با من در ارتباط باشید.</p>
+            <h2 data-i18n="contact.title">Let's Connect</h2>
+            <p data-i18n="contact.desc">For collaboration, research projects, or professional opportunities, feel free to reach out through the links below.</p>
             <div class="contact-actions">
                 <a class="btn btn-primary" href="mailto:sa.sorb1376@gmail.com">
                     <i class="fas fa-envelope"></i>
-                    <span data-i18n="contact.emailBtn">ارسال ایمیل</span>
+                    <span data-i18n="contact.emailBtn">Send Email</span>
                 </a>
                 <a class="btn btn-secondary" href="https://www.linkedin.com/in/seyed-ali-mir-mohammad-hosseini-aa315638a" target="_blank" rel="noopener">
                     <i class="fab fa-linkedin"></i>
@@ -1988,11 +1943,11 @@
     ========================================================= -->
     <footer>
         <p>
-            <span data-i18n="footer.made">ساخته‌شده با</span>
+            <span data-i18n="footer.made">Made with</span>
             <i class="fas fa-heart heart"></i>
-            <span data-i18n="footer.love">و علاقه به مهندسی نرم‌افزار و هوش مصنوعی</span>
+            <span data-i18n="footer.love">and passion for software engineering & AI</span>
         </p>
-        <p style="margin-top:5px">© ۱۴۰۴ سیدعلی میر محمدحسینی</p>
+        <p style="margin-top:5px">© 2025 Seyed Ali Mir Mohammad Hosseini</p>
     </footer>
 
 </main>
@@ -2044,9 +1999,89 @@
 
         // --- Language Toggle ---
         const langToggle = document.getElementById('langToggle');
-        let currentLang = localStorage.getItem('lang') || 'fa';
+        let currentLang = localStorage.getItem('lang') || 'en';
 
         const translations = {
+            en: {
+                'nav.about': 'About',
+                'nav.skills': 'Skills',
+                'nav.experience': 'Experience',
+                'nav.projects': 'Projects',
+                'nav.research': 'Research',
+                'nav.contact': 'Contact',
+                'hero.availability': 'AI Research Engineer',
+                'hero.nameFirst': 'Seyed Ali',
+                'hero.nameLast': 'Mir Mohammad Hosseini',
+                'hero.role': 'AI Research Engineer · Software Engineer · AI Systems',
+                'hero.description': 'Software engineer and AI researcher focusing on <strong>intelligent systems, software architecture, machine learning, computer vision, and cognitive decision support systems.</strong> Started professional career in 2020 and has been active in software development, infrastructure, and AI research.',
+                'hero.projectsBtn': 'View Projects',
+                'hero.cvBtn': 'Download CV',
+                'uni.ivankey': 'Ivankey',
+                'uni.cognitive': 'Cognitive',
+                'uni.research': 'Research',
+                'about.title': 'About Me',
+                'about.sub': 'Professional Profile',
+                'about.p1': 'Started professional career in 2020 with support and administration of enterprise software based on <strong>Java EE</strong>. Through gaining experience in software development, networking, and infrastructure, shifted focus towards <strong>Artificial Intelligence and R&D</strong>.',
+                'about.p2': 'Main area of focus is designing and developing <strong>intelligent and cognitive decision support systems</strong>; a field where software engineering, AI, data processing, system architecture, and large language models come together.',
+                'about.p3': 'Passionate about solving complex problems, designing scalable architectures, developing AI-based systems, and turning research ideas into usable software products.',
+                'skills.title': 'Technical Skills',
+                'skills.sub': 'Technical Stack',
+                'skills.ai': 'Artificial Intelligence',
+                'skills.backend': 'Backend & Development',
+                'skills.architecture': 'Architecture',
+                'skills.infrastructure': 'Infrastructure',
+                'skills.data': 'Data & Databases',
+                'skills.aiEng': 'AI Engineering',
+                'skills.frontend': 'Frontend',
+                'skills.realtime': 'Real-Time Systems',
+                'experience.title': 'Professional Experience',
+                'experience.sub': 'Professional Experience',
+                'exp1.title': 'AI Research Engineer',
+                'exp1.company': 'Cognitive Science & Technology Innovation Center — Iran University of Science and Technology',
+                'exp1.date': 'Apr 2022 — Dec 2023',
+                'exp1.desc': 'Research and development in computer vision, NLP, speech processing, and graph analysis. Participated in designing and developing intelligent and decision support systems, as well as setting up and maintaining monitoring infrastructure.',
+                'exp2.title': 'Software Support Specialist',
+                'exp2.company': 'Rayane Bahman Pardaz',
+                'exp2.date': 'Sep 2020 — Mar 2022',
+                'exp2.desc': 'Strategic and technical support for enterprise systems based on Java EE, working with Oracle Database, investigating and correcting bad data, and performing software modifications using Apache Ant.',
+                'projects.title': 'Selected Projects',
+                'projects.sub': 'Selected Projects',
+                'projects.status.dev': 'In Development',
+                'projects.status.done': 'Completed',
+                'projects.visit': 'Visit Website',
+                'proj1.title': 'Cognitive Decision Support System',
+                'proj1.desc': 'Intelligent decision support platform focusing on cognitive cycles, memory management, information analysis, and intelligent interaction. This system is designed with modular architecture to support AI capabilities and decision-making.',
+                'proj2.title': 'Access Control System',
+                'proj2.desc': 'Collaborated on developing an enterprise access control system focusing on Backend and service logic using Java and Spring Framework.',
+                'proj3.title': 'Long-term Memory Architecture for Intelligent Agents',
+                'proj3.desc': 'Designing memory architecture for intelligent agents including short-term, semantic, and episodic memory using Elasticsearch, Qdrant, and MongoDB.',
+                'proj4.title': 'Distributed Intelligent Systems Architecture',
+                'proj4.desc': 'Designing service-oriented architecture for systems based on Backend, Frontend, AI Services, Message Broker, Vector Database, and Real-Time Communication.',
+                'research.title': 'Research & Publications',
+                'research.sub': 'Research & Publications',
+                'research.paperTitle': 'Predicting Heart Attack in COVID-19 Patients by Analyzing ECG Images and Deep Learning',
+                'research.meta': 'Master\'s Thesis · Aug 2022',
+                'research.viewBtn': 'View Research',
+                'education.title': 'Education',
+                'education.sub': 'Education',
+                'edu.msc': 'Master of Science',
+                'edu.mscField': 'Artificial Intelligence and Robotics',
+                'edu.mscUni': 'Ivankey University',
+                'edu.mscMeta': '2020 — 2022 · Top Talent · Ranked 1st',
+                'edu.bsc': 'Bachelor of Science',
+                'edu.bscField': 'Computer Engineering',
+                'edu.bscUni': 'Ivankey University',
+                'edu.bscMeta': '2016 — 2020 · Top Talent',
+                'certs.title': 'Certifications',
+                'certs.sub': 'Certifications',
+                'github.title': 'GitHub Activity',
+                'github.sub': 'Open Source & Engineering Activity',
+                'contact.title': 'Let\'s Connect',
+                'contact.desc': 'For collaboration, research projects, or professional opportunities, feel free to reach out through the links below.',
+                'contact.emailBtn': 'Send Email',
+                'footer.made': 'Made with',
+                'footer.love': 'and passion for software engineering & AI'
+            },
             fa: {
                 'nav.about': 'درباره من',
                 'nav.skills': 'مهارت‌ها',
@@ -2126,86 +2161,6 @@
                 'contact.emailBtn': 'ارسال ایمیل',
                 'footer.made': 'ساخته‌شده با',
                 'footer.love': 'و علاقه به مهندسی نرم‌افزار و هوش مصنوعی'
-            },
-            en: {
-                'nav.about': 'About Me',
-                'nav.skills': 'Skills',
-                'nav.experience': 'Experience',
-                'nav.projects': 'Projects',
-                'nav.research': 'Research',
-                'nav.contact': 'Contact',
-                'hero.availability': 'AI Research Engineer',
-                'hero.nameFirst': 'Seyed Ali',
-                'hero.nameLast': 'Mir Mohammad Hosseini',
-                'hero.role': 'AI Research Engineer · Software Engineer · AI Systems',
-                'hero.description': 'Software engineer and AI researcher focusing on <strong>intelligent systems, software architecture, machine learning, computer vision, and cognitive decision support systems.</strong> Started professional career in 2020 and has been active in software development, infrastructure, and AI research.',
-                'hero.projectsBtn': 'View Projects',
-                'hero.cvBtn': 'Download CV',
-                'uni.ivankey': 'Ivankey',
-                'uni.cognitive': 'Cognitive',
-                'uni.research': 'Research',
-                'about.title': 'About Me',
-                'about.sub': 'Professional Profile',
-                'about.p1': 'Started professional career in 2020 with support and administration of enterprise software based on <strong>Java EE</strong>. Through gaining experience in software development, networking, and infrastructure, shifted focus towards <strong>Artificial Intelligence and R&D</strong>.',
-                'about.p2': 'Main area of focus is designing and developing <strong>intelligent and cognitive decision support systems</strong>; a field where software engineering, AI, data processing, system architecture, and large language models come together.',
-                'about.p3': 'Passionate about solving complex problems, designing scalable architectures, developing AI-based systems, and turning research ideas into usable software products.',
-                'skills.title': 'Technical Skills',
-                'skills.sub': 'Technical Stack',
-                'skills.ai': 'Artificial Intelligence',
-                'skills.backend': 'Backend & Development',
-                'skills.architecture': 'Architecture',
-                'skills.infrastructure': 'Infrastructure',
-                'skills.data': 'Data & Databases',
-                'skills.aiEng': 'AI Engineering',
-                'skills.frontend': 'Frontend',
-                'skills.realtime': 'Real-Time Systems',
-                'experience.title': 'Professional Experience',
-                'experience.sub': 'Professional Experience',
-                'exp1.title': 'AI Research Engineer',
-                'exp1.company': 'Cognitive Science & Technology Innovation Center — Iran University of Science and Technology',
-                'exp1.date': 'Apr 2022 — Dec 2023',
-                'exp1.desc': 'Research and development in computer vision, NLP, speech processing, and graph analysis. Participated in designing and developing intelligent and decision support systems, as well as setting up and maintaining monitoring infrastructure.',
-                'exp2.title': 'Software Support Specialist',
-                'exp2.company': 'Rayane Bahman Pardaz',
-                'exp2.date': 'Sep 2020 — Mar 2022',
-                'exp2.desc': 'Strategic and technical support for enterprise systems based on Java EE, working with Oracle Database, investigating and correcting bad data, and performing software modifications using Apache Ant.',
-                'projects.title': 'Selected Projects',
-                'projects.sub': 'Selected Projects',
-                'projects.status.dev': 'In Development',
-                'projects.status.done': 'Completed',
-                'projects.visit': 'Visit Website',
-                'proj1.title': 'Cognitive Decision Support System',
-                'proj1.desc': 'Intelligent decision support platform focusing on cognitive cycles, memory management, information analysis, and intelligent interaction. This system is designed with modular architecture to support AI capabilities and decision-making.',
-                'proj2.title': 'Access Control System',
-                'proj2.desc': 'Collaborated on developing an enterprise access control system focusing on Backend and service logic using Java and Spring Framework.',
-                'proj3.title': 'Long-term Memory Architecture for Intelligent Agents',
-                'proj3.desc': 'Designing memory architecture for intelligent agents including short-term, semantic, and episodic memory using Elasticsearch, Qdrant, and MongoDB.',
-                'proj4.title': 'Distributed Intelligent Systems Architecture',
-                'proj4.desc': 'Designing service-oriented architecture for systems based on Backend, Frontend, AI Services, Message Broker, Vector Database, and Real-Time Communication.',
-                'research.title': 'Research & Publications',
-                'research.sub': 'Research & Publications',
-                'research.paperTitle': 'Predicting Heart Attack in COVID-19 Patients by Analyzing ECG Images and Deep Learning',
-                'research.meta': 'Master\'s Thesis · Aug 2022',
-                'research.viewBtn': 'View Research',
-                'education.title': 'Education',
-                'education.sub': 'Education',
-                'edu.msc': 'Master of Science',
-                'edu.mscField': 'Artificial Intelligence and Robotics',
-                'edu.mscUni': 'Ivankey University',
-                'edu.mscMeta': '2020 — 2022 · Top Talent · Ranked 1st',
-                'edu.bsc': 'Bachelor of Science',
-                'edu.bscField': 'Computer Engineering',
-                'edu.bscUni': 'Ivankey University',
-                'edu.bscMeta': '2016 — 2020 · Top Talent',
-                'certs.title': 'Certifications',
-                'certs.sub': 'Certifications',
-                'github.title': 'GitHub Activity',
-                'github.sub': 'Open Source & Engineering Activity',
-                'contact.title': 'Let\'s Connect',
-                'contact.desc': 'For collaboration, research projects, or professional opportunities, feel free to reach out through the links below.',
-                'contact.emailBtn': 'Send Email',
-                'footer.made': 'Made with',
-                'footer.love': 'and passion for software engineering & AI'
             }
         };
 
@@ -2219,9 +2174,11 @@
             if (lang === 'fa') {
                 faEl.className = 'lang-fa lang-active';
                 enEl.className = 'lang-en lang-inactive';
+                document.documentElement.dir = 'rtl';
             } else {
                 faEl.className = 'lang-fa lang-inactive';
                 enEl.className = 'lang-en lang-active';
+                document.documentElement.dir = 'ltr';
             }
 
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -2231,7 +2188,6 @@
                 }
             });
 
-            document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
             document.documentElement.lang = lang;
         }
 
