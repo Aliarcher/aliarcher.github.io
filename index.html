@@ -322,44 +322,123 @@
         .education-card p{color:var(--text-secondary);font-size:12px;margin-top:6px;}
         .education-card .meta{color:var(--text-muted);font-size:10px;}
 
-        /* ===================== CERTS ===================== */
         /* ===================== CERTIFICATIONS ===================== */
-        .certifications{display:flex;flex-wrap:wrap;gap:10px;}
+        .certifications{
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:16px;
+        }
+
         .cert{
-            display:flex;align-items:center;gap:8px;
-            padding:8px 13px;
-            background:rgba(255,255,255,.035);
-            border:1px solid var(--border);
-            border-radius:11px;
-            color:var(--text-secondary);
-            font-size:11px;font-weight:600;
-            cursor:pointer;
-            transition:all .3s ease;
             position:relative;
+            min-height:255px;
+            display:flex;
+            flex-direction:column;
+            background:var(--card);
+            border:1px solid rgba(168,85,247,.18);
+            border-radius:18px;
+            overflow:hidden;
+            cursor:pointer;
+            transition:transform .4s cubic-bezier(.34,1.56,.64,1),border-color .35s ease,box-shadow .35s ease,background .35s ease;
         }
         .cert:hover{
-            background:rgba(168,85,247,.1);
-            border-color:rgba(168,85,247,.3);
-            transform:translateY(-3px);
-            color:var(--text);
-            box-shadow:0 6px 20px rgba(168,85,247,.15);
+            transform:translateY(-7px);
+            border-color:rgba(168,85,247,.55);
+            box-shadow:0 0 0 1px rgba(168,85,247,.22),0 0 30px rgba(168,85,247,.16),0 20px 45px rgba(0,0,0,.32);
         }
+        .cert:focus-visible{
+            outline:2px solid rgba(34,211,238,.7);
+            outline-offset:3px;
+        }
+
+        .cert-media{
+            position:relative;
+            height:158px;
+            overflow:hidden;
+            background:radial-gradient(circle at 50% 25%,rgba(168,85,247,.11),transparent 58%),rgba(255,255,255,.025);
+            border-bottom:1px solid var(--border);
+        }
+        .cert-media img{
+            width:100%;height:100%;display:block;
+            object-fit:cover;
+            transition:transform .55s ease,filter .4s ease;
+        }
+        .cert:hover .cert-media img{transform:scale(1.06);}
+
+        .cert-placeholder{
+            width:100%;height:100%;
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            gap:8px;color:var(--text-muted);text-align:center;
+            background:radial-gradient(circle at 50% 30%,rgba(168,85,247,.1),transparent 58%);
+        }
+        .cert-placeholder i{font-size:38px;color:rgba(168,85,247,.4);transition:.35s ease;}
+        .cert-placeholder span{font-size:10px;opacity:.82;padding:0 15px;}
+        .cert:hover .cert-placeholder i{transform:scale(1.08);color:#a78bfa;}
+
+        .cert-content{
+            position:relative;
+            z-index:2;
+            display:flex;flex-direction:column;flex:1;
+            padding:15px 16px;
+        }
+        .cert-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+        .cert-title-wrapper{display:flex;align-items:center;gap:10px;min-width:0;}
         .cert-icon{
-            width:26px;height:26px;border-radius:7px;
-            display:grid;place-items:center;flex-shrink:0;
-            background:rgba(168,85,247,.1);
-            border:1px solid rgba(168,85,247,.15);
-            font-size:12px;color:#a78bfa;
-            transition:all .3s;
+            width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;
+            background:rgba(168,85,247,.09);border:1px solid rgba(168,85,247,.15);
+            font-size:15px;color:#a78bfa;transition:.3s ease;
         }
-        .cert:hover .cert-icon{background:rgba(168,85,247,.2);border-color:rgba(168,85,247,.35);}
-        .cert-has-link::after{
-            content:"";
-            position:absolute;top:5px;right:5px;
-            width:5px;height:5px;border-radius:50%;
-            background:#34d399;
-            box-shadow:0 0 6px #34d399;
+        .cert:hover .cert-icon{background:rgba(168,85,247,.17);border-color:rgba(168,85,247,.32);transform:scale(1.05);}
+        .cert-title{font-size:13px;font-weight:800;color:var(--text);line-height:1.45;}
+        .cert-issuer{margin-top:3px;color:var(--text-muted);font-size:10px;}
+        .cert-year{margin-top:auto;padding-top:12px;color:var(--text-muted);font-size:9px;}
+
+        .cert-verify-badge{
+            display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:20px;
+            background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.15);
+            color:#6ee7b7;font-size:8px;white-space:nowrap;flex-shrink:0;
         }
+        .cert-verify-badge::before{content:"";width:5px;height:5px;border-radius:50%;background:#34d399;box-shadow:0 0 7px #34d399;}
+
+        /* Verification overlay — desktop hover */
+        .cert-verification-overlay{
+            position:absolute !important;
+            inset:0;
+            z-index:10 !important;
+            display:flex;
+            align-items:center;justify-content:center;
+            padding:18px;
+            background:rgba(3,6,16,.82);
+            backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+            opacity:0;pointer-events:none;
+            transition:opacity .35s ease;
+        }
+        .cert:hover .cert-verification-overlay{opacity:1;pointer-events:auto;}
+        .cert:not(.cert-has-link) .cert-verification-overlay{display:none;}
+        .cert-verification-content{
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            gap:9px;text-align:center;
+            transform:translateY(12px);opacity:0;
+            transition:transform .35s ease,opacity .35s ease;
+        }
+        .cert:hover .cert-verification-content{transform:translateY(0);opacity:1;}
+        .cert-verification-icon{
+            width:44px;height:44px;display:grid;place-items:center;border-radius:50%;
+            background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);color:#6ee7b7;font-size:17px;
+        }
+        .cert-verification-title{color:#fff;font-size:12px;font-weight:800;}
+        .cert-verification-description{max-width:235px;color:#cbd5e1;font-size:10px;line-height:1.8;}
+        .cert-verification-btn{
+            display:inline-flex;align-items:center;justify-content:center;gap:7px;
+            padding:8px 14px;border-radius:9px;color:#fff;
+            background:linear-gradient(135deg,rgba(168,85,247,.9),rgba(34,211,238,.7));
+            font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,.08);
+            transition:transform .25s ease,box-shadow .25s ease;
+        }
+        .cert-verification-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(168,85,247,.3);}
+
+        [data-theme="light"] .cert{background:var(--card);}
+        [data-theme="light"] .cert-verification-overlay{background:rgba(15,23,42,.84);}
 
         /* ===================== CERT MODAL ===================== */
         .cert-modal-overlay{
@@ -498,6 +577,7 @@
             .hero-side{flex-direction:row;flex-wrap:wrap;justify-content:center;}
             .skills-grid{grid-template-columns:repeat(2,1fr);}
             .profile-image{width:140px;height:140px;}
+            .certifications{grid-template-columns:repeat(2,minmax(0,1fr));}
         }
         @media(max-width:700px){
             .navbar{position:relative;top:0;flex-wrap:wrap;gap:8px;}
@@ -514,6 +594,16 @@
             .section-heading h2{font-size:1.15rem;}
             .about-card,.experience-card,.project,.github-card{padding:20px;}
             .profile-image{width:120px;height:120px;}
+
+            .certifications{grid-template-columns:1fr;gap:13px;}
+            .cert{min-height:230px;}
+            .cert-media{height:145px;}
+            .cert-verification-overlay{opacity:0;pointer-events:none;}
+            .cert.mobile-active .cert-verification-overlay{opacity:1;pointer-events:auto;}
+            .cert.mobile-active .cert-verification-content{opacity:1;transform:translateY(0);}
+            /* Touch devices do not have reliable hover. */
+            .cert:hover .cert-verification-overlay{opacity:0;pointer-events:none;}
+            .cert.mobile-active:hover .cert-verification-overlay{opacity:1;pointer-events:auto;}
         }
         @media(max-width:450px){
             .container,.navbar{width:min(100% - 20px,1180px);}
@@ -1053,6 +1143,7 @@ document.addEventListener('DOMContentLoaded',function(){
             'edu.msc':'Master of Science','edu.mscField':'Artificial Intelligence and Robotics','edu.mscUni':'Eyvankey University','edu.mscMeta':'2020 — 2022 · Top Talent · Ranked 1st',
             'edu.bsc':'Bachelor of Science','edu.bscField':'Computer Engineering','edu.bscUni':'Eyvankey University','edu.bscMeta':'2016 — 2020 · Top Talent',
             'certs.title':'Certifications','certs.sub':'Certifications',
+            'certs.verified':'Verifiable','certs.verifyTitle':'Certificate Verification','certs.verifyDesc':'This certificate can be verified. Would you like to view its verification page?','certs.verifyBtn':'View Verification','certs.noImage':'Certificate image not available',
             'github.title':'GitHub Activity','github.sub':'Open Source & Engineering Activity',
             'contact.title':"Let's Connect",'contact.desc':'For collaboration, research projects, or professional opportunities, feel free to reach out.','contact.emailBtn':'Send Email',
             'footer.made':'Made with','footer.love':'and passion for software engineering & AI'
@@ -1087,6 +1178,7 @@ document.addEventListener('DOMContentLoaded',function(){
             'edu.msc':'کارشناسی ارشد','edu.mscField':'هوش مصنوعی و رباتیک','edu.mscUni':'دانشگاه ایوانکی','edu.mscMeta':'۱۳۹۹ — ۱۴۰۱ · استعداد درخشان · رتبه اول',
             'edu.bsc':'کارشناسی','edu.bscField':'مهندسی کامپیوتر','edu.bscUni':'دانشگاه ایوانکی','edu.bscMeta':'۱۳۹۵ — ۱۳۹۹ · استعداد درخشان',
             'certs.title':'گواهینامه‌ها','certs.sub':'Certifications',
+            'certs.verified':'قابل تأیید','certs.verifyTitle':'اعتبارسنجی گواهینامه','certs.verifyDesc':'این گواهینامه قابل اعتبارسنجی است. آیا مایلید صفحه تأیید مدرک را مشاهده کنید؟','certs.verifyBtn':'مشاهده تأیید مدرک','certs.noImage':'تصویر گواهینامه موجود نیست',
             'github.title':'فعالیت در GitHub','github.sub':'Open Source & Engineering Activity',
             'contact.title':'بیایید با هم ارتباط داشته باشیم','contact.desc':'برای همکاری، پروژه‌های تحقیقاتی یا فرصت‌های حرفه‌ای از طریق لینک‌های زیر با من در ارتباط باشید.','contact.emailBtn':'ارسال ایمیل',
             'footer.made':'ساخته‌شده با','footer.love':'و علاقه به مهندسی نرم‌افزار و هوش مصنوعی'
@@ -1104,6 +1196,7 @@ document.addEventListener('DOMContentLoaded',function(){
             if(T[lang]?.[k]) el.innerHTML=T[lang][k];
         });
         document.documentElement.lang=lang;
+        if(typeof updateCertificateTranslations === 'function') updateCertificateTranslations();
     }
     setLang(currentLang);
     langToggle.addEventListener('click',()=>setLang(currentLang==='en'?'fa':'en'));
@@ -1117,6 +1210,104 @@ document.addEventListener('DOMContentLoaded',function(){
        برای اضافه کردن لینک: مقدار verifyUrl را از null به لینک تغییر دهید
        ============================================================ */
     const CERTS = [
+        {
+            name: 'Machine Learning Specialization',
+            issuer: 'Deeplearning.AI',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/WJUS8TBEFQBU',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/WJUS8TBEFQBU',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2022
+        },
+        {
+            name: 'Generative Adversarial Networks (GANs) Specialization',
+            issuer: 'Deeplearning.AI',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/JUNA6PWTGJPF',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/JUNA6PWTGJPF',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2022
+        },
+        {
+            name: 'Natural Language Processing Specialization',
+            issuer: 'Deeplearning.AI',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/FMVTPGA8TQQC',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/FMVTPGA8TQQC',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2022
+        },
+        {
+            name: 'DeepLearning.AI TensorFlow Developer Professional Certificate',
+            issuer: 'Deeplearning.AI',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/4852AFS754WT',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/4852AFS754WT',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2022
+        },
+        {
+            name: 'TensorFlow: Advanced Techniques Specialization',
+            issuer: 'Deeplearning.AI',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/TJRP7ZPBQWBV',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/TJRP7ZPBQWBV',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2022
+        },
+        {
+            name: 'Mathematics for Machine Learning and Data Science Specialization',
+            issuer: 'Deeplearning.AI',
+            icon: '<i class="fa-solid fa-calculator"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/MJBGTMCXW5Y4',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/MJBGTMCXW5Y4',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2023
+        },
+        {
+            name: 'Machine Learning Engineering for Production (MLOps) Specialization',
+            issuer: 'Deeplearning.AI',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/2KZ7AMQSV2QN',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/2KZ7AMQSV2QN',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2023
+        },
+        {
+            name: 'MLOps | Machine Learning Operations Specialization',
+            issuer: 'Duke University',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/GFTWQKGXJFGW',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/GFTWQKGXJFGW',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2023
+        },
+        {
+            name: 'TensorFlow: Data and Deployment Specialization',
+            issuer: 'Deeplearning.AI',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/6NW53VML7FPX',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/6NW53VML7FPX',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2023
+        },
+        {
+            name: 'Practical Data Science on the AWS Cloud Specialization',
+            issuer: 'Amazon Web Services',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/KR2DC2SMGL3V',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/KR2DC2SMGL3V',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2023
+        },
+        
+        {
+            name: 'Robotics Specialization',
+            issuer: 'University of Pennsylvania',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/M2V37MNGC4QW',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/M2V37MNGC4QW',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2023
+        },
+        {
+            name: 'Self-Driving Cars Specialization',
+            issuer: 'University of Toronto',
+            icon: '<i class="fa-solid fa-robot"></i>',
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/294MRCEC9LKN',          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/294MRCEC9LKN',      // TODO: 'https://catalog.oracle.com/...'
+            year: 2023
+        },
+
         {
             name: 'Java SE',
             issuer: 'Oracle',
@@ -1231,18 +1422,136 @@ document.addEventListener('DOMContentLoaded',function(){
         },
     ];
 
-    /* Render cert chips */
+    /* ============================================================
+       RENDER CERTIFICATE CARDS
+       - Keeps the existing CERTS data model and modal behavior.
+       - Image is shown when available; otherwise a placeholder is used.
+       - Verification overlay appears on hover when verifyUrl exists.
+       - On mobile, the first tap reveals the overlay.
+       ============================================================ */
     const certsGrid = document.getElementById('certsGrid');
+
+    function certificateImage(c){
+        if(c.image){
+            return `<img src="${c.image}" alt="${c.name} Certificate" loading="lazy"
+                onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'cert-placeholder\'><i class=\'fas fa-award\'></i><span data-cert-placeholder>Certificate image not available</span></div>'">`;
+        }
+        return `<div class="cert-placeholder">
+                    <i class="fas fa-award"></i>
+                    <span data-cert-placeholder>Certificate image not available</span>
+                </div>`;
+    }
+
     CERTS.forEach((c, i) => {
-        const el = document.createElement('div');
-        el.className = 'cert' + (c.verifyUrl ? ' cert-has-link' : '');
+        const el = document.createElement('article');
+        el.className = 'cert cp-card' + (c.verifyUrl ? ' cert-has-link' : '');
         el.setAttribute('data-idx', i);
         el.setAttribute('role', 'button');
         el.setAttribute('tabindex', '0');
-        el.innerHTML = `<span class="cert-icon">${c.icon}</span>${c.name}`;
-        el.addEventListener('click', () => openCertModal(i));
-        el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();openCertModal(i);}});
+        el.setAttribute('aria-label', c.name);
+
+        el.innerHTML = `
+            <div class="cp-sweep"></div>
+
+            <div class="cert-media">
+                ${certificateImage(c)}
+            </div>
+
+            <div class="cert-content">
+                <div class="cert-heading">
+                    <div class="cert-title-wrapper">
+                        <div class="cert-icon">${c.icon}</div>
+                        <div>
+                            <div class="cert-title">${c.name}</div>
+                            <div class="cert-issuer">${c.issuer || ''}</div>
+                        </div>
+                    </div>
+                    ${c.verifyUrl ? `<span class="cert-verify-badge" data-cert-verified>Verifiable</span>` : ''}
+                </div>
+                ${c.year ? `<div class="cert-year"><i class="far fa-calendar-alt"></i> ${c.year}</div>` : ''}
+            </div>
+
+            ${c.verifyUrl ? `
+                <div class="cert-verification-overlay">
+                    <div class="cert-verification-content">
+                        <div class="cert-verification-icon">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <div class="cert-verification-title" data-cert-verify-title>Certificate Verification</div>
+                        <div class="cert-verification-description" data-cert-verify-description>
+                            This certificate can be verified. Would you like to view its verification page?
+                        </div>
+                        <a href="${c.verifyUrl}" target="_blank" rel="noopener noreferrer"
+                           class="cert-verification-btn" data-cert-verify-btn>
+                            <i class="fas fa-external-link-alt"></i>
+                            <span data-cert-verify-btn-text>View Verification</span>
+                        </a>
+                    </div>
+                </div>
+            ` : ''}
+        `;
+
+        el.addEventListener('click', e => {
+            const verifyButton = e.target.closest('.cert-verification-btn');
+            if(verifyButton){
+                e.stopPropagation();
+                return;
+            }
+
+            const isMobile = window.matchMedia('(max-width:700px)').matches;
+
+            if(isMobile && c.verifyUrl && !el.classList.contains('mobile-active')){
+                document.querySelectorAll('.cert.mobile-active').forEach(card => {
+                    if(card !== el) card.classList.remove('mobile-active');
+                });
+                el.classList.add('mobile-active');
+                return;
+            }
+
+            openCertModal(i);
+        });
+
+        el.addEventListener('keydown', e => {
+            if(e.key === 'Enter' || e.key === ' '){
+                e.preventDefault();
+                openCertModal(i);
+            }
+        });
+
         certsGrid.appendChild(el);
+    });
+
+    function updateCertificateTranslations(){
+        const lang = document.documentElement.getAttribute('data-lang') || 'en';
+        const t = T[lang] || T.en;
+
+        document.querySelectorAll('[data-cert-verified]').forEach(el => {
+            el.textContent = t['certs.verified'];
+        });
+        document.querySelectorAll('[data-cert-verify-title]').forEach(el => {
+            el.textContent = t['certs.verifyTitle'];
+        });
+        document.querySelectorAll('[data-cert-verify-description]').forEach(el => {
+            el.textContent = t['certs.verifyDesc'];
+        });
+        document.querySelectorAll('[data-cert-verify-btn-text]').forEach(el => {
+            el.textContent = t['certs.verifyBtn'];
+        });
+        document.querySelectorAll('[data-cert-placeholder]').forEach(el => {
+            el.textContent = t['certs.noImage'];
+        });
+    }
+
+    updateCertificateTranslations();
+
+    /* Close mobile verification overlays when tapping outside cards. */
+    document.addEventListener('click', e => {
+        if(!window.matchMedia('(max-width:700px)').matches) return;
+        if(!e.target.closest('.cert')){
+            document.querySelectorAll('.cert.mobile-active').forEach(card => {
+                card.classList.remove('mobile-active');
+            });
+        }
     });
 
     /* Modal logic */
@@ -1262,7 +1571,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
         /* Image area */
         if (c.image) {
-            modalImage.innerHTML = `<img src="${c.image}" alt="${c.name} Certificate" loading="lazy">`;
+            modalImage.innerHTML = `<img src="${c.image}" alt="${c.name} Certificate" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="cert-img-placeholder" style="display:none"><i class="fas fa-id-card"></i><span>Certificate image unavailable</span></div>`;
         } else {
             modalImage.innerHTML = `
                 <div class="cert-img-placeholder">
