@@ -323,9 +323,155 @@
         .education-card .meta{color:var(--text-muted);font-size:10px;}
 
         /* ===================== CERTS ===================== */
-        .certifications{display:flex;flex-wrap:wrap;gap:7px;}
-        .cert{padding:6px 11px;background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:9px;color:var(--text-secondary);font-size:10px;transition:all .3s;}
-        .cert:hover{background:rgba(168,85,247,.1);border-color:rgba(168,85,247,.25);transform:translateY(-2px);color:var(--text);}
+        /* ===================== CERTIFICATIONS ===================== */
+        .certifications{display:flex;flex-wrap:wrap;gap:10px;}
+        .cert{
+            display:flex;align-items:center;gap:8px;
+            padding:8px 13px;
+            background:rgba(255,255,255,.035);
+            border:1px solid var(--border);
+            border-radius:11px;
+            color:var(--text-secondary);
+            font-size:11px;font-weight:600;
+            cursor:pointer;
+            transition:all .3s ease;
+            position:relative;
+        }
+        .cert:hover{
+            background:rgba(168,85,247,.1);
+            border-color:rgba(168,85,247,.3);
+            transform:translateY(-3px);
+            color:var(--text);
+            box-shadow:0 6px 20px rgba(168,85,247,.15);
+        }
+        .cert-icon{
+            width:26px;height:26px;border-radius:7px;
+            display:grid;place-items:center;flex-shrink:0;
+            background:rgba(168,85,247,.1);
+            border:1px solid rgba(168,85,247,.15);
+            font-size:12px;color:#a78bfa;
+            transition:all .3s;
+        }
+        .cert:hover .cert-icon{background:rgba(168,85,247,.2);border-color:rgba(168,85,247,.35);}
+        .cert-has-link::after{
+            content:"";
+            position:absolute;top:5px;right:5px;
+            width:5px;height:5px;border-radius:50%;
+            background:#34d399;
+            box-shadow:0 0 6px #34d399;
+        }
+
+        /* ===================== CERT MODAL ===================== */
+        .cert-modal-overlay{
+            position:fixed;inset:0;z-index:1000;
+            background:rgba(4,7,18,.75);
+            backdrop-filter:blur(8px);
+            display:flex;align-items:center;justify-content:center;
+            padding:20px;
+            opacity:0;pointer-events:none;
+            transition:opacity .3s ease;
+        }
+        .cert-modal-overlay.open{opacity:1;pointer-events:all;}
+        .cert-modal{
+            width:min(520px,100%);
+            background:rgba(10,15,35,.95);
+            border:1px solid rgba(168,85,247,.35);
+            border-radius:24px;
+            padding:32px;
+            position:relative;
+            transform:scale(.92) translateY(20px);
+            transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+            box-shadow:0 0 0 1px rgba(168,85,247,.15),0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(168,85,247,.1);
+        }
+        .cert-modal-overlay.open .cert-modal{transform:scale(1) translateY(0);}
+        /* scan-line on modal */
+        .cert-modal::before{
+            content:"";position:absolute;inset:0;border-radius:24px;
+            background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(168,85,247,.02) 3px,rgba(168,85,247,.02) 4px);
+            pointer-events:none;
+        }
+        /* neon corner */
+        .cert-modal::after{
+            content:"";position:absolute;top:0;left:0;
+            width:70px;height:70px;border-radius:24px 0 24px 0;
+            background:conic-gradient(from 180deg at 0% 0%,rgba(168,85,247,.5) 0deg,rgba(34,211,238,.35) 90deg,transparent 90deg);
+            pointer-events:none;opacity:.7;
+        }
+        .cert-modal-close{
+            position:absolute;top:14px;right:14px;
+            width:30px;height:30px;border-radius:8px;
+            display:grid;place-items:center;
+            background:rgba(255,255,255,.05);
+            border:1px solid var(--border);
+            color:var(--text-muted);cursor:pointer;
+            font-size:14px;transition:all .3s;z-index:1;
+        }
+        .cert-modal-close:hover{background:rgba(244,63,94,.15);border-color:rgba(244,63,94,.3);color:#f87171;}
+        .cert-modal-header{display:flex;align-items:center;gap:14px;margin-bottom:22px;position:relative;z-index:1;}
+        .cert-modal-icon{
+            width:52px;height:52px;border-radius:14px;
+            display:grid;place-items:center;flex-shrink:0;
+            background:linear-gradient(135deg,rgba(168,85,247,.2),rgba(34,211,238,.1));
+            border:1px solid rgba(168,85,247,.25);
+            font-size:22px;color:#a78bfa;
+        }
+        .cert-modal-title{font-size:18px;font-weight:800;color:var(--text);}
+        .cert-modal-issuer{font-size:12px;color:#8db8ff;margin-top:3px;}
+
+        /* Image area */
+        .cert-modal-image{
+            position:relative;z-index:1;
+            width:100%;
+            border-radius:14px;
+            overflow:hidden;
+            border:1px solid rgba(168,85,247,.2);
+            background:rgba(255,255,255,.03);
+            margin-bottom:18px;
+            min-height:160px;
+            display:flex;align-items:center;justify-content:center;
+        }
+        .cert-modal-image img{width:100%;display:block;border-radius:14px;}
+        .cert-img-placeholder{
+            display:flex;flex-direction:column;align-items:center;gap:10px;
+            padding:32px;color:var(--text-muted);font-size:12px;text-align:center;
+        }
+        .cert-img-placeholder i{font-size:36px;color:rgba(168,85,247,.3);}
+        /* Comment hint for dev */
+        .cert-img-placeholder code{
+            font-size:10px;background:rgba(255,255,255,.04);
+            border:1px solid var(--border);border-radius:6px;
+            padding:4px 8px;color:var(--text-muted);
+            font-family:monospace;display:block;margin-top:4px;
+        }
+
+        .cert-modal-actions{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1;}
+        .cert-modal-btn{
+            display:inline-flex;align-items:center;gap:7px;
+            padding:9px 16px;border-radius:10px;
+            font-size:12px;font-weight:700;
+            transition:all .3s ease;cursor:pointer;
+        }
+        .cert-modal-btn.primary{
+            background:linear-gradient(135deg,rgba(168,85,247,.8),rgba(34,211,238,.6));
+            color:#fff;border:none;
+        }
+        .cert-modal-btn.primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(168,85,247,.3);}
+        .cert-modal-btn.secondary{
+            background:rgba(255,255,255,.04);
+            border:1px solid var(--border);
+            color:var(--text-secondary);
+        }
+        .cert-modal-btn.secondary:hover{background:rgba(255,255,255,.08);color:var(--text);}
+        .cert-modal-btn.disabled{
+            background:rgba(255,255,255,.02);
+            border:1px solid rgba(255,255,255,.05);
+            color:var(--text-muted);cursor:not-allowed;opacity:.5;
+        }
+
+        [data-theme="light"] .cert-modal{background:rgba(255,255,255,.97);border-color:rgba(139,92,246,.25);}
+        [data-theme="light"] .cert-modal-image{background:rgba(0,0,0,.03);}
+        [data-theme="light"] .cert-img-placeholder{color:#94a3b8;}
+        [data-theme="light"] .cert-img-placeholder code{background:rgba(0,0,0,.04);}
 
         /* ===================== GITHUB ===================== */
         .github-card{padding:28px;}
@@ -639,9 +785,23 @@
             </div>
         </div>
         <div class="about-card cp-card"><div class="cp-sweep"></div>
-            <div class="certifications">
-                <span class="cert">Java SE</span><span class="cert">Java EE</span><span class="cert">CCNA 200-125</span><span class="cert">Network+</span><span class="cert">MCSE 2016</span><span class="cert">Exchange Server 2019</span><span class="cert">Skype for Business</span><span class="cert">VCA-DCV 6.5</span><span class="cert">Veeam Backup</span><span class="cert">MTCNA</span><span class="cert">WordPress</span><span class="cert">Photoshop</span><span class="cert">IELTS</span><span class="cert">Teacher Training</span>
+            <div class="certifications" id="certsGrid"></div>
+
+<!-- CERT MODAL -->
+<div class="cert-modal-overlay" id="certModal" role="dialog" aria-modal="true">
+    <div class="cert-modal">
+        <button class="cert-modal-close" id="certModalClose" aria-label="Close"><i class="fas fa-times"></i></button>
+        <div class="cert-modal-header">
+            <div class="cert-modal-icon" id="certModalIcon"></div>
+            <div>
+                <div class="cert-modal-title" id="certModalTitle"></div>
+                <div class="cert-modal-issuer" id="certModalIssuer"></div>
             </div>
+        </div>
+        <div class="cert-modal-image" id="certModalImage"></div>
+        <div class="cert-modal-actions" id="certModalActions"></div>
+    </div>
+</div>
         </div>
     </section>
 
@@ -950,6 +1110,196 @@ document.addEventListener('DOMContentLoaded',function(){
     [themeToggle,langToggle].forEach(t=>{
         t.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();t.click();}});
     });
+
+    /* ============================================================
+       CERTIFICATIONS DATA
+       برای اضافه کردن عکس: مقدار image را از null به آدرس عکس تغییر دهید
+       برای اضافه کردن لینک: مقدار verifyUrl را از null به لینک تغییر دهید
+       ============================================================ */
+    const CERTS = [
+        {
+            name: 'Java SE',
+            issuer: 'Oracle',
+            icon: '<i class="fab fa-java"></i>',
+            image: null,          // TODO: 'images/certs/java-se.jpg'
+            verifyUrl: null,      // TODO: 'https://catalog.oracle.com/...'
+            year: null
+        },
+        {
+            name: 'Java EE',
+            issuer: 'Oracle',
+            icon: '<i class="fab fa-java"></i>',
+            image: null,          // TODO: 'images/certs/java-ee.jpg'
+            verifyUrl: null,      // TODO: 'https://catalog.oracle.com/...'
+            year: null
+        },
+        {
+            name: 'CCNA 200-125',
+            issuer: 'Cisco',
+            icon: '<i class="fas fa-network-wired"></i>',
+            image: null,          // TODO: 'images/certs/ccna.jpg'
+            verifyUrl: null,      // TODO: 'https://cp.certmetrics.com/cisco/...'
+            year: null
+        },
+        {
+            name: 'Network+',
+            issuer: 'CompTIA',
+            icon: '<i class="fas fa-ethernet"></i>',
+            image: null,          // TODO: 'images/certs/network-plus.jpg'
+            verifyUrl: null,      // TODO: 'https://verify.comptia.org/...'
+            year: null
+        },
+        {
+            name: 'MCSE 2016',
+            issuer: 'Microsoft',
+            icon: '<i class="fab fa-microsoft"></i>',
+            image: null,          // TODO: 'images/certs/mcse.jpg'
+            verifyUrl: null,      // TODO: 'https://learn.microsoft.com/...'
+            year: null
+        },
+        {
+            name: 'Exchange Server 2019',
+            issuer: 'Microsoft',
+            icon: '<i class="fab fa-microsoft"></i>',
+            image: null,          // TODO: 'images/certs/exchange.jpg'
+            verifyUrl: null,      // TODO: null
+            year: null
+        },
+        {
+            name: 'Skype for Business',
+            issuer: 'Microsoft',
+            icon: '<i class="fab fa-microsoft"></i>',
+            image: null,          // TODO: 'images/certs/skype.jpg'
+            verifyUrl: null,      // TODO: null
+            year: null
+        },
+        {
+            name: 'VCA-DCV 6.5',
+            issuer: 'VMware',
+            icon: '<i class="fas fa-server"></i>',
+            image: null,          // TODO: 'images/certs/vca-dcv.jpg'
+            verifyUrl: null,      // TODO: 'https://vexpert.vmware.com/...'
+            year: null
+        },
+        {
+            name: 'Veeam Backup',
+            issuer: 'Veeam',
+            icon: '<i class="fas fa-database"></i>',
+            image: null,          // TODO: 'images/certs/veeam.jpg'
+            verifyUrl: null,      // TODO: 'https://www.veeam.com/certify/...'
+            year: null
+        },
+        {
+            name: 'MTCNA',
+            issuer: 'MikroTik',
+            icon: '<i class="fas fa-wifi"></i>',
+            image: null,          // TODO: 'images/certs/mtcna.jpg'
+            verifyUrl: null,      // TODO: null
+            year: null
+        },
+        {
+            name: 'WordPress',
+            issuer: 'WordPress.org',
+            icon: '<i class="fab fa-wordpress"></i>',
+            image: null,          // TODO: 'images/certs/wordpress.jpg'
+            verifyUrl: null,      // TODO: null
+            year: null
+        },
+        {
+            name: 'Photoshop',
+            issuer: 'Adobe',
+            icon: '<i class="fas fa-image"></i>',
+            image: null,          // TODO: 'images/certs/photoshop.jpg'
+            verifyUrl: null,      // TODO: 'https://www.credly.com/...'
+            year: null
+        },
+        {
+            name: 'IELTS',
+            issuer: 'British Council / IDP',
+            icon: '<i class="fas fa-language"></i>',
+            image: null,          // TODO: 'images/certs/ielts.jpg'
+            verifyUrl: null,      // TODO: 'https://www.ielts.org/...'
+            year: null
+        },
+        {
+            name: 'Teacher Training',
+            issuer: 'Ministry of Education',
+            icon: '<i class="fas fa-chalkboard-teacher"></i>',
+            image: null,          // TODO: 'images/certs/teacher.jpg'
+            verifyUrl: null,      // TODO: null
+            year: null
+        },
+    ];
+
+    /* Render cert chips */
+    const certsGrid = document.getElementById('certsGrid');
+    CERTS.forEach((c, i) => {
+        const el = document.createElement('div');
+        el.className = 'cert' + (c.verifyUrl ? ' cert-has-link' : '');
+        el.setAttribute('data-idx', i);
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        el.innerHTML = `<span class="cert-icon">${c.icon}</span>${c.name}`;
+        el.addEventListener('click', () => openCertModal(i));
+        el.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();openCertModal(i);}});
+        certsGrid.appendChild(el);
+    });
+
+    /* Modal logic */
+    const modal        = document.getElementById('certModal');
+    const modalIcon    = document.getElementById('certModalIcon');
+    const modalTitle   = document.getElementById('certModalTitle');
+    const modalIssuer  = document.getElementById('certModalIssuer');
+    const modalImage   = document.getElementById('certModalImage');
+    const modalActions = document.getElementById('certModalActions');
+    const modalClose   = document.getElementById('certModalClose');
+
+    function openCertModal(idx) {
+        const c = CERTS[idx];
+        modalIcon.innerHTML  = c.icon;
+        modalTitle.textContent  = c.name;
+        modalIssuer.textContent = c.issuer + (c.year ? ' · ' + c.year : '');
+
+        /* Image area */
+        if (c.image) {
+            modalImage.innerHTML = `<img src="${c.image}" alt="${c.name} Certificate" loading="lazy">`;
+        } else {
+            modalImage.innerHTML = `
+                <div class="cert-img-placeholder">
+                    <i class="fas fa-id-card"></i>
+                    <span>تصویر مدرک هنوز اضافه نشده</span>
+                    <code>&lt;!-- image: 'images/certs/${c.name.toLowerCase().replace(/\s+/g,'-')}.jpg' --&gt;</code>
+                </div>`;
+        }
+
+        /* Action buttons */
+        let btns = '';
+        if (c.verifyUrl) {
+            btns += `<a class="cert-modal-btn primary" href="${c.verifyUrl}" target="_blank" rel="noopener">
+                        <i class="fas fa-check-circle"></i> Verify Certificate
+                     </a>`;
+        } else {
+            btns += `<span class="cert-modal-btn disabled">
+                        <i class="fas fa-link"></i> No Verify Link
+                     </span>`;
+        }
+        btns += `<button class="cert-modal-btn secondary" onclick="closeCertModal()">
+                    <i class="fas fa-times"></i> Close
+                 </button>`;
+        modalActions.innerHTML = btns;
+
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    window.closeCertModal = function() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    };
+
+    modalClose.addEventListener('click', closeCertModal);
+    modal.addEventListener('click', e => { if(e.target === modal) closeCertModal(); });
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeCertModal(); });
 });
 </script>
 </body>
