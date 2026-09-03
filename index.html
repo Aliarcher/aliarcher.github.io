@@ -1431,10 +1431,19 @@ document.addEventListener('DOMContentLoaded',function(){
        ============================================================ */
     const certsGrid = document.getElementById('certsGrid');
 
+    /* FIX: build the <img> markup WITHOUT an inline onerror="" attribute.
+       The previous version embedded escaped single quotes (\') inside a
+       JS template literal. Template literals resolve \' to a plain '
+       at parse time, so by the time the markup reached the HTML parser
+       the onerror handler contained unescaped nested quotes and was
+       invalid JavaScript (it silently failed whenever an image 403'd,
+       leaving the broken image's alt text to spill outside its box and
+       overlap the cards below it - most visible on mobile's single
+       column layout). The error handler is now attached properly in
+       JS after the element exists, so it always works reliably. */
     function certificateImage(c){
         if(c.image){
-            return `<img src="${c.image}" alt="${c.name} Certificate" loading="lazy"
-                onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\'cert-placeholder\'><i class=\'fas fa-award\'></i><span data-cert-placeholder>Certificate image not available</span></div>'">`;
+            return `<img src="${c.image}" alt="${c.name} Certificate" loading="lazy" class="cert-thumb-img">`;
         }
         return `<div class="cert-placeholder">
                     <i class="fas fa-award"></i>
@@ -1490,6 +1499,23 @@ document.addEventListener('DOMContentLoaded',function(){
                 </div>
             ` : ''}
         `;
+
+        /* FIX: attach the broken-image fallback here in JS instead of via
+           an inline onerror="" HTML attribute string (see comment above
+           certificateImage). This reliably swaps in the placeholder and
+           keeps the card's height/box intact on every device. */
+        const thumbImg = el.querySelector('.cert-thumb-img');
+        if(thumbImg){
+            thumbImg.addEventListener('error', function(){
+                const media = thumbImg.closest('.cert-media');
+                if(media){
+                    media.innerHTML = `<div class="cert-placeholder">
+                        <i class="fas fa-award"></i>
+                        <span data-cert-placeholder>Certificate image not available</span>
+                    </div>`;
+                }
+            }, { once: true });
+        }
 
         el.addEventListener('click', e => {
             const verifyButton = e.target.closest('.cert-verification-btn');
