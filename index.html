@@ -867,7 +867,7 @@
     </section>
 
     <!-- CERTIFICATIONS -->
-    <section class="reveal">
+    <section id="certifications" class="reveal>
         <div class="section-header">
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-certificate"></i></div>
@@ -1091,10 +1091,21 @@
    REVEAL + THEME + LANG
    ============================================================ */
 document.addEventListener('DOMContentLoaded',function(){
-    const obs=new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-    },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    const obs=new IntersectionObserver((entries, observer)=>{
+        entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.01,
+    rootMargin: '0px 0px 80px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach(el => {
+    revealObserver.observe(el);
+});
 
     const themeToggle=document.getElementById('themeToggle');
     const moonIcon=document.getElementById('moonIcon');
