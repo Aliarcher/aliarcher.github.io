@@ -873,7 +873,7 @@
     </section>
 
     <!-- CERTIFICATIONS -->
-    <section id="certifications" class="reveal>
+    <section id="certifications" class="reveal">
         <div class="section-header">
             <div class="section-heading">
                 <div class="section-icon"><i class="fas fa-certificate"></i></div>
@@ -1097,21 +1097,22 @@
    REVEAL + THEME + LANG
    ============================================================ */
 document.addEventListener('DOMContentLoaded',function(){
-    const obs=new IntersectionObserver((entries, observer)=>{
+    // ===== FIX: Correct IntersectionObserver usage =====
+    const obs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-        }
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.01,
+        rootMargin: '0px 0px 80px 0px'
     });
-}, {
-    threshold: 0.01,
-    rootMargin: '0px 0px 80px 0px'
-});
 
-document.querySelectorAll('.reveal').forEach(el => {
-    revealObserver.observe(el);
-});
+    document.querySelectorAll('.reveal').forEach(el => {
+        obs.observe(el);  // ✅ Fixed: using correct variable name
+    });
 
     const themeToggle=document.getElementById('themeToggle');
     const moonIcon=document.getElementById('moonIcon');
@@ -1231,233 +1232,217 @@ document.querySelectorAll('.reveal').forEach(el => {
             name: 'Machine Learning Specialization',
             issuer: 'Deeplearning.AI',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/WJUS8TBEFQBU',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/WJUS8TBEFQBU',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/WJUS8TBEFQBU',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/WJUS8TBEFQBU',
             year: 2022
         },
         {
             name: 'Generative Adversarial Networks (GANs) Specialization',
             issuer: 'Deeplearning.AI',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/JUNA6PWTGJPF',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/JUNA6PWTGJPF',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/JUNA6PWTGJPF',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/JUNA6PWTGJPF',
             year: 2022
         },
         {
             name: 'Natural Language Processing Specialization',
             issuer: 'Deeplearning.AI',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/FMVTPGA8TQQC',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/FMVTPGA8TQQC',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/FMVTPGA8TQQC',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/FMVTPGA8TQQC',
             year: 2022
         },
         {
             name: 'DeepLearning.AI TensorFlow Developer Professional Certificate',
             issuer: 'Deeplearning.AI',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/4852AFS754WT',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/4852AFS754WT',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/4852AFS754WT',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/4852AFS754WT',
             year: 2022
         },
         {
             name: 'TensorFlow: Advanced Techniques Specialization',
             issuer: 'Deeplearning.AI',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/TJRP7ZPBQWBV',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/TJRP7ZPBQWBV',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/TJRP7ZPBQWBV',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/TJRP7ZPBQWBV',
             year: 2022
         },
         {
             name: 'Mathematics for Machine Learning and Data Science Specialization',
             issuer: 'Deeplearning.AI',
             icon: '<i class="fa-solid fa-calculator"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/MJBGTMCXW5Y4',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/MJBGTMCXW5Y4',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/MJBGTMCXW5Y4',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/MJBGTMCXW5Y4',
             year: 2023
         },
         {
             name: 'Machine Learning Engineering for Production (MLOps) Specialization',
             issuer: 'Deeplearning.AI',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/2KZ7AMQSV2QN',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/2KZ7AMQSV2QN',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/2KZ7AMQSV2QN',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/2KZ7AMQSV2QN',
             year: 2023
         },
         {
             name: 'MLOps | Machine Learning Operations Specialization',
             issuer: 'Duke University',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/GFTWQKGXJFGW',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/GFTWQKGXJFGW',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/GFTWQKGXJFGW',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/GFTWQKGXJFGW',
             year: 2023
         },
         {
             name: 'TensorFlow: Data and Deployment Specialization',
             issuer: 'Deeplearning.AI',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/6NW53VML7FPX',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/6NW53VML7FPX',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/6NW53VML7FPX',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/6NW53VML7FPX',
             year: 2023
         },
         {
             name: 'Practical Data Science on the AWS Cloud Specialization',
             issuer: 'Amazon Web Services',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/KR2DC2SMGL3V',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/KR2DC2SMGL3V',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/KR2DC2SMGL3V',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/KR2DC2SMGL3V',
             year: 2023
         },
-        
         {
             name: 'Robotics Specialization',
             issuer: 'University of Pennsylvania',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/M2V37MNGC4QW',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/M2V37MNGC4QW',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/M2V37MNGC4QW',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/M2V37MNGC4QW',
             year: 2023
         },
         {
             name: 'Self-Driving Cars Specialization',
             issuer: 'University of Toronto',
             icon: '<i class="fa-solid fa-robot"></i>',
-            image: 'https://coursera-certificate-images.s3.amazonaws.com/294MRCEC9LKN',          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/294MRCEC9LKN',      // TODO: 'https://catalog.oracle.com/...'
+            image: 'https://coursera-certificate-images.s3.amazonaws.com/294MRCEC9LKN',
+            verifyUrl: 'https://www.coursera.org/account/accomplishments/specialization/294MRCEC9LKN',
             year: 2023
         },
-
         {
             name: 'Java SE',
             issuer: 'Oracle',
             icon: '<i class="fab fa-java"></i>',
-            image: null,          // TODO: 'images/certs/java-se.jpg'
-            verifyUrl: null,      // TODO: 'https://catalog.oracle.com/...'
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'Java EE',
             issuer: 'Oracle',
             icon: '<i class="fab fa-java"></i>',
-            image: null,          // TODO: 'images/certs/java-ee.jpg'
-            verifyUrl: null,      // TODO: 'https://catalog.oracle.com/...'
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'CCNA 200-125',
             issuer: 'Cisco',
             icon: '<i class="fas fa-network-wired"></i>',
-            image: null,          // TODO: 'images/certs/ccna.jpg'
-            verifyUrl: null,      // TODO: 'https://cp.certmetrics.com/cisco/...'
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'Network+',
             issuer: 'CompTIA',
             icon: '<i class="fas fa-ethernet"></i>',
-            image: null,          // TODO: 'images/certs/network-plus.jpg'
-            verifyUrl: null,      // TODO: 'https://verify.comptia.org/...'
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'MCSE 2016',
             issuer: 'Microsoft',
             icon: '<i class="fab fa-microsoft"></i>',
-            image: null,          // TODO: 'images/certs/mcse.jpg'
-            verifyUrl: null,      // TODO: 'https://learn.microsoft.com/...'
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'Exchange Server 2019',
             issuer: 'Microsoft',
             icon: '<i class="fab fa-microsoft"></i>',
-            image: null,          // TODO: 'images/certs/exchange.jpg'
-            verifyUrl: null,      // TODO: null
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'Skype for Business',
             issuer: 'Microsoft',
             icon: '<i class="fab fa-microsoft"></i>',
-            image: null,          // TODO: 'images/certs/skype.jpg'
-            verifyUrl: null,      // TODO: null
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'VCA-DCV 6.5',
             issuer: 'VMware',
             icon: '<i class="fas fa-server"></i>',
-            image: null,          // TODO: 'images/certs/vca-dcv.jpg'
-            verifyUrl: null,      // TODO: 'https://vexpert.vmware.com/...'
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'Veeam Backup',
             issuer: 'Veeam',
             icon: '<i class="fas fa-database"></i>',
-            image: null,          // TODO: 'images/certs/veeam.jpg'
-            verifyUrl: null,      // TODO: 'https://www.veeam.com/certify/...'
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'MTCNA',
             issuer: 'MikroTik',
             icon: '<i class="fas fa-wifi"></i>',
-            image: null,          // TODO: 'images/certs/mtcna.jpg'
-            verifyUrl: null,      // TODO: null
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'WordPress',
             issuer: 'WordPress.org',
             icon: '<i class="fab fa-wordpress"></i>',
-            image: null,          // TODO: 'images/certs/wordpress.jpg'
-            verifyUrl: null,      // TODO: null
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'Photoshop',
             issuer: 'Adobe',
             icon: '<i class="fas fa-image"></i>',
-            image: null,          // TODO: 'images/certs/photoshop.jpg'
-            verifyUrl: null,      // TODO: 'https://www.credly.com/...'
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'IELTS',
             issuer: 'British Council / IDP',
             icon: '<i class="fas fa-language"></i>',
-            image: null,          // TODO: 'images/certs/ielts.jpg'
-            verifyUrl: null,      // TODO: 'https://www.ielts.org/...'
+            image: null,
+            verifyUrl: null,
             year: null
         },
         {
             name: 'Teacher Training',
             issuer: 'Ministry of Education',
             icon: '<i class="fas fa-chalkboard-teacher"></i>',
-            image: null,          // TODO: 'images/certs/teacher.jpg'
-            verifyUrl: null,      // TODO: null
+            image: null,
+            verifyUrl: null,
             year: null
         },
     ];
 
     /* ============================================================
        RENDER CERTIFICATE CARDS
-       - Keeps the existing CERTS data model and modal behavior.
-       - Image is shown when available; otherwise a placeholder is used.
-       - Verification overlay appears on hover when verifyUrl exists.
-       - On mobile, the first tap reveals the overlay.
        ============================================================ */
     const certsGrid = document.getElementById('certsGrid');
 
-    /* FIX: build the <img> markup WITHOUT an inline onerror="" attribute.
-       The previous version embedded escaped single quotes (\') inside a
-       JS template literal. Template literals resolve \' to a plain '
-       at parse time, so by the time the markup reached the HTML parser
-       the onerror handler contained unescaped nested quotes and was
-       invalid JavaScript (it silently failed whenever an image 403'd,
-       leaving the broken image's alt text to spill outside its box and
-       overlap the cards below it - most visible on mobile's single
-       column layout). The error handler is now attached properly in
-       JS after the element exists, so it always works reliably. */
     function certificateImage(c){
         if(c.image){
             return `<img src="${c.image}" alt="${c.name} Certificate" loading="lazy" class="cert-thumb-img">`;
@@ -1517,27 +1502,42 @@ document.querySelectorAll('.reveal').forEach(el => {
             ` : ''}
         `;
 
-        /* FIX: attach the broken-image fallback here in JS instead of via
-           an inline onerror="" HTML attribute string (see comment above
-           certificateImage). This reliably swaps in the placeholder and
-           keeps the card's height/box intact on every device. */
+        // ===== FIX: Better image error handling =====
         const thumbImg = el.querySelector('.cert-thumb-img');
         if(thumbImg){
-            thumbImg.addEventListener('error', function(){
+            const fallback = function(){
                 const media = thumbImg.closest('.cert-media');
-                if(media){
+                if(media && !media.querySelector('.cert-placeholder')){
                     media.innerHTML = `<div class="cert-placeholder">
                         <i class="fas fa-award"></i>
                         <span data-cert-placeholder>Certificate image not available</span>
                     </div>`;
+                    // Update translation for placeholder
+                    const lang = document.documentElement.getAttribute('data-lang') || 'en';
+                    const t = T[lang] || T.en;
+                    const placeholderSpan = media.querySelector('[data-cert-placeholder]');
+                    if(placeholderSpan) placeholderSpan.textContent = t['certs.noImage'];
                 }
-            }, { once: true });
+            };
+            thumbImg.addEventListener('error', fallback, { once: true });
+            // Check if image already failed
+            if(thumbImg.complete && thumbImg.naturalHeight === 0){
+                fallback();
+            }
         }
 
+        // ===== FIX: Better click handling =====
         el.addEventListener('click', e => {
+            // If clicking on verification button, let it handle navigation
             const verifyButton = e.target.closest('.cert-verification-btn');
             if(verifyButton){
                 e.stopPropagation();
+                return;
+            }
+
+            // If clicking on overlay on mobile, don't open modal
+            const isOverlay = e.target.closest('.cert-verification-overlay');
+            if(isOverlay && window.matchMedia('(max-width:700px)').matches){
                 return;
             }
 
@@ -1564,20 +1564,20 @@ document.querySelectorAll('.reveal').forEach(el => {
         certsGrid.appendChild(el);
     });
 
-    const certificationsSection = document.getElementById('certifications');
-
-if (certificationsSection) {
-    requestAnimationFrame(() => {
-        const rect = certificationsSection.getBoundingClientRect();
-
-        if (
-            rect.top < window.innerHeight &&
-            rect.bottom > 0
-        ) {
-            certificationsSection.classList.add('visible');
+    // ===== FIX: Close mobile verification overlays =====
+    document.addEventListener('click', e => {
+        if(!window.matchMedia('(max-width:700px)').matches) return;
+        
+        // Don't close if clicking on overlay itself
+        if(e.target.closest('.cert-verification-overlay')) return;
+        
+        if(!e.target.closest('.cert')){
+            document.querySelectorAll('.cert.mobile-active').forEach(card => {
+                card.classList.remove('mobile-active');
+            });
         }
     });
-}
+
     function updateCertificateTranslations(){
         const lang = document.documentElement.getAttribute('data-lang') || 'en';
         const t = T[lang] || T.en;
@@ -1600,16 +1600,6 @@ if (certificationsSection) {
     }
 
     updateCertificateTranslations();
-
-    /* Close mobile verification overlays when tapping outside cards. */
-    document.addEventListener('click', e => {
-        if(!window.matchMedia('(max-width:700px)').matches) return;
-        if(!e.target.closest('.cert')){
-            document.querySelectorAll('.cert.mobile-active').forEach(card => {
-                card.classList.remove('mobile-active');
-            });
-        }
-    });
 
     /* Modal logic */
     const modal        = document.getElementById('certModal');
@@ -1665,7 +1655,13 @@ if (certificationsSection) {
 
     modalClose.addEventListener('click', closeCertModal);
     modal.addEventListener('click', e => { if(e.target === modal) closeCertModal(); });
-    document.addEventListener('keydown', e => { if(e.key==='Escape') closeCertModal(); });
+    
+    // ===== FIX: Better Escape key handling =====
+    document.addEventListener('keydown', function(e) { 
+        if(e.key === 'Escape' && modal.classList.contains('open')) {
+            closeCertModal(); 
+        }
+    });
 });
 </script>
 </body>
