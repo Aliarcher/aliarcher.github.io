@@ -614,6 +614,12 @@
             .experience-date{display:inline-block;margin-top:8px;}
         }
         @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+        @media (max-width: 700px) {
+           #certifications.reveal {
+              opacity: 1;
+              transform: none;
+            }
+         }
     </style>
 </head>
 <body>
@@ -1558,6 +1564,20 @@ document.querySelectorAll('.reveal').forEach(el => {
         certsGrid.appendChild(el);
     });
 
+    const certificationsSection = document.getElementById('certifications');
+
+if (certificationsSection) {
+    requestAnimationFrame(() => {
+        const rect = certificationsSection.getBoundingClientRect();
+
+        if (
+            rect.top < window.innerHeight &&
+            rect.bottom > 0
+        ) {
+            certificationsSection.classList.add('visible');
+        }
+    });
+}
     function updateCertificateTranslations(){
         const lang = document.documentElement.getAttribute('data-lang') || 'en';
         const t = T[lang] || T.en;
